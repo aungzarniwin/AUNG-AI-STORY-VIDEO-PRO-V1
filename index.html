@@ -1,3267 +1,379 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#0b1020">
-<title>AUNG AI STORY VIDEO PRO</title>
+function ensureDefaults(){
 
-<style>
-:root{
-  --bg:#070b14;
-  --panel:#0e1525;
-  --panel2:#121b2d;
-  --line:#26324a;
-  --text:#f4f7fb;
-  --muted:#8f9bb2;
-  --accent:#7c5cff;
-  --accent2:#19c8ff;
-  --success:#25d695;
-  --warning:#ffbd59;
-  --danger:#ff647c;
-  --radius:18px;
-}
+  /*
+   * AUNG AI STORY VIDEO PRO V2.1
+   *
+   * Default Characters:
+   * Emma  -> Lina
+   * Tom   -> Ethan
+   * Sarah -> Mia
+   *
+   * Existing localStorage data will also be migrated.
+   */
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
-body{min-height:100vh}
+  /* =====================================================
+     MIGRATE OLD CHARACTER NAMES
+     ===================================================== */
 
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+  state.characters.forEach(character => {
 
-.app{
-  display:flex;
-  min-height:100vh;
-}
+    if(character.name === "Emma"){
+      character.name = "Lina";
+      character.age = "21";
+      character.id = "lina_001";
 
-.sidebar{
-  width:260px;
-  background:#090e19;
-  border-right:1px solid var(--line);
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  z-index:50;
-  overflow:auto;
-}
+      character.face =
+        "Friendly round face, bright expressive eyes";
 
-.brand{
-  padding:22px 18px;
-  border-bottom:1px solid var(--line);
-}
+      character.hair =
+        "Brown shoulder-length hair";
 
-.brand-title{
-  font-size:18px;
-  font-weight:900;
-  letter-spacing:.4px;
-}
+      character.skin =
+        "Warm natural skin tone";
 
-.brand-sub{
-  color:var(--accent2);
-  font-size:11px;
-  margin-top:5px;
-  font-weight:700;
-}
+      character.clothes =
+        "Yellow casual jacket, white shirt, blue jeans";
 
-.nav{
-  padding:12px;
-}
+      character.shoes =
+        "White sneakers";
 
-.nav button{
-  width:100%;
-  text-align:left;
-  background:transparent;
-  color:var(--muted);
-  border:0;
-  padding:12px 14px;
-  border-radius:12px;
-  margin-bottom:4px;
-  transition:.2s;
-}
+      character.accessories =
+        "Small beige travel backpack";
 
-.nav button:hover,
-.nav button.active{
-  background:#151e32;
-  color:#fff;
-}
+      character.personality =
+        "Friendly, curious, positive";
 
-.main{
-  margin-left:260px;
-  width:calc(100% - 260px);
-  min-height:100vh;
-}
+      character.voice =
+        "Young friendly female voice";
 
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:30;
-  background:rgba(7,11,20,.88);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid var(--line);
-  padding:15px 22px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.menu-btn{
-  display:none;
-  background:var(--panel2);
-  color:#fff;
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:8px 12px;
-}
-
-.page{
-  padding:24px;
-  max-width:1500px;
-  margin:auto;
-}
-
-.page-title{
-  font-size:28px;
-  font-weight:900;
-  margin-bottom:5px;
-}
-
-.page-sub{
-  color:var(--muted);
-  margin-bottom:22px;
-}
-
-.grid{
-  display:grid;
-  gap:16px;
-}
-
-.grid4{grid-template-columns:repeat(4,1fr)}
-.grid3{grid-template-columns:repeat(3,1fr)}
-.grid2{grid-template-columns:repeat(2,1fr)}
-
-.card{
-  background:linear-gradient(145deg,#10182a,#0d1422);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:18px;
-  box-shadow:0 12px 35px rgba(0,0,0,.18);
-}
-
-.card h3{
-  margin:0 0 12px;
-}
-
-.stat{
-  font-size:28px;
-  font-weight:900;
-  margin-top:8px;
-}
-
-.muted{color:var(--muted)}
-.small{font-size:12px}
-.label{
-  display:block;
-  color:#aeb9cc;
-  font-size:12px;
-  font-weight:700;
-  margin-bottom:7px;
-}
-
-input,select,textarea{
-  width:100%;
-  background:#080d18;
-  border:1px solid #293650;
-  color:#fff;
-  border-radius:11px;
-  padding:11px 12px;
-  outline:none;
-}
-
-textarea{
-  min-height:110px;
-  resize:vertical;
-  line-height:1.55;
-}
-
-input:focus,select:focus,textarea:focus{
-  border-color:var(--accent);
-}
-
-.form{
-  display:grid;
-  gap:13px;
-}
-
-.btn{
-  border:0;
-  border-radius:11px;
-  padding:11px 15px;
-  color:#fff;
-  background:#1a2438;
-  border:1px solid #30405e;
-  font-weight:800;
-}
-
-.btn:hover{filter:brightness(1.12)}
-
-.btn.primary{
-  background:linear-gradient(135deg,var(--accent),#4d8cff);
-  border:0;
-}
-
-.btn.cyan{
-  background:linear-gradient(135deg,#087ca3,#19c8ff);
-  border:0;
-}
-
-.btn.success{
-  background:#106b50;
-  border-color:#1b9c77;
-}
-
-.btn.danger{
-  background:#67283a;
-  border-color:#a7435b;
-}
-
-.btn.warning{
-  background:#6b4b1c;
-  border-color:#a87b30;
-}
-
-.btn.sm{
-  padding:8px 10px;
-  font-size:12px;
-}
-
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:5px 9px;
-  border-radius:999px;
-  background:#172239;
-  color:#aeb9cc;
-  font-size:11px;
-  font-weight:800;
-}
-
-.badge.accent{
-  background:#241b50;
-  color:#c9bfff;
-}
-
-.badge.success{
-  background:#103e31;
-  color:#5ff0bc;
-}
-
-.section{
-  margin-top:20px;
-}
-
-.progress{
-  height:9px;
-  background:#1b2435;
-  border-radius:20px;
-  overflow:hidden;
-}
-
-.progress>div{
-  height:100%;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-}
-
-.idea-card{
-  cursor:pointer;
-  transition:.2s;
-}
-
-.idea-card:hover{
-  transform:translateY(-2px);
-  border-color:#465b82;
-}
-
-.scene-card{
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:#0c1321;
-  margin-bottom:18px;
-  overflow:hidden;
-}
-
-.scene-head{
-  background:#121c30;
-  padding:15px 16px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.scene-body{
-  padding:16px;
-}
-
-.scene-number{
-  font-weight:900;
-  font-size:18px;
-}
-
-.scene-time{
-  color:var(--accent2);
-  font-weight:800;
-  font-size:12px;
-}
-
-.lock-box{
-  background:#080e19;
-  border:1px dashed #354561;
-  border-radius:12px;
-  padding:12px;
-  white-space:pre-wrap;
-  line-height:1.55;
-  color:#d7dfed;
-  font-size:13px;
-}
-
-.prompt-box{
-  background:#070b13;
-  border:1px solid #29354d;
-  border-radius:12px;
-  padding:12px;
-  white-space:pre-wrap;
-  line-height:1.55;
-  font-size:13px;
-  max-height:360px;
-  overflow:auto;
-}
-
-.field-title{
-  font-weight:900;
-  margin:15px 0 8px;
-  color:#fff;
-}
-
-.character-selector{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.character-chip{
-  border:1px solid #33415c;
-  background:#111a2b;
-  padding:9px 12px;
-  border-radius:10px;
-  cursor:pointer;
-  color:#aeb9cc;
-}
-
-.character-chip.selected{
-  background:#251c50;
-  border-color:var(--accent);
-  color:#fff;
-}
-
-.character-chip input{display:none}
-
-.check{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.check input{
-  width:auto;
-}
-
-.table-wrap{
-  overflow:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th,td{
-  border-bottom:1px solid var(--line);
-  padding:10px;
-  text-align:left;
-  font-size:13px;
-}
-
-th{color:#9eabc0}
-
-.empty{
-  padding:40px 20px;
-  text-align:center;
-  color:var(--muted);
-}
-
-.hero{
-  background:
-    radial-gradient(circle at top right,rgba(124,92,255,.24),transparent 35%),
-    radial-gradient(circle at bottom left,rgba(25,200,255,.12),transparent 30%),
-    #10182a;
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:28px;
-  margin-bottom:18px;
-}
-
-.hero h1{
-  margin:0 0 8px;
-  font-size:34px;
-}
-
-.hero p{
-  color:#aab5c8;
-  max-width:800px;
-  line-height:1.6;
-}
-
-.story-output{
-  white-space:pre-wrap;
-  line-height:1.7;
-  background:#080e18;
-  border:1px solid var(--line);
-  border-radius:13px;
-  padding:16px;
-}
-
-.quiz-option{
-  padding:11px;
-  background:#10192b;
-  border:1px solid #2d3b56;
-  border-radius:10px;
-  margin:7px 0;
-  cursor:pointer;
-}
-
-.quiz-option:hover{border-color:var(--accent)}
-
-.toast{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:100;
-  background:#162039;
-  border:1px solid #405174;
-  padding:12px 16px;
-  border-radius:12px;
-  box-shadow:0 15px 40px rgba(0,0,0,.35);
-  opacity:0;
-  transform:translateY(15px);
-  pointer-events:none;
-  transition:.25s;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.mobile-overlay{
-  display:none;
-}
-
-@media(max-width:1000px){
-  .grid4{grid-template-columns:repeat(2,1fr)}
-  .grid3{grid-template-columns:repeat(2,1fr)}
-}
-
-@media(max-width:760px){
-  .sidebar{
-    transform:translateX(-100%);
-    transition:.25s;
-  }
-
-  .sidebar.open{
-    transform:translateX(0);
-  }
-
-  .mobile-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:40;
-  }
-
-  .mobile-overlay.show{display:block}
-
-  .main{
-    margin-left:0;
-    width:100%;
-  }
-
-  .menu-btn{
-    display:block;
-  }
-
-  .topbar{
-    padding:11px 14px;
-  }
-
-  .page{
-    padding:16px;
-  }
-
-  .grid4,.grid3,.grid2{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    padding:20px;
-  }
-
-  .hero h1{font-size:27px}
-}
-
-@media(min-width:761px){
-  .field-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
-<aside class="sidebar" id="sidebar">
-  <div class="brand">
-    <div class="brand-title">AUNG AI STORY VIDEO PRO</div>
-    <div class="brand-sub">AI ANIMATION PRODUCTION STUDIO</div>
-  </div>
-
-  <nav class="nav" id="nav"></nav>
-</aside>
-
-<div class="mobile-overlay" id="overlay" onclick="toggleMenu()"></div>
-
-<main class="main">
-  <header class="topbar">
-    <div style="display:flex;align-items:center;gap:10px">
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
-      <div>
-        <div style="font-weight:900" id="topTitle">Dashboard</div>
-        <div class="small muted">10-second AI scene production engine</div>
-      </div>
-    </div>
-
-    <div class="actions">
-      <span class="badge accent" id="levelBadge">A1</span>
-      <span class="badge success" id="projectBadge">No Project</span>
-    </div>
-  </header>
-
-  <div id="content"></div>
-</main>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-"use strict";
-
-/* =========================================================
-   AUNG AI STORY VIDEO PRO
-   Single-file AI Story / Animation Production Studio
-========================================================= */
-
-const STORAGE_KEY = "aung_ai_story_video_pro_v2";
-
-const NAV = [
-  ["dashboard","🏠 Dashboard"],
-  ["story","✨ AI Story Builder"],
-  ["ideas","💡 Story Ideas"],
-  ["characters","👥 Characters"],
-  ["locations","📍 Locations"],
-  ["scenes","🎬 Scene Studio"],
-  ["image","🖼 Image Prompts"],
-  ["video","🎥 Video Prompts"],
-  ["voice","🎙 Voice Script"],
-  ["srt","📝 SRT / Subtitles"],
-  ["lesson","📚 English Lesson"],
-  ["youtube","▶ YouTube Pack"],
-  ["shorts","📱 Shorts"],
-  ["projects","📁 Projects"],
-  ["export","💾 Export / Import"],
-  ["settings","⚙ Settings"]
-];
-
-const LEVELS = ["A1","A2","B1","B2","C1","C2"];
-
-const STORY_TYPES = [
-  "Daily Life",
-  "Family",
-  "Travel",
-  "School",
-  "Work",
-  "Friendship",
-  "Adventure",
-  "English Lesson",
-  "Conversation"
-];
-
-const CAMERA_TYPES = [
-  "Wide establishing shot",
-  "Medium shot",
-  "Close-up",
-  "Over-the-shoulder shot",
-  "Tracking shot",
-  "Slow push-in",
-  "Slow pull-out",
-  "Side tracking shot"
-];
-
-const EMOTIONS = [
-  "Happy",
-  "Excited",
-  "Curious",
-  "Friendly",
-  "Surprised",
-  "Worried",
-  "Calm",
-  "Confident",
-  "Thoughtful",
-  "Relieved"
-];
-
-const DEFAULT_CHARACTERS = [
-  {
-    id:"lina",
-    name:"Lina",
-    age:21,
-    gender:"Female",
-    face:"friendly round face",
-    hair:"brown shoulder-length hair",
-    skin:"warm natural skin tone",
-    clothes:"yellow casual jacket, white shirt, blue jeans",
-    shoes:"white sneakers",
-    accessories:"small beige backpack",
-    personality:"friendly, curious, positive",
-    voice:"young friendly female voice",
-    reference:"",
-  },
-  {
-    id:"ethan",
-    name:"Ethan",
-    age:23,
-    gender:"Male",
-    face:"friendly oval face",
-    hair:"short neat black hair",
-    skin:"warm natural skin tone",
-    clothes:"blue casual hoodie, dark jeans",
-    shoes:"white sneakers",
-    accessories:"black wristwatch",
-    personality:"calm, friendly, helpful",
-    voice:"young friendly male voice",
-    reference:"",
-  },
-  {
-    id:"mia",
-    name:"Mia",
-    age:20,
-    gender:"Female",
-    face:"bright friendly face",
-    hair:"long dark brown hair",
-    skin:"warm natural skin tone",
-    clothes:"light green cardigan, white top, beige pants",
-    shoes:"white casual shoes",
-    accessories:"small crossbody bag",
-    personality:"cheerful, confident, kind",
-    voice:"young cheerful female voice",
-    reference:"",
-  }
-];
-
-const DEFAULT_LOCATIONS = [
-  {
-    id:"airport",
-    name:"Modern International Airport",
-    description:"large modern airport terminal with glass windows, check-in counters, airport signs, luggage carts and clean polished floors",
-    time:"morning",
-    weather:"clear",
-    lighting:"warm natural cinematic lighting"
-  },
-  {
-    id:"home",
-    name:"Modern Family Home",
-    description:"comfortable modern home with living room, kitchen, dining table and large windows",
-    time:"morning",
-    weather:"clear",
-    lighting:"soft warm indoor lighting"
-  },
-  {
-    id:"school",
-    name:"Modern School",
-    description:"bright modern classroom with desks, books, windows, whiteboard and educational posters",
-    time:"morning",
-    weather:"clear",
-    lighting:"bright natural daylight"
-  }
-];
-
-const DEFAULT_SETTINGS = {
-  style:"3D educational family animation, high-quality cinematic cartoon, soft realistic lighting, clean colorful environment, consistent character proportions, family-friendly visual style",
-  narrator:"Warm friendly narrator",
-  voiceGender:"Female",
-  language:"English",
-  defaultLevel:"A1",
-  sceneDuration:10,
-  autoSave:true
-};
-
-let state = {
-  activePage:"dashboard",
-  currentProject:null,
-  projects:[],
-  ideas:[],
-  characters:[],
-  locations:[],
-  settings:{...DEFAULT_SETTINGS}
-};
-
-/* =========================================================
-   BASIC HELPERS
-========================================================= */
-
-function uid(prefix="id"){
-  return prefix + "_" + Math.random().toString(36).slice(2,9) + Date.now().toString(36);
-}
-
-function esc(value){
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-function clone(obj){
-  return JSON.parse(JSON.stringify(obj));
-}
-
-function toast(message){
-  const el=document.getElementById("toast");
-  el.textContent=message;
-  el.classList.add("show");
-  setTimeout(()=>el.classList.remove("show"),2200);
-}
-
-function saveState(){
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
-}
-
-function loadState(){
-  try{
-    const raw=localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const saved=JSON.parse(raw);
-      state={...state,...saved};
+      character.reference =
+        "Lina Master Reference";
     }
-  }catch(e){
-    console.error(e);
-  }
 
-  if(!Array.isArray(state.projects)) state.projects=[];
-  if(!Array.isArray(state.ideas)) state.ideas=[];
-  if(!Array.isArray(state.characters)) state.characters=[];
-  if(!Array.isArray(state.locations)) state.locations=[];
+    if(character.name === "Tom"){
+      character.name = "Ethan";
+      character.age = "23";
+      character.id = "ethan_001";
 
-  state.settings={...DEFAULT_SETTINGS,...(state.settings||{})};
+      character.face =
+        "Friendly oval face, expressive eyes";
 
-  migrateCharacters();
-  migrateLocations();
-  normalizeProjects();
+      character.hair =
+        "Short neat black hair";
 
-  if(!state.ideas.length){
-    state.ideas=generateIdeasDatabase();
-  }
+      character.skin =
+        "Warm natural skin tone";
 
-  saveState();
-}
+      character.clothes =
+        "Blue hoodie, light gray T-shirt, dark jeans";
 
-function migrateCharacters(){
-  const map={
-    Emma:"Lina",
-    Tom:"Ethan",
-    Sarah:"Mia"
-  };
+      character.shoes =
+        "White sneakers";
 
-  state.characters=state.characters.map(c=>{
-    const n=map[c.name] || c.name;
-    return {
-      ...c,
-      id:c.id || uid("char"),
-      name:n
-    };
-  });
+      character.accessories =
+        "Black wristwatch";
 
-  DEFAULT_CHARACTERS.forEach(def=>{
-    if(!state.characters.some(c=>c.name===def.name)){
-      state.characters.push(clone(def));
+      character.personality =
+        "Calm, cheerful, supportive";
+
+      character.voice =
+        "Young friendly male voice";
+
+      character.reference =
+        "Ethan Master Reference";
     }
-  });
-}
 
-function migrateLocations(){
-  DEFAULT_LOCATIONS.forEach(def=>{
-    if(!state.locations.some(l=>l.name===def.name)){
-      state.locations.push(clone(def));
+    if(character.name === "Sarah"){
+      character.name = "Mia";
+      character.age = "20";
+      character.id = "mia_001";
+
+      character.face =
+        "Soft oval face, cheerful expression";
+
+      character.hair =
+        "Long dark brown hair";
+
+      character.skin =
+        "Warm natural skin tone";
+
+      character.clothes =
+        "Green cardigan, cream shirt, navy skirt";
+
+      character.shoes =
+        "White casual shoes";
+
+      character.accessories =
+        "Small blue shoulder bag";
+
+      character.personality =
+        "Smart, energetic, kind";
+
+      character.voice =
+        "Young female voice";
+
+      character.reference =
+        "Mia Master Reference";
     }
-  });
-}
 
-function normalizeProjects(){
-  const normalizeProject=(p)=>{
-    if(!p) return p;
-
-    p.id=p.id || uid("project");
-    p.title=p.title || "Untitled Story";
-    p.level=p.level || "A1";
-    p.duration=Number(p.duration)||1;
-    p.type=p.type || "Daily Life";
-    p.topic=p.topic || "";
-    p.story=p.story || "";
-    p.lesson=p.lesson || {};
-    p.youtube=p.youtube || {};
-    p.createdAt=p.createdAt || new Date().toISOString();
-    p.updatedAt=p.updatedAt || new Date().toISOString();
-    p.scenes=Array.isArray(p.scenes)?p.scenes:[];
-
-    p.scenes=p.scenes.map((s,i)=>normalizeScene(s,i,p));
-
-    return p;
-  };
-
-  state.projects=state.projects.map(normalizeProject);
-
-  if(state.currentProject){
-    state.currentProject=normalizeProject(state.currentProject);
-  }
-}
-
-function normalizeScene(s,index,p){
-  const start=index*10;
-  const end=start+10;
-
-  return {
-    id:s.id || uid("scene"),
-    number:index+1,
-    start:s.start ?? start,
-    end:s.end ?? end,
-    duration:10,
-    title:s.title || `Scene ${String(index+1).padStart(2,"0")}`,
-    summary:s.summary || "",
-    characterIds:Array.isArray(s.characterIds)?s.characterIds:[],
-    locationId:s.locationId || (state.locations[0]?.id || ""),
-    imagePrompt:s.imagePrompt || "",
-    videoPrompt:s.videoPrompt || "",
-    dialogue:s.dialogue || "",
-    narration:s.narration || "",
-    voiceDirection:s.voiceDirection || "",
-    camera:s.camera || "Medium shot",
-    action:s.action || "",
-    emotion:s.emotion || "Friendly",
-    sfx:s.sfx || "Soft environmental ambience",
-    continuity:s.continuity || "",
-    ...s
-  };
-}
-
-/* =========================================================
-   STORY IDEAS
-========================================================= */
-
-function generateIdeasDatabase(){
-  const topics=[
-    ["Family Trip to the Airport","Family","A family prepares for an exciting airport trip and learns useful travel English."],
-    ["A New Friend at School","School","Two students meet for the first time and practice simple introductions."],
-    ["A Busy Day at Work","Work","A young employee learns how to organize a busy working day."],
-    ["Shopping for Dinner","Daily Life","Friends go shopping and practice useful food and shopping expressions."],
-    ["A Weekend Adventure","Adventure","Three friends explore a beautiful new place and solve a small problem."],
-    ["First Day in a New City","Travel","A traveler arrives in a new city and learns how to ask for directions."],
-    ["Morning Routine","Daily Life","A simple morning routine introduces everyday English vocabulary."],
-    ["Planning a Holiday","Travel","Friends discuss destinations, transportation, hotels and activities."],
-    ["The Lost Backpack","Adventure","A character loses a backpack and asks people for help."],
-    ["At the Restaurant","Conversation","Friends order food and practice polite restaurant English."],
-    ["A Surprise Birthday","Family","Friends secretly prepare a birthday surprise."],
-    ["Learning to Cook","Daily Life","A beginner learns how to cook a simple meal."],
-    ["A Rainy School Morning","School","Students arrive at school on a rainy morning."],
-    ["The Helpful Neighbor","Friendship","A neighbor helps someone solve a small everyday problem."],
-    ["A Job Interview","Work","A young professional prepares for and attends an interview."]
-  ];
-
-  return topics.map((x,i)=>({
-    id:"idea_"+i,
-    title:x[0],
-    type:x[1],
-    description:x[2]
-  }));
-}
-
-/* =========================================================
-   LEVEL ENGINE
-========================================================= */
-
-function levelRules(level){
-  const rules={
-    A1:{
-      sentence:"very short and simple sentences",
-      vocab:"basic everyday vocabulary",
-      grammar:"present simple, be, have, can",
-      tone:"clear and slow"
-    },
-    A2:{
-      sentence:"short everyday sentences with simple connectors",
-      vocab:"common daily vocabulary",
-      grammar:"present, past and future basics",
-      tone:"friendly and clear"
-    },
-    B1:{
-      sentence:"natural conversational sentences",
-      vocab:"common intermediate vocabulary",
-      grammar:"mixed common tenses and useful connectors",
-      tone:"natural conversational"
-    },
-    B2:{
-      sentence:"more detailed and natural sentences",
-      vocab:"upper-intermediate everyday vocabulary",
-      grammar:"complex clauses and varied tenses",
-      tone:"natural and expressive"
-    },
-    C1:{
-      sentence:"fluent, nuanced and sophisticated sentences",
-      vocab:"advanced natural vocabulary",
-      grammar:"complex structures, nuance and discourse markers",
-      tone:"fluent and polished"
-    },
-    C2:{
-      sentence:"highly sophisticated, precise and nuanced language",
-      vocab:"near-native vocabulary with contextual precision",
-      grammar:"advanced syntax, idiomatic expression and subtle discourse",
-      tone:"natural near-native"
-    }
-  };
-
-  return rules[level] || rules.A1;
-}
-
-/* =========================================================
-   STORY GENERATOR
-========================================================= */
-
-function generateOriginalStoryData(options){
-  const level=options.level || "A1";
-  const type=options.type || "Daily Life";
-  const duration=Number(options.duration)||1;
-  const topic=options.topic?.trim() || "A New Day and a Small Adventure";
-  const r=levelRules(level);
-
-  const templates={
-    "Daily Life":[
-      `It is a beautiful morning. Lina has an important plan for the day.`,
-      `She meets Ethan, and they talk about what they need to do.`,
-      `A small problem changes their plan, so they decide to work together.`,
-      `They stay calm, find a simple solution, and continue their day.`,
-      `At the end, they realize that small moments can become good memories.`
-    ],
-    "Family":[
-      `Lina and Ethan are getting ready for a special family day.`,
-      `Everyone has a different job, so they make a simple plan together.`,
-      `Something unexpected happens, but nobody gives up.`,
-      `They help one another and solve the problem.`,
-      `The day ends with smiles, conversation, and a valuable lesson.`
-    ],
-    "Travel":[
-      `Lina is excited about a new trip.`,
-      `At the beginning, she checks her bag and her travel plan.`,
-      `She meets Ethan and they discuss the next step.`,
-      `A small travel problem appears, so they ask for help.`,
-      `They solve it and continue their journey with confidence.`
-    ],
-    "School":[
-      `Lina arrives at school early and prepares for a new lesson.`,
-      `She meets Ethan and they talk about the day's activity.`,
-      `The teacher gives them a small challenge.`,
-      `They work together and discover a useful idea.`,
-      `They leave the classroom feeling proud of their work.`
-    ],
-    "Work":[
-      `Lina starts her working day with a clear plan.`,
-      `Ethan joins her and they discuss their priorities.`,
-      `An unexpected problem appears during the day.`,
-      `They communicate clearly and find a practical solution.`,
-      `The experience teaches them the value of planning and teamwork.`
-    ],
-    "Friendship":[
-      `Lina and Ethan meet after a busy week.`,
-      `They talk about their plans and share a few laughs.`,
-      `One of them needs help with an important task.`,
-      `The other friend listens carefully and offers support.`,
-      `They finish the day feeling closer and more confident.`
-    ],
-    "Adventure":[
-      `Lina and Ethan decide to explore a new place.`,
-      `They prepare what they need before leaving.`,
-      `The path becomes more difficult than expected.`,
-      `They stay together and look for a safe solution.`,
-      `Their small adventure becomes a memorable experience.`
-    ],
-    "English Lesson":[
-      `Lina wants to improve her English.`,
-      `Ethan helps her practice useful everyday expressions.`,
-      `They repeat short sentences and use them in a real situation.`,
-      `Lina makes a few mistakes but keeps practicing.`,
-      `By the end, she feels more confident speaking English.`
-    ],
-    "Conversation":[
-      `Lina starts a simple conversation with Ethan.`,
-      `They ask questions and give natural answers.`,
-      `The conversation becomes more interesting as they share ideas.`,
-      `They listen carefully and respond politely.`,
-      `They finish with a friendly plan for their next meeting.`
-    ]
-  };
-
-  const base=templates[type] || templates["Daily Life"];
-
-  const levelIntro={
-    A1:`This story uses ${r.sentence}, ${r.vocab}, and ${r.grammar}.`,
-    A2:`This story uses ${r.sentence}, with practical everyday expressions.`,
-    B1:`This story uses ${r.sentence}, with natural conversational English.`,
-    B2:`This story uses ${r.sentence}, with richer vocabulary and natural dialogue.`,
-    C1:`This story uses ${r.sentence}, with nuanced vocabulary and sophisticated grammar.`,
-    C2:`This story uses ${r.sentence}, with precise vocabulary and advanced natural expression.`
-  }[level];
-
-  const story=
-`${topic}
-
-${levelIntro}
-
-${base.join("\n\n")}
-
-Lesson focus:
-- Useful vocabulary related to ${type.toLowerCase()}
-- Natural spoken English
-- Listening and speaking practice
-- Confidence through everyday communication`;
-
-  return {
-    title:topic,
-    type,
-    level,
-    duration,
-    topic,
-    story
-  };
-}
-
-/* =========================================================
-   SCENE ENGINE
-========================================================= */
-
-function secondsToTime(sec){
-  sec=Math.max(0,Number(sec)||0);
-  const min=Math.floor(sec/60);
-  const s=Math.floor(sec%60);
-  return String(min).padStart(2,"0")+":"+String(s).padStart(2,"0");
-}
-
-function sceneTime(start,end){
-  return `${secondsToTime(start)} - ${secondsToTime(end)}`;
-}
-
-function getCharacter(id){
-  return state.characters.find(c=>c.id===id);
-}
-
-function getLocation(id){
-  return state.locations.find(l=>l.id===id);
-}
-
-function characterLock(c){
-  if(!c) return "";
-  return `${c.name} — ${c.gender}, ${c.age} years old
-Face: ${c.face}
-Hair: ${c.hair}
-Skin: ${c.skin}
-Clothes: ${c.clothes}
-Shoes: ${c.shoes}
-Accessories: ${c.accessories}
-Personality: ${c.personality}
-Voice: ${c.voice}
-Keep face, hairstyle, body proportions, skin tone, clothing, shoes and accessories exactly consistent throughout the video.`;
-}
-
-function locationLock(l){
-  if(!l) return "";
-  return `${l.name}
-Environment: ${l.description}
-Time: ${l.time}
-Weather: ${l.weather}
-Lighting: ${l.lighting}
-Keep the location layout, architecture, lighting, time of day and environmental details consistent.`;
-}
-
-function styleLock(){
-  return state.settings.style;
-}
-
-function pickCharactersForScene(project,index){
-  const chars=state.characters;
-
-  if(!chars.length) return [];
-
-  const story=(project.story||"").toLowerCase();
-
-  if(index%5===0 && chars.length>=2) return chars.slice(0,2).map(c=>c.id);
-  if(index%5===3 && chars.length>=2) return [chars[1].id];
-  if(index%4===0) return [chars[0].id];
-
-  return [chars[index % chars.length].id];
-}
-
-function sceneDialogue(project,index,selected){
-  const level=project.level || "A1";
-  const type=project.type;
-
-  const a=selected[0]?.name || "Lina";
-  const b=selected[1]?.name || "Ethan";
-
-  const simple=[
-    `${a}: "Are you ready?"`,
-    `${b}: "Yes. Let's go!"`,
-    `${a}: "What do we do first?"`,
-    `${b}: "Let's check the plan."`,
-    `${a}: "That sounds good."`,
-    `${b}: "Don't worry. We can do it."`,
-    `${a}: "Can you help me?"`,
-    `${b}: "Of course. I'm happy to help."`
-  ];
-
-  const advanced=[
-    `${a}: "Are you ready to continue?"`,
-    `${b}: "Yes. I think we have everything we need."`,
-    `${a}: "What should we do next?"`,
-    `${b}: "Let's check the plan before we move on."`,
-    `${a}: "That sounds like a sensible idea."`,
-    `${b}: "Don't worry. We can work it out together."`,
-    `${a}: "Could you help me with this?"`,
-    `${b}: "Of course. Let's solve it together."`
-  ];
-
-  if(level==="A1" || level==="A2"){
-    return simple[index % simple.length];
-  }
-
-  return advanced[index % advanced.length];
-}
-
-function sceneNarration(project,index){
-  const type=project.type;
-  const level=project.level;
-
-  const a=[
-    "The day begins with a simple plan.",
-    "They take a moment to prepare.",
-    "Everything seems ready to continue.",
-    "A small problem appears.",
-    "They stay calm and think carefully.",
-    "They work together to find an answer.",
-    "The plan starts to work.",
-    "They continue with confidence."
-  ];
-
-  if(level==="C1" || level==="C2"){
-    return [
-      `The ${type.toLowerCase()} experience begins with a clear sense of purpose.`,
-      "They pause briefly to make sure every detail is in place.",
-      "As the situation develops, an unexpected challenge appears.",
-      "Rather than rushing, they consider the most practical solution.",
-      "Their calm communication helps them move forward.",
-      "By working together, they turn a small difficulty into a useful learning experience."
-    ][index%6];
-  }
-
-  return a[index%a.length];
-}
-
-function buildScene(project,index){
-  const start=index*10;
-  const end=start+10;
-
-  const characterIds=pickCharactersForScene(project,index);
-  const selected=characterIds.map(getCharacter).filter(Boolean);
-
-  const location=state.locations[index % state.locations.length] || state.locations[0];
-
-  const dialogue=sceneDialogue(project,index,selected);
-  const narration=sceneNarration(project,index);
-
-  const names=selected.map(c=>c.name).join(" and ") || "the narrator";
-
-  const camera=CAMERA_TYPES[index % CAMERA_TYPES.length];
-  const emotion=EMOTIONS[index % EMOTIONS.length];
-
-  const action=selected.length
-    ? `${names} ${selected.length>1 ? "interact naturally and continue the story" : "moves naturally through the scene"}. Natural hand gestures, subtle body movement and realistic facial expressions.`
-    : "The environment remains visually active while the narrator explains the situation.";
-
-  const imagePrompt=
-`Create a high-quality 3D educational family animation frame for an English-learning YouTube video.
-
-SCENE
-Scene ${String(index+1).padStart(2,"0")}
-Time: ${sceneTime(start,end)}
-Story topic: ${project.title}
-Level: ${project.level}
-Story type: ${project.type}
-
-CHARACTERS
-${selected.length ? selected.map(characterLock).join("\n\n") : "No visible character. Narrator-only environmental shot."}
-
-LOCATION LOCK
-${locationLock(location)}
-
-STYLE LOCK
-${styleLock()}
-
-SCENE VISUAL
-${action}
-Emotion: ${emotion}
-Camera: ${camera}
-
-Create a polished cinematic composition suitable for a family-friendly English-learning animation. Maintain strict character consistency and environmental continuity. No text, no subtitles, no watermark, no extra characters, no character deformation.`;
-
-  const videoPrompt=
-`10-second cinematic 3D animated shot.
-
-SCENE
-${sceneTime(start,end)}
-Story: ${project.title}
-
-CHARACTER LOCK
-${selected.length ? selected.map(characterLock).join("\n\n") : "Narrator-only scene. No visible main character."}
-
-LOCATION LOCK
-${locationLock(location)}
-
-STYLE LOCK
-${styleLock()}
-
-ACTION
-${action}
-
-EMOTION
-${emotion}
-
-CAMERA
-${camera}
-
-ANIMATION
-Natural facial expressions, subtle eye movement, realistic hand gestures, smooth body motion, stable anatomy, consistent clothing and hairstyle, cinematic depth of field, smooth camera movement.
-
-AUDIO DIRECTION
-${dialogue}
-${narration}
-
-NEGATIVE / CONTINUITY
-No extra characters.
-No character deformation.
-No face changes.
-No clothing changes.
-No hairstyle changes.
-No sudden location changes.
-No random objects.
-No subtitles.
-No text overlays.
-No watermark.
-Keep the visual identity identical to previous scenes.`;
-
-  return normalizeScene({
-    id:uid("scene"),
-    number:index+1,
-    start,
-    end,
-    duration:10,
-    title:`Scene ${String(index+1).padStart(2,"0")}`,
-    summary:action,
-    characterIds,
-    locationId:location?.id || "",
-    imagePrompt,
-    videoPrompt,
-    dialogue,
-    narration,
-    voiceDirection:`${selected.map(c=>c.name+": "+c.voice).join("\n") || state.settings.narrator}
-Speaking style: natural, clear and emotionally appropriate.
-Target duration: 10 seconds.
-Keep speech concise enough for the scene.`,
-    camera,
-    action,
-    emotion,
-    sfx:"Soft environmental ambience, subtle movement sounds appropriate to the location",
-    continuity:`Keep all selected characters identical to previous scenes. Maintain clothing, hairstyle, face, skin tone, body proportions, props, location, lighting, weather and time of day.`,
-  },index,project);
-}
-
-function generateScenes(project){
-  const count=Math.max(1,Math.round(Number(project.duration||1)*6));
-  project.scenes=[];
-
-  for(let i=0;i<count;i++){
-    project.scenes.push(buildScene(project,i));
-  }
-
-  project.updatedAt=new Date().toISOString();
-}
-
-/* =========================================================
-   STANDALONE SCENE PACKAGE
-========================================================= */
-
-function scenePackage(scene){
-  const chars=scene.characterIds.map(getCharacter).filter(Boolean);
-  const loc=getLocation(scene.locationId);
-
-  const charText=chars.length
-    ? chars.map(characterLock).join("\n\n")
-    : "No visible character. Narrator-only scene.";
-
-  return `============================================================
-AUNG AI STORY VIDEO PRO
-SCENE ${String(scene.number).padStart(2,"0")}
-============================================================
-
-TIME: ${sceneTime(scene.start,scene.end)}
-DURATION: 10 SECONDS
-
-------------------------------------------------------------
-CHARACTERS IN THIS SCENE
-------------------------------------------------------------
-${chars.length ? chars.map(c=>`${c.name} — ${c.gender}, ${c.age}`).join("\n") : "Narrator Only"}
-
-------------------------------------------------------------
-CHARACTER LOCK
-------------------------------------------------------------
-${charText}
-
-------------------------------------------------------------
-LOCATION LOCK
-------------------------------------------------------------
-${locationLock(loc)}
-
-------------------------------------------------------------
-STYLE LOCK
-------------------------------------------------------------
-${styleLock()}
-
-------------------------------------------------------------
-IMAGE PROMPT
-------------------------------------------------------------
-${scene.imagePrompt}
-
-------------------------------------------------------------
-VIDEO PROMPT
-------------------------------------------------------------
-${scene.videoPrompt}
-
-------------------------------------------------------------
-VOICE / DIALOGUE
-------------------------------------------------------------
-${scene.dialogue || "No dialogue"}
-
-NARRATION:
-${scene.narration || "No narration"}
-
-VOICE DIRECTION:
-${scene.voiceDirection}
-
-------------------------------------------------------------
-CAMERA
-------------------------------------------------------------
-${scene.camera}
-
-------------------------------------------------------------
-ACTION
-------------------------------------------------------------
-${scene.action}
-
-------------------------------------------------------------
-EMOTION
-------------------------------------------------------------
-${scene.emotion}
-
-------------------------------------------------------------
-SFX
-------------------------------------------------------------
-${scene.sfx}
-
-------------------------------------------------------------
-CONTINUITY
-------------------------------------------------------------
-${scene.continuity}
-
-============================================================
-END SCENE ${String(scene.number).padStart(2,"0")}
-============================================================`;
-}
-
-function allScenesPackage(){
-  if(!state.currentProject || !state.currentProject.scenes.length){
-    return "";
-  }
-
-  return state.currentProject.scenes.map(scenePackage).join("\n\n");
-}
-
-function copyText(text,message="Copied"){
-  if(!text){
-    toast("Nothing to copy");
-    return;
-  }
-
-  if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(text)
-      .then(()=>toast(message))
-      .catch(()=>fallbackCopy(text,message));
-  }else{
-    fallbackCopy(text,message);
-  }
-}
-
-function fallbackCopy(text,message){
-  const ta=document.createElement("textarea");
-  ta.value=text;
-  document.body.appendChild(ta);
-  ta.select();
-  try{
-    document.execCommand("copy");
-    toast(message);
-  }catch(e){
-    toast("Copy failed");
-  }
-  ta.remove();
-}
-
-function downloadText(filename,text){
-  const blob=new Blob([text],{type:"text/plain;charset=utf-8"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;
-  a.download=filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
-
-/* =========================================================
-   SRT
-========================================================= */
-
-function srtTimestamp(sec){
-  const ms=0;
-  const h=Math.floor(sec/3600);
-  const m=Math.floor((sec%3600)/60);
-  const s=Math.floor(sec%60);
-
-  return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")},${String(ms).padStart(3,"0")}`;
-}
-
-function generateSRT(){
-  const p=state.currentProject;
-  if(!p || !p.scenes.length) return "";
-
-  return p.scenes.map((s,i)=>{
-    const text=[s.dialogue,s.narration].filter(Boolean).join("\n");
-    return `${i+1}
-${srtTimestamp(s.start)} --> ${srtTimestamp(s.end)}
-${text}`;
-  }).join("\n\n");
-}
-
-/* =========================================================
-   RENDER
-========================================================= */
-
-function renderNav(){
-  const nav=document.getElementById("nav");
-
-  nav.innerHTML=NAV.map(([id,label])=>`
-    <button class="${state.activePage===id?"active":""}"
-      onclick="navigate('${id}')">${label}</button>
-  `).join("");
-}
-
-function navigate(page){
-  state.activePage=page;
-  document.getElementById("sidebar").classList.remove("open");
-  document.getElementById("overlay").classList.remove("show");
-  render();
-}
-
-function toggleMenu(){
-  document.getElementById("sidebar").classList.toggle("open");
-  document.getElementById("overlay").classList.toggle("show");
-}
-
-function updateTop(){
-  const item=NAV.find(x=>x[0]===state.activePage);
-  document.getElementById("topTitle").textContent=item ? item[1].replace(/^.\s/,"") : "Dashboard";
-
-  document.getElementById("levelBadge").textContent=
-    state.currentProject?.level || state.settings.defaultLevel || "A1";
-
-  document.getElementById("projectBadge").textContent=
-    state.currentProject?.title || "No Project";
-}
-
-function render(){
-  renderNav();
-  updateTop();
-
-  const pages={
-    dashboard:renderDashboard,
-    story:renderStoryBuilder,
-    ideas:renderIdeas,
-    characters:renderCharacters,
-    locations:renderLocations,
-    scenes:renderScenes,
-    image:renderImagePrompts,
-    video:renderVideoPrompts,
-    voice:renderVoice,
-    srt:renderSRT,
-    lesson:renderLesson,
-    youtube:renderYouTube,
-    shorts:renderShorts,
-    projects:renderProjects,
-    export:renderExport,
-    settings:renderSettings
-  };
-
-  const fn=pages[state.activePage] || renderDashboard;
-  document.getElementById("content").innerHTML=fn();
-}
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
-
-function renderDashboard(){
-  const p=state.currentProject;
-  const sceneCount=p?.scenes?.length||0;
-  const duration=p?.duration||0;
-  const progress=p && sceneCount ? 100 : 0;
-
-  return `
-  <div class="page">
-
-    <div class="hero">
-      <span class="badge accent">AI ANIMATION PRODUCTION STUDIO</span>
-      <h1>AUNG AI STORY VIDEO PRO</h1>
-      <p>
-        Create original English-learning animated videos from A1 to C2.
-        Build a story, lock characters, generate 10-second production scenes,
-        prepare Google Flow/Veo-ready prompts, voice scripts, SRT and YouTube assets.
-      </p>
-
-      <div class="actions">
-        <button class="btn primary" onclick="navigate('story')">✨ Create New Story</button>
-        <button class="btn cyan" onclick="quickRandomStory()">🎲 I DON'T KNOW WHAT TO MAKE</button>
-        ${p?`<button class="btn" onclick="navigate('scenes')">🎬 Open Scene Studio</button>`:""}
-      </div>
-    </div>
-
-    <div class="grid grid4">
-      <div class="card">
-        <div class="muted small">CURRENT LEVEL</div>
-        <div class="stat">${esc(p?.level||"A1")}</div>
-      </div>
-
-      <div class="card">
-        <div class="muted small">VIDEO LENGTH</div>
-        <div class="stat">${duration} min</div>
-      </div>
-
-      <div class="card">
-        <div class="muted small">10-SECOND SCENES</div>
-        <div class="stat">${sceneCount}</div>
-      </div>
-
-      <div class="card">
-        <div class="muted small">CHARACTERS</div>
-        <div class="stat">${state.characters.length}</div>
-      </div>
-    </div>
-
-    <div class="section grid grid2">
-      <div class="card">
-        <h3>Production Pipeline</h3>
-
-        ${[
-          ["1","Story","Create an original story"],
-          ["2","Characters","Create Character Locks"],
-          ["3","Scenes","Build exact 10-second scenes"],
-          ["4","Prompts","Image + Video prompts"],
-          ["5","Voice","Dialogue + narration"],
-          ["6","SRT","Exact scene timing"],
-          ["7","YouTube","Title + description + thumbnail"],
-          ["8","Shorts","Short-form ideas"]
-        ].map(x=>`
-          <div style="display:flex;gap:12px;margin:12px 0">
-            <span class="badge accent">${x[0]}</span>
-            <div>
-              <b>${x[1]}</b>
-              <div class="small muted">${x[2]}</div>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-
-      <div class="card">
-        <h3>Current Project</h3>
-        ${p?`
-          <h2>${esc(p.title)}</h2>
-          <div class="actions">
-            <span class="badge accent">${esc(p.level)}</span>
-            <span class="badge">${esc(p.type)}</span>
-            <span class="badge">${p.duration} min</span>
-          </div>
-
-          <div class="section">
-            <div class="small muted">SCENE PRODUCTION</div>
-            <div class="progress" style="margin-top:8px">
-              <div style="width:${progress}%"></div>
-            </div>
-            <div class="small muted" style="margin-top:7px">
-              ${sceneCount} / ${Math.round(p.duration*6)} scenes generated
-            </div>
-          </div>
-
-          <div class="actions" style="margin-top:15px">
-            <button class="btn primary" onclick="navigate('scenes')">Open Studio</button>
-            <button class="btn" onclick="navigate('youtube')">YouTube Pack</button>
-          </div>
-        `:`
-          <div class="empty">
-            No project yet
-            <div style="margin-top:15px">
-              <button class="btn primary" onclick="navigate('story')">Create Story</button>
-            </div>
-          </div>
-        `}
-      </div>
-    </div>
-  </div>`;
-}
-
-/* =========================================================
-   STORY BUILDER
-========================================================= */
-
-function renderStoryBuilder(){
-  return `
-  <div class="page">
-    <div class="page-title">AI Story Builder</div>
-    <div class="page-sub">Idea ရှိရင်ရေးနိုင်ပြီး idea မရှိရင်လည်း original story တစ်ခုလုံး generate လုပ်နိုင်ပါတယ်</div>
-
-    <div class="grid grid2">
-      <div class="card">
-        <h3>Story Settings</h3>
-
-        <div class="form">
-          <div>
-            <label class="label">English Level</label>
-            <select id="storyLevel">
-              ${LEVELS.map(x=>`<option ${x===(state.currentProject?.level||state.settings.defaultLevel)?"selected":""}>${x}</option>`).join("")}
-            </select>
-          </div>
-
-          <div>
-            <label class="label">Story Type</label>
-            <select id="storyType">
-              ${STORY_TYPES.map(x=>`<option ${x===(state.currentProject?.type||"Daily Life")?"selected":""}>${x}</option>`).join("")}
-            </select>
-          </div>
-
-          <div>
-            <label class="label">Video Duration</label>
-            <select id="storyDuration">
-              ${[1,2,3,5,10,15].map(x=>`
-                <option value="${x}" ${x===(state.currentProject?.duration||1)?"selected":""}>
-                  ${x} minute — ${x*6} scenes
-                </option>
-              `).join("")}
-            </select>
-          </div>
-
-          <div>
-            <label class="label">Your Topic / Story Idea</label>
-            <textarea id="storyTopic" placeholder="Example: My first trip to Yangon airport">${esc(state.currentProject?.topic||"")}</textarea>
-          </div>
-
-          <div class="actions">
-            <button class="btn cyan" onclick="noIdeaStory()">✨ I DON'T KNOW WHAT TO MAKE</button>
-            <button class="btn primary" onclick="buildStory()">🚀 Generate Story</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Level Engine</h3>
-        <div id="levelInfo"></div>
-
-        <div class="section">
-          <h3>Production Rule</h3>
-          <div class="lock-box">
-Every generated scene = exactly 10 seconds
-
-1 minute  = 6 scenes
-2 minutes = 12 scenes
-3 minutes = 18 scenes
-5 minutes = 30 scenes
-10 minutes = 60 scenes
-15 minutes = 90 scenes
-
-Every scene has its own:
-Character Lock
-Location Lock
-Style Lock
-Image Prompt
-Video Prompt
-Voice / Dialogue
-Camera
-Action
-Emotion
-SFX
-Continuity
-          </div>
-        </div>
-      </div>
-    </div>
-
-    ${state.currentProject?`
-      <div class="section card">
-        <h3>Current Story</h3>
-        <div class="actions" style="margin-bottom:12px">
-          <span class="badge accent">${esc(state.currentProject.level)}</span>
-          <span class="badge">${esc(state.currentProject.type)}</span>
-          <span class="badge">${state.currentProject.duration} min</span>
-        </div>
-
-        <h2>${esc(state.currentProject.title)}</h2>
-
-        <div class="story-output">${esc(state.currentProject.story)}</div>
-
-        <div class="actions" style="margin-top:15px">
-          <button class="btn primary" onclick="generateCurrentScenes()">🎬 Generate ${state.currentProject.duration*6} Scenes</button>
-          <button class="btn" onclick="navigate('characters')">👥 Characters</button>
-        </div>
-      </div>
-    `:""}
-  </div>
-
-  <script>
-    setTimeout(()=>{
-      const l=document.getElementById("storyLevel");
-      if(l){
-        const r=levelRules(l.value);
-        document.getElementById("levelInfo").innerHTML=
-        '<div class="lock-box"><b>'+l.value+'</b>\\\\n'+
-        'Sentence: '+r.sentence+'\\\\n'+
-        'Vocabulary: '+r.vocab+'\\\\n'+
-        'Grammar: '+r.grammar+'\\\\n'+
-        'Voice: '+r.tone+'</div>';
-        l.onchange=()=>{const x=levelRules(l.value);document.getElementById("levelInfo").innerHTML='<div class="lock-box"><b>'+l.value+'</b>\\\\nSentence: '+x.sentence+'\\\\nVocabulary: '+x.vocab+'\\\\nGrammar: '+x.grammar+'\\\\nVoice: '+x.tone+'</div>'};
-      }
-    },0);
-  </script>
-  `;
-}
-
-function buildStory(){
-  const level=document.getElementById("storyLevel").value;
-  const type=document.getElementById("storyType").value;
-  const duration=Number(document.getElementById("storyDuration").value);
-  const topic=document.getElementById("storyTopic").value.trim();
-
-  const data=generateOriginalStoryData({level,type,duration,topic});
-
-  state.currentProject={
-    id:uid("project"),
-    ...data,
-    scenes:[],
-    createdAt:new Date().toISOString(),
-    updatedAt:new Date().toISOString()
-  };
-
-  state.projects.unshift(clone(state.currentProject));
-
-  saveState();
-  render();
-
-  toast("Story created");
-}
-
-function noIdeaStory(){
-  const level=document.getElementById("storyLevel").value;
-  const type=document.getElementById("storyType").value;
-  const duration=Number(document.getElementById("storyDuration").value);
-
-  const randomIdeas=state.ideas.filter(i=>i.type===type);
-  const pool=randomIdeas.length?randomIdeas:state.ideas;
-  const idea=pool[Math.floor(Math.random()*pool.length)];
-
-  const data=generateOriginalStoryData({
-    level,
-    type:idea?.type||type,
-    duration,
-    topic:idea?.title || "A Small Adventure"
   });
 
-  state.currentProject={
-    id:uid("project"),
-    ...data,
-    scenes:[],
-    createdAt:new Date().toISOString(),
-    updatedAt:new Date().toISOString()
-  };
 
-  state.projects.unshift(clone(state.currentProject));
+  /* =====================================================
+     CREATE DEFAULT CHARACTERS IF NONE EXIST
+     ===================================================== */
 
-  saveState();
-  render();
-  toast("Original story generated");
-}
+  if(state.characters.length === 0){
 
-function quickRandomStory(){
-  const level=LEVELS[Math.floor(Math.random()*LEVELS.length)];
-  const type=STORY_TYPES[Math.floor(Math.random()*STORY_TYPES.length)];
-  const pool=state.ideas.filter(i=>i.type===type);
-  const idea=(pool.length?pool:state.ideas)[Math.floor(Math.random()*(pool.length?pool:state.ideas).length)];
-  const duration=[1,2,3,5][Math.floor(Math.random()*4)];
+    state.characters.push({
 
-  const data=generateOriginalStoryData({
-    level,
-    type,
-    duration,
-    topic:idea.title
-  });
+      id:"lina_001",
 
-  state.currentProject={
-    id:uid("project"),
-    ...data,
-    scenes:[],
-    createdAt:new Date().toISOString(),
-    updatedAt:new Date().toISOString()
-  };
+      name:"Lina",
 
-  state.projects.unshift(clone(state.currentProject));
-  saveState();
-  render();
-  toast("Random story ready");
-}
+      age:"21",
 
-function generateCurrentScenes(){
-  if(!state.currentProject){
-    toast("Create a story first");
-    return;
-  }
+      gender:"Female",
 
-  generateScenes(state.currentProject);
-  syncCurrentProject();
-  saveState();
-  render();
-  toast(`${state.currentProject.scenes.length} scenes generated`);
-}
+      face:
+        "Friendly round face, bright expressive eyes",
 
-function syncCurrentProject(){
-  if(!state.currentProject) return;
+      hair:
+        "Brown shoulder-length hair",
 
-  state.currentProject.updatedAt=new Date().toISOString();
+      skin:
+        "Warm natural skin tone",
 
-  const idx=state.projects.findIndex(p=>p.id===state.currentProject.id);
+      clothes:
+        "Yellow casual jacket, white shirt, blue jeans",
 
-  if(idx>=0){
-    state.projects[idx]=clone(state.currentProject);
-  }else{
-    state.projects.unshift(clone(state.currentProject));
-  }
+      shoes:
+        "White sneakers",
 
-  if(state.settings.autoSave) saveState();
-}
+      accessories:
+        "Small beige travel backpack",
 
-/* =========================================================
-   IDEAS
-========================================================= */
+      body:
+        "Natural slim young adult proportions",
 
-function renderIdeas(){
-  return `
-  <div class="page">
-    <div class="page-title">Story Ideas</div>
-    <div class="page-sub">Original English-learning animation story ideas</div>
+      personality:
+        "Friendly, curious, positive",
 
-    <div class="actions" style="margin-bottom:15px">
-      <button class="btn primary" onclick="quickRandomStory()">🎲 Random Story</button>
-      <button class="btn" onclick="navigate('story')">✨ Story Builder</button>
-    </div>
+      voice:
+        "Young friendly female voice",
 
-    <div class="grid grid3">
-      ${state.ideas.map(i=>`
-        <div class="card idea-card" onclick="useIdea('${i.id}')">
-          <div class="actions">
-            <span class="badge accent">${esc(i.type)}</span>
-          </div>
-          <h3>${esc(i.title)}</h3>
-          <div class="muted">${esc(i.description)}</div>
-        </div>
-      `).join("")}
-    </div>
-  </div>`;
-}
+      reference:
+        "Lina Master Reference"
 
-function useIdea(id){
-  const idea=state.ideas.find(i=>i.id===id);
-  if(!idea) return;
-
-  state.activePage="story";
-  render();
-
-  setTimeout(()=>{
-    const type=document.getElementById("storyType");
-    const topic=document.getElementById("storyTopic");
-
-    if(type) type.value=idea.type;
-    if(topic) topic.value=idea.title;
-
-    toast("Idea selected");
-  },0);
-}
-
-/* =========================================================
-   CHARACTERS
-========================================================= */
-
-function renderCharacters(){
-  return `
-  <div class="page">
-    <div class="page-title">Characters</div>
-    <div class="page-sub">Character Master Lock — consistent characters across every scene</div>
-
-    <div class="grid grid3">
-      ${state.characters.map(c=>`
-        <div class="card">
-          <div class="actions">
-            <span class="badge accent">${esc(c.gender)}</span>
-            <span class="badge">${esc(c.age)} years</span>
-          </div>
-
-          <h2>${esc(c.name)}</h2>
-
-          <div class="lock-box">${esc(characterLock(c))}</div>
-
-          <div class="actions" style="margin-top:12px">
-            <button class="btn sm" onclick="editCharacter('${c.id}')">✏ Edit</button>
-            <button class="btn sm danger" onclick="deleteCharacter('${c.id}')">Delete</button>
-          </div>
-        </div>
-      `).join("")}
-    </div>
-
-    <div class="section card">
-      <h3>Add Character</h3>
-
-      <div class="field-grid">
-        ${characterField("charName","Name","")}
-        ${characterField("charAge","Age","21","number")}
-        ${characterField("charGender","Gender","Female")}
-        ${characterField("charFace","Face","friendly round face")}
-        ${characterField("charHair","Hair","brown shoulder-length hair")}
-        ${characterField("charSkin","Skin","warm natural skin tone")}
-        ${characterField("charClothes","Clothes","yellow casual jacket, white shirt, blue jeans")}
-        ${characterField("charShoes","Shoes","white sneakers")}
-        ${characterField("charAccessories","Accessories","small backpack")}
-        ${characterField("charPersonality","Personality","friendly, curious, positive")}
-        ${characterField("charVoice","Voice","young friendly female voice")}
-      </div>
-
-      <div class="actions" style="margin-top:15px">
-        <button class="btn primary" onclick="addCharacter()">+ Add Character</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-function characterField(id,label,value,type="text"){
-  return `
-  <div>
-    <label class="label">${label}</label>
-    <input id="${id}" type="${type}" value="${esc(value)}">
-  </div>`;
-}
-
-function addCharacter(){
-  const c={
-    id:uid("char"),
-    name:document.getElementById("charName").value.trim(),
-    age:Number(document.getElementById("charAge").value)||21,
-    gender:document.getElementById("charGender").value.trim(),
-    face:document.getElementById("charFace").value.trim(),
-    hair:document.getElementById("charHair").value.trim(),
-    skin:document.getElementById("charSkin").value.trim(),
-    clothes:document.getElementById("charClothes").value.trim(),
-    shoes:document.getElementById("charShoes").value.trim(),
-    accessories:document.getElementById("charAccessories").value.trim(),
-    personality:document.getElementById("charPersonality").value.trim(),
-    voice:document.getElementById("charVoice").value.trim(),
-    reference:""
-  };
-
-  if(!c.name){
-    toast("Enter character name");
-    return;
-  }
-
-  state.characters.push(c);
-  saveState();
-  render();
-  toast("Character added");
-}
-
-function editCharacter(id){
-  const c=getCharacter(id);
-  if(!c) return;
-
-  const name=prompt("Character name",c.name);
-  if(name===null)return;
-
-  c.name=name.trim()||c.name;
-  c.age=Number(prompt("Age",c.age))||c.age;
-  c.gender=prompt("Gender",c.gender)||c.gender;
-  c.face=prompt("Face",c.face)||c.face;
-  c.hair=prompt("Hair",c.hair)||c.hair;
-  c.skin=prompt("Skin",c.skin)||c.skin;
-  c.clothes=prompt("Clothes",c.clothes)||c.clothes;
-  c.shoes=prompt("Shoes",c.shoes)||c.shoes;
-  c.accessories=prompt("Accessories",c.accessories)||c.accessories;
-  c.personality=prompt("Personality",c.personality)||c.personality;
-  c.voice=prompt("Voice",c.voice)||c.voice;
-
-  regenerateScenePromptsForCharacter(id);
-  syncCurrentProject();
-  saveState();
-  render();
-  toast("Character updated");
-}
-
-function regenerateScenePromptsForCharacter(id){
-  if(!state.currentProject?.scenes) return;
-
-  state.currentProject.scenes.forEach((s,i)=>{
-    if(s.characterIds.includes(id)){
-      const fresh=buildScene(state.currentProject,i);
-      fresh.id=s.id;
-      fresh.number=s.number;
-      state.currentProject.scenes[i]=fresh;
-    }
-  });
-}
-
-function deleteCharacter(id){
-  const c=getCharacter(id);
-  if(!c)return;
-
-  if(state.characters.length<=1){
-    toast("At least one character is required");
-    return;
-  }
-
-  if(!confirm(`Delete ${c.name}?`)) return;
-
-  state.characters=state.characters.filter(x=>x.id!==id);
-
-  if(state.currentProject){
-    state.currentProject.scenes.forEach(s=>{
-      s.characterIds=s.characterIds.filter(x=>x!==id);
     });
-    syncCurrentProject();
-  }
 
-  saveState();
-  render();
-}
 
-/* =========================================================
-   LOCATIONS
-========================================================= */
+    state.characters.push({
 
-function renderLocations(){
-  return `
-  <div class="page">
-    <div class="page-title">Locations</div>
-    <div class="page-sub">Location Lock keeps your animation environment consistent</div>
+      id:"ethan_001",
 
-    <div class="grid grid3">
-      ${state.locations.map(l=>`
-        <div class="card">
-          <span class="badge accent">${esc(l.time)}</span>
-          <h2>${esc(l.name)}</h2>
-          <div class="lock-box">${esc(locationLock(l))}</div>
+      name:"Ethan",
 
-          <div class="actions" style="margin-top:12px">
-            <button class="btn sm" onclick="editLocation('${l.id}')">✏ Edit</button>
-            <button class="btn sm danger" onclick="deleteLocation('${l.id}')">Delete</button>
-          </div>
-        </div>
-      `).join("")}
-    </div>
+      age:"23",
 
-    <div class="section card">
-      <h3>Add Location</h3>
+      gender:"Male",
 
-      <div class="field-grid">
-        <div>
-          <label class="label">Name</label>
-          <input id="locName">
-        </div>
-        <div>
-          <label class="label">Time</label>
-          <input id="locTime" value="morning">
-        </div>
-        <div>
-          <label class="label">Weather</label>
-          <input id="locWeather" value="clear">
-        </div>
-        <div>
-          <label class="label">Lighting</label>
-          <input id="locLighting" value="warm natural cinematic lighting">
-        </div>
-        <div style="grid-column:1/-1">
-          <label class="label">Environment</label>
-          <textarea id="locDescription"></textarea>
-        </div>
-      </div>
+      face:
+        "Friendly oval face, expressive eyes",
 
-      <button class="btn primary" style="margin-top:15px" onclick="addLocation()">+ Add Location</button>
-    </div>
-  </div>`;
-}
+      hair:
+        "Short neat black hair",
 
-function addLocation(){
-  const name=document.getElementById("locName").value.trim();
-  if(!name){
-    toast("Enter location name");
-    return;
-  }
+      skin:
+        "Warm natural skin tone",
 
-  state.locations.push({
-    id:uid("loc"),
-    name,
-    description:document.getElementById("locDescription").value.trim(),
-    time:document.getElementById("locTime").value.trim(),
-    weather:document.getElementById("locWeather").value.trim(),
-    lighting:document.getElementById("locLighting").value.trim()
-  });
+      clothes:
+        "Blue hoodie, light gray T-shirt, dark jeans",
 
-  saveState();
-  render();
-  toast("Location added");
-}
+      shoes:
+        "White sneakers",
 
-function editLocation(id){
-  const l=getLocation(id);
-  if(!l)return;
+      accessories:
+        "Black wristwatch",
 
-  l.name=prompt("Location name",l.name)||l.name;
-  l.description=prompt("Environment",l.description)||l.description;
-  l.time=prompt("Time",l.time)||l.time;
-  l.weather=prompt("Weather",l.weather)||l.weather;
-  l.lighting=prompt("Lighting",l.lighting)||l.lighting;
+      body:
+        "Natural young adult proportions",
 
-  regenerateAllScenes();
-  saveState();
-  render();
-}
+      personality:
+        "Calm, cheerful, supportive",
 
-function deleteLocation(id){
-  if(state.locations.length<=1){
-    toast("At least one location is required");
-    return;
-  }
+      voice:
+        "Young friendly male voice",
 
-  if(!confirm("Delete this location?"))return;
+      reference:
+        "Ethan Master Reference"
 
-  state.locations=state.locations.filter(x=>x.id!==id);
-
-  if(state.currentProject){
-    state.currentProject.scenes.forEach(s=>{
-      if(s.locationId===id) s.locationId=state.locations[0].id;
     });
-    regenerateAllScenes();
+
+
+    state.characters.push({
+
+      id:"mia_001",
+
+      name:"Mia",
+
+      age:"20",
+
+      gender:"Female",
+
+      face:
+        "Soft oval face, cheerful expression",
+
+      hair:
+        "Long dark brown hair",
+
+      skin:
+        "Warm natural skin tone",
+
+      clothes:
+        "Green cardigan, cream shirt, navy skirt",
+
+      shoes:
+        "White casual shoes",
+
+      accessories:
+        "Small blue shoulder bag",
+
+      body:
+        "Natural young adult proportions",
+
+      personality:
+        "Smart, energetic, kind",
+
+      voice:
+        "Young female voice",
+
+      reference:
+        "Mia Master Reference"
+
+    });
+
   }
 
-  saveState();
-  render();
-}
 
-function regenerateAllScenes(){
-  if(!state.currentProject?.scenes?.length)return;
+  /* =====================================================
+     LOCATION
+     ===================================================== */
 
-  const old=state.currentProject.scenes;
+  if(state.locations.length === 0){
 
-  state.currentProject.scenes=old.map((s,i)=>{
-    const fresh=buildScene(state.currentProject,i);
-    fresh.id=s.id;
-    fresh.number=s.number;
-    fresh.characterIds=s.characterIds.length?s.characterIds:fresh.characterIds;
-    fresh.locationId=s.locationId || fresh.locationId;
-    return fresh;
+    state.locations.push({
+
+      id:"airport_001",
+
+      name:
+        "Modern International Airport",
+
+      architecture:
+        "Large clean modern international airport interior with glass walls, high ceiling and check-in counters",
+
+      lighting:
+        "Soft warm natural morning lighting mixed with clean indoor airport lighting",
+
+      time:
+        "Morning",
+
+      weather:
+        "Clear weather",
+
+      props:
+        "Suitcases, luggage carts, airport signs, check-in counters, digital flight boards",
+
+      signage:
+        "Generic airport signs, no real company logos",
+
+      atmosphere:
+        "Clean, friendly, realistic educational environment"
+
+    });
+
+  }
+
+
+  /* =====================================================
+     UPDATE OLD PROJECT CHARACTER REFERENCES
+     ===================================================== */
+
+  state.projects.forEach(project => {
+
+    if(!project) return;
+
+    if(Array.isArray(project.characters)){
+
+      project.characters.forEach(character => {
+
+        if(character.name === "Emma"){
+          character.name = "Lina";
+          character.id = "lina_001";
+          character.age = "21";
+          character.reference = "Lina Master Reference";
+        }
+
+        if(character.name === "Tom"){
+          character.name = "Ethan";
+          character.id = "ethan_001";
+          character.age = "23";
+          character.reference = "Ethan Master Reference";
+        }
+
+        if(character.name === "Sarah"){
+          character.name = "Mia";
+          character.id = "mia_001";
+          character.age = "20";
+          character.reference = "Mia Master Reference";
+        }
+
+      });
+
+    }
+
+
+    /* =================================================
+       UPDATE SCENE CHARACTER IDs
+       ================================================= */
+
+    if(Array.isArray(project.scenes)){
+
+      project.scenes.forEach(scene => {
+
+        if(!Array.isArray(scene.characterIds)){
+          scene.characterIds = [];
+        }
+
+        scene.characterIds =
+          scene.characterIds.map(id => {
+
+            if(id === "emma_001"){
+              return "lina_001";
+            }
+
+            if(id === "tom_001"){
+              return "ethan_001";
+            }
+
+            if(id === "sarah_001"){
+              return "mia_001";
+            }
+
+            return id;
+
+          });
+
+      });
+
+    }
+
   });
 
-  syncCurrentProject();
-}
 
-/* =========================================================
-   SCENE STUDIO
-========================================================= */
-
-function renderScenes(){
-  const p=state.currentProject;
-
-  if(!p){
-    return `
-    <div class="page">
-      <div class="page-title">Scene Studio</div>
-      <div class="empty card">
-        <h2>No project selected</h2>
-        <p>Create a story first</p>
-        <button class="btn primary" onclick="navigate('story')">Create Story</button>
-      </div>
-    </div>`;
-  }
-
-  if(!p.scenes.length){
-    return `
-    <div class="page">
-      <div class="page-title">Scene Studio</div>
-      <div class="page-sub">${esc(p.title)} — ${p.duration} minutes / ${p.duration*6} scenes</div>
-
-      <div class="hero">
-        <h1>Ready to Generate</h1>
-        <p>
-          Each scene will be exactly 10 seconds and will receive a complete
-          standalone production package.
-        </p>
-
-        <button class="btn primary" onclick="generateCurrentScenes()">
-          🎬 Generate ${p.duration*6} Scenes
-        </button>
-      </div>
-    </div>`;
-  }
-
-  return `
-  <div class="page">
-    <div class="page-title">Scene Studio</div>
-    <div class="page-sub">
-      ${esc(p.title)} · ${esc(p.level)} · ${p.scenes.length} × 10 seconds
-    </div>
-
-    <div class="card" style="margin-bottom:18px">
-      <div class="actions">
-        <button class="btn primary" onclick="generateCurrentScenes()">🔄 Regenerate All</button>
-        <button class="btn cyan" onclick="copyAllScenes()">📋 COPY ALL SCENES</button>
-        <button class="btn success" onclick="exportAllScenes()">⬇ Export All Scenes TXT</button>
-        <button class="btn" onclick="navigate('srt')">📝 Open SRT</button>
-      </div>
-
-      <div class="small muted" style="margin-top:10px">
-        COPY ALL SCENES copies every scene from Scene 01 to the last scene,
-        including Character Lock, Location Lock, Style Lock, Image Prompt,
-        Video Prompt, Voice, Camera, Action, Emotion, SFX and Continuity.
-      </div>
-    </div>
-
-    ${p.scenes.map((s,i)=>renderSceneCard(s,i)).join("")}
-  </div>`;
-}
-
-function renderSceneCard(s,index){
-  const selected=s.characterIds.map(getCharacter).filter(Boolean);
-
-  return `
-  <div class="scene-card">
-    <div class="scene-head">
-      <div>
-        <div class="scene-number">SCENE ${String(index+1).padStart(2,"0")}</div>
-        <div class="scene-time">${sceneTime(s.start,s.end)} · EXACT 10 SECONDS</div>
-      </div>
-
-      <div class="actions">
-        <button class="btn sm primary" onclick="copyScene('${s.id}')">📋 Copy Scene</button>
-        <button class="btn sm danger" onclick="deleteScene('${s.id}')">Delete</button>
-      </div>
-    </div>
-
-    <div class="scene-body">
-
-      <div class="field-grid">
-        <div>
-          <label class="label">Scene Title</label>
-          <input value="${esc(s.title)}" onchange="updateScene('${s.id}','title',this.value)">
-        </div>
-
-        <div>
-          <label class="label">Camera</label>
-          <select onchange="updateScene('${s.id}','camera',this.value)">
-            ${CAMERA_TYPES.map(x=>`<option ${x===s.camera?"selected":""}>${x}</option>`).join("")}
-          </select>
-        </div>
-
-        <div>
-          <label class="label">Emotion</label>
-          <select onchange="updateScene('${s.id}','emotion',this.value)">
-            ${EMOTIONS.map(x=>`<option ${x===s.emotion?"selected":""}>${x}</option>`).join("")}
-          </select>
-        </div>
-
-        <div>
-          <label class="label">Location</label>
-          <select onchange="updateScene('${s.id}','locationId',this.value)">
-            ${state.locations.map(l=>`
-              <option value="${l.id}" ${l.id===s.locationId?"selected":""}>${esc(l.name)}</option>
-            `).join("")}
-          </select>
-        </div>
-      </div>
-
-      <div class="field-title">CHARACTERS IN THIS SCENE</div>
-
-      <div class="character-selector">
-        ${state.characters.map(c=>`
-          <label class="character-chip ${s.characterIds.includes(c.id)?"selected":""}">
-            <input
-              type="checkbox"
-              ${s.characterIds.includes(c.id)?"checked":""}
-              onchange="toggleSceneCharacter('${s.id}','${c.id}',this.checked)"
-            >
-            ${esc(c.name)} · ${c.age}
-          </label>
-        `).join("")}
-      </div>
-
-      <div class="field-title">SCENE SUMMARY</div>
-      <textarea onchange="updateScene('${s.id}','summary',this.value)">${esc(s.summary)}</textarea>
-
-      <div class="field-title">CHARACTER LOCK</div>
-      <div class="lock-box">${esc(selected.length?selected.map(characterLock).join("\n\n"):"Narrator-only scene — no visible main character.")}</div>
-
-      <div class="field-title">LOCATION LOCK</div>
-      <div class="lock-box">${esc(locationLock(getLocation(s.locationId)))}</div>
-
-      <div class="field-title">STYLE LOCK</div>
-      <div class="lock-box">${esc(styleLock())}</div>
-
-      <div class="field-title">IMAGE PROMPT</div>
-      <textarea onchange="updateScene('${s.id}','imagePrompt',this.value)">${esc(s.imagePrompt)}</textarea>
-
-      <div class="field-title">VIDEO PROMPT</div>
-      <textarea onchange="updateScene('${s.id}','videoPrompt',this.value)">${esc(s.videoPrompt)}</textarea>
-
-      <div class="field-title">VOICE / DIALOGUE</div>
-      <textarea onchange="updateScene('${s.id}','dialogue',this.value)">${esc(s.dialogue)}</textarea>
-
-      <div class="field-title">NARRATION</div>
-      <textarea onchange="updateScene('${s.id}','narration',this.value)">${esc(s.narration)}</textarea>
-
-      <div class="field-title">VOICE DIRECTION</div>
-      <textarea onchange="updateScene('${s.id}','voiceDirection',this.value)">${esc(s.voiceDirection)}</textarea>
-
-      <div class="field-title">CAMERA</div>
-      <div class="lock-box">${esc(s.camera)}</div>
-
-      <div class="field-title">ACTION</div>
-      <textarea onchange="updateScene('${s.id}','action',this.value)">${esc(s.action)}</textarea>
-
-      <div class="field-title">EMOTION</div>
-      <div class="lock-box">${esc(s.emotion)}</div>
-
-      <div class="field-title">SFX</div>
-      <textarea onchange="updateScene('${s.id}','sfx',this.value)">${esc(s.sfx)}</textarea>
-
-      <div class="field-title">CONTINUITY</div>
-      <textarea onchange="updateScene('${s.id}','continuity',this.value)">${esc(s.continuity)}</textarea>
-
-      <div class="actions" style="margin-top:14px">
-        <button class="btn sm primary" onclick="copyScene('${s.id}')">📋 COPY THIS COMPLETE SCENE</button>
-      </div>
-
-    </div>
-  </div>`;
-}
-
-function findScene(id){
-  return state.currentProject?.scenes?.find(s=>s.id===id);
-}
-
-function updateScene(id,key,value){
-  const s=findScene(id);
-  if(!s)return;
-
-  s[key]=value;
-  syncCurrentProject();
-}
-
-function toggleSceneCharacter(sceneId,charId,checked){
-  const s=findScene(sceneId);
-  if(!s)return;
-
-  if(checked){
-    if(!s.characterIds.includes(charId))s.characterIds.push(charId);
-  }else{
-    s.characterIds=s.characterIds.filter(x=>x!==charId);
-  }
-
-  rebuildScenePrompts(s);
-  syncCurrentProject();
-  render();
-}
-
-function rebuildScenePrompts(s){
-  const chars=s.characterIds.map(getCharacter).filter(Boolean);
-  const loc=getLocation(s.locationId);
-
-  s.imagePrompt=
-`Create a high-quality 3D educational family animation frame.
-
-CHARACTER LOCK
-${chars.length?chars.map(characterLock).join("\n\n"):"Narrator-only scene."}
-
-LOCATION LOCK
-${locationLock(loc)}
-
-STYLE LOCK
-${styleLock()}
-
-SCENE ACTION
-${s.action}
-
-EMOTION
-${s.emotion}
-
-CAMERA
-${s.camera}
-
-Maintain exact character identity and continuity. No extra characters, no text, no subtitles, no watermark, no deformation.`;
-
-  s.videoPrompt=
-`10-second cinematic 3D animated shot.
-
-CHARACTER LOCK
-${chars.length?chars.map(characterLock).join("\n\n"):"Narrator-only scene."}
-
-LOCATION LOCK
-${locationLock(loc)}
-
-STYLE LOCK
-${styleLock()}
-
-ACTION
-${s.action}
-
-EMOTION
-${s.emotion}
-
-CAMERA
-${s.camera}
-
-VOICE
-${s.dialogue}
-
-NARRATION
-${s.narration}
-
-Smooth natural animation. Stable anatomy. Consistent face, hair, clothing and environment. No extra characters, no subtitles, no text overlays, no watermark.`;
-}
-
-function copyScene(id){
-  const s=findScene(id);
-  if(!s)return;
-
-  copyText(scenePackage(s),`Scene ${String(s.number).padStart(2,"0")} copied`);
-}
-
-function copyAllScenes(){
-  const text=allScenesPackage();
-
-  if(!text){
-    toast("Generate scenes first");
-    return;
-  }
-
-  copyText(text,"ALL SCENES COPIED");
-}
-
-function exportAllScenes(){
-  const text=allScenesPackage();
-
-  if(!text){
-    toast("Generate scenes first");
-    return;
-  }
-
-  const name=(state.currentProject?.title||"AUNG_AI_STORY")
-    .replace(/[^a-z0-9]+/gi,"_")
-    .slice(0,60);
-
-  downloadText(`${name}_ALL_SCENES.txt`,text);
-  toast("All scenes exported");
-}
-
-function deleteScene(id){
-  if(!state.currentProject)return;
-
-  const index=state.currentProject.scenes.findIndex(s=>s.id===id);
-  if(index<0)return;
-
-  state.currentProject.scenes.splice(index,1);
-
-  state.currentProject.scenes.forEach((s,i)=>{
-    s.number=i+1;
-    s.start=i*10;
-    s.end=i*10+10;
-  });
-
-  syncCurrentProject();
-  saveState();
-  render();
-}
-
-/* =========================================================
-   IMAGE PROMPTS
-========================================================= */
-
-function renderImagePrompts(){
-  const p=state.currentProject;
-
-  if(!p?.scenes?.length){
-    return emptyPage("Image Prompts","Generate scenes first");
-  }
-
-  return `
-  <div class="page">
-    <div class="page-title">Image Prompts</div>
-    <div class="page-sub">Scene-specific image prompts</div>
-
-    <div class="actions" style="margin-bottom:15px">
-      <button class="btn cyan" onclick="copyAllImagePrompts()">📋 Copy All Image Prompts</button>
-    </div>
-
-    ${p.scenes.map(s=>`
-      <div class="card" style="margin-bottom:14px">
-        <div class="actions">
-          <span class="badge accent">SCENE ${String(s.number).padStart(2,"0")}</span>
-          <span class="badge">${sceneTime(s.start,s.end)}</span>
-        </div>
-        <div class="prompt-box">${esc(s.imagePrompt)}</div>
-        <button class="btn sm" style="margin-top:10px" onclick="copyText(${JSON.stringify(s.imagePrompt)},'Image prompt copied')">Copy</button>
-      </div>
-    `).join("")}
-  </div>`;
-}
-
-function copyAllImagePrompts(){
-  const text=state.currentProject.scenes.map(s=>
-    `SCENE ${String(s.number).padStart(2,"0")}\n${s.imagePrompt}`
-  ).join("\n\n");
-
-  copyText(text,"All image prompts copied");
-}
-
-/* =========================================================
-   VIDEO PROMPTS
-========================================================= */
-
-function renderVideoPrompts(){
-  const p=state.currentProject;
-
-  if(!p?.scenes?.length){
-    return emptyPage("Video Prompts","Generate scenes first");
-  }
-
-  return `
-  <div class="page">
-    <div class="page-title">Video Prompts</div>
-    <div class="page-sub">10-second scene prompts prepared for AI video generation</div>
-
-    <div class="actions" style="margin-bottom:15px">
-      <button class="btn cyan" onclick="copyAllVideoPrompts()">📋 Copy All Video Prompts</button>
-    </div>
-
-    ${p.scenes.map(s=>`
-      <div class="card" style="margin-bottom:14px">
-        <div class="actions">
-          <span class="badge accent">SCENE ${String(s.number).padStart(2,"0")}</span>
-          <span class="badge">${sceneTime(s.start,s.end)}</span>
-        </div>
-        <div class="prompt-box">${esc(s.videoPrompt)}</div>
-        <button class="btn sm" style="margin-top:10px" onclick="copyText(${JSON.stringify(s.videoPrompt)},'Video prompt copied')">Copy</button>
-      </div>
-    `).join("")}
-  </div>`;
-}
-
-function copyAllVideoPrompts(){
-  const text=state.currentProject.scenes.map(s=>
-    `SCENE ${String(s.number).padStart(2,"0")}\n${s.videoPrompt}`
-  ).join("\n\n");
-
-  copyText(text,"All video prompts copied");
-}
-
-/* =========================================================
-   VOICE
-========================================================= */
-
-function renderVoice(){
-  const p=state.currentProject;
-
-  if(!p?.scenes?.length){
-    return emptyPage("Voice Script","Generate scenes first");
-  }
-
-  return `
-  <div class="page">
-    <div class="page-title">Voice Director</div>
-    <div class="page-sub">Dialogue, narration and 10-second speaking control</div>
-
-    <div class="card" style="margin-bottom:15px">
-      <div class="grid grid3">
-        <div>
-          <label class="label">Narrator</label>
-          <input value="${esc(state.settings.narrator)}"
-            onchange="state.settings.narrator=this.value;saveState()">
-        </div>
-        <div>
-          <label class="label">Voice Gender</label>
-          <select onchange="state.settings.voiceGender=this.value;saveState()">
-            <option ${state.settings.voiceGender==="Female"?"selected":""}>Female</option>
-            <option ${state.settings.voiceGender==="Male"?"selected":""}>Male</option>
-          </select>
-        </div>
-        <div>
-          <label class="label">Language</label>
-          <input value="${esc(state.settings.language)}"
-            onchange="state.settings.language=this.value;saveState()">
-        </div>
-      </div>
-    </div>
-
-    ${p.scenes.map(s=>{
-      const words=(s.dialogue+" "+s.narration).trim().split(/\s+/).filter(Boolean).length;
-      const warning=words>24;
-
-      return `
-      <div class="card" style="margin-bottom:14px">
-        <div class="actions">
-          <span class="badge accent">SCENE ${String(s.number).padStart(2,"0")}</span>
-          <span class="badge">${sceneTime(s.start,s.end)}</span>
-          <span class="badge ${warning?"":"success"}">${words} words</span>
-          ${warning?`<span class="badge" style="color:#ffcf72">Long for 10 sec</span>`:""}
-        </div>
-
-        <div class="field-title">Dialogue</div>
-        <textarea onchange="updateScene('${s.id}','dialogue',this.value)">${esc(s.dialogue)}</textarea>
-
-        <div class="field-title">Narration</div>
-        <textarea onchange="updateScene('${s.id}','narration',this.value)">${esc(s.narration)}</textarea>
-
-        <div class="field-title">Voice Direction</div>
-        <textarea onchange="updateScene('${s.id}','voiceDirection',this.value)">${esc(s.voiceDirection)}</textarea>
-      </div>`;
-    }).join("")}
-  </div>`;
-}
-
-/* =========================================================
-   SRT
-========================================================= */
-
-function renderSRT(){
-  const p=state.currentProject;
-
-  if(!p?.scenes?.length){
-    return emptyPage("SRT / Subtitles","Generate scenes first");
-  }
-
-  const srt=generateSRT();
-
-  return `
-  <div class="page">
-    <div class="page-title">SRT / Subtitles</div>
-    <div class="page-sub">Exact 10-second scene timing</div>
-
-    <div class="actions" style="margin-bottom:15px">
-      <button class="btn primary" onclick="copyText(${JSON.stringify(srt)},'SRT copied')">📋 Copy SRT</button>
-      <button class="btn success" onclick="downloadText('AUNG_AI_STORY.srt',${JSON.stringify(srt)})">⬇ Download SRT</button>
-    </div>
-
-    <div class="card">
-      <textarea style="min-height:600px">${esc(srt)}</textarea>
-    </div>
-  </div>`;
-}
-
-/* =========================================================
-   ENGLISH LESSON
-========================================================= */
-
-function renderLesson(){
-  const p=state.currentProject;
-
-  if(!p){
-    return emptyPage("English Lesson","Create a story first");
-  }
-
-  const vocab=buildVocabulary(p);
-
-  return `
-  <div class="page">
-    <div class="page-title">English Lesson</div>
-    <div class="page-sub">A1 → C2 learning layer for the story</div>
-
-    <div class="grid grid2">
-      <div class="card">
-        <h3>Level</h3>
-        <div class="stat">${esc(p.level)}</div>
-        <div class="muted">${esc(levelRules(p.level).sentence)}</div>
-      </div>
-
-      <div class="card">
-        <h3>Learning Focus</h3>
-        <div class="lock-box">
-Vocabulary
-Key Sentences
-Grammar
-Pronunciation
-Listening
-Speaking
-Comprehension
-          </div>
-      </div>
-    </div>
-
-    <div class="section card">
-      <h3>Vocabulary</h3>
-      <div class="grid grid3">
-        ${vocab.map(v=>`
-          <div class="card">
-            <b>${esc(v.word)}</b>
-            <div class="muted small">${esc(v.meaning)}</div>
-            <div style="margin-top:8px">${esc(v.example)}</div>
-          </div>
-        `).join("")}
-      </div>
-    </div>
-
-    <div class="section card">
-      <h3>Key Sentences</h3>
-      ${p.scenes.slice(0,8).map(s=>`
-        <div class="lock-box" style="margin-bottom:8px">${esc(s.dialogue||s.narration)}</div>
-      `).join("")}
-    </div>
-
-    <div class="section card">
-      <h3>Mini Quiz</h3>
-      <div class="quiz-option" onclick="toast('Correct!')">A. ${esc(vocab[0]?.word||"practice")}</div>
-      <div class="quiz-option" onclick="toast('Try again')">B. completely different word</div>
-      <div class="quiz-option" onclick="toast('Try again')">C. another word</div>
-    </div>
-  </div>`;
-}
-
-function buildVocabulary(p){
-  const map={
-    "Daily Life":[
-      ["routine","the usual way of doing things","My morning routine is simple."],
-      ["plan","something you decide to do","We have a plan."],
-      ["ready","prepared to do something","I am ready."]
-    ],
-    "Family":[
-      ["family","people related to you","My family is happy."],
-      ["help","to make something easier for someone","I can help you."],
-      ["together","with another person or people","We work together."]
-    ],
-    "Travel":[
-      ["airport","a place where airplanes arrive and leave","We are at the airport."],
-      ["trip","a journey to another place","Our trip is exciting."],
-      ["luggage","bags used when traveling","My luggage is ready."]
-    ]
-  };
-
-  const arr=map[p.type]||map["Daily Life"];
-
-  if(p.level==="B2"||p.level==="C1"||p.level==="C2"){
-    arr.push(
-      ["confidence","the feeling of being sure about yourself","She speaks with confidence."],
-      ["unexpected","something that was not planned","An unexpected problem appeared."]
-    );
-  }
-
-  return arr;
-}
-
-/* =========================================================
-   YOUTUBE
-========================================================= */
-
-function renderYouTube(){
-  const p=state.currentProject;
-
-  if(!p){
-    return emptyPage("YouTube Pack","Create a story first");
-  }
-
-  const title=`${p.title} | English Learning Animation | ${p.level}`;
-  const description=
-`Learn English through an original animated story.
-
-Story: ${p.title}
-Level: ${p.level}
-Type: ${p.type}
-
-This video is designed for English learners with:
-• Story-based listening practice
-• Useful everyday vocabulary
-• Natural dialogue
-• Speaking practice
-• Visual storytelling
-
-Watch the story, listen carefully, repeat the key sentences and practice speaking aloud.
-
-#EnglishLearning #LearnEnglish #EnglishAnimation #${p.level}`;
-
-  const tags=[
-    "learn English",
-    "English learning",
-    "English animation",
-    "English conversation",
-    `${p.level} English`,
-    "English listening",
-    "English speaking",
-    "English story",
-    "English vocabulary",
-    "animated English lesson"
-  ].join(", ");
-
-  return `
-  <div class="page">
-    <div class="page-title">YouTube Pack</div>
-    <div class="page-sub">Ready-to-use YouTube publishing assets</div>
-
-    <div class="card">
-      <h3>SEO Title</h3>
-      <textarea>${esc(title)}</textarea>
-
-      <h3 style="margin-top:15px">Description</h3>
-      <textarea style="min-height:220px">${esc(description)}</textarea>
-
-      <h3 style="margin-top:15px">Tags</h3>
-      <textarea>${esc(tags)}</textarea>
-
-      <h3 style="margin-top:15px">Thumbnail Prompt</h3>
-      <textarea>16:9 YouTube thumbnail, high-quality 3D educational family animation, ${esc(p.title)}, expressive friendly characters, bright cinematic environment, clear visual storytelling, strong facial expressions, colorful professional composition, no text, no watermark</textarea>
-
-      <div class="actions" style="margin-top:15px">
-        <button class="btn cyan" onclick="copyText(${JSON.stringify(title+"\\n\\n"+description+"\\n\\nTAGS\\n"+tags)},'YouTube pack copied')">📋 Copy YouTube Pack</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-/* =========================================================
-   SHORTS
-========================================================= */
-
-function renderShorts(){
-  const p=state.currentProject;
-
-  if(!p){
-    return emptyPage("Shorts","Create a story first");
-  }
-
-  const scenes=p.scenes||[];
-
-  const shorts=[
-    {
-      title:"Best Dialogue Moment",
-      scenes:scenes.slice(0,2)
-    },
-    {
-      title:"Useful English Expression",
-      scenes:scenes.slice(Math.max(0,Math.floor(scenes.length/2)-1),Math.floor(scenes.length/2)+1)
-    },
-    {
-      title:"Story Problem",
-      scenes:scenes.slice(Math.max(0,scenes.length-3),scenes.length-1)
-    }
-  ];
-
-  return `
-  <div class="page">
-    <div class="page-title">Shorts Generator</div>
-    <div class="page-sub">Turn the long story into short-form content concepts</div>
-
-    <div class="grid grid3">
-      ${shorts.map((x,i)=>`
-        <div class="card">
-          <span class="badge accent">SHORT ${i+1}</span>
-          <h2>${x.title}</h2>
-          <div class="muted">
-            ${x.scenes.length?x.scenes.map(s=>`Scene ${s.number}`).join(" · "):"Generate scenes first"}
-          </div>
-
-          <div class="lock-box" style="margin-top:12px">
-Hook:
-"${i===0?"Can you understand this English conversation?":i===1?"Learn this useful English expression!":"What would you do in this situation?"}"
-
-Format: 9:16
-Duration: 20–30 sec
-CTA: Follow for more English learning stories
-          </div>
-        </div>
-      `).join("")}
-    </div>
-  </div>`;
-}
-
-/* =========================================================
-   PROJECTS
-========================================================= */
-
-function renderProjects(){
-  return `
-  <div class="page">
-    <div class="page-title">Projects</div>
-    <div class="page-sub">Saved local projects</div>
-
-    ${state.projects.length?`
-      <div class="grid grid3">
-        ${state.projects.map(p=>`
-          <div class="card">
-            <div class="actions">
-              <span class="badge accent">${esc(p.level)}</span>
-              <span class="badge">${p.duration} min</span>
-            </div>
-
-            <h2>${esc(p.title)}</h2>
-            <div class="muted">${esc(p.type)}</div>
-
-            <div style="margin-top:12px">
-              <div class="small muted">${p.scenes?.length||0} scenes</div>
-              <div class="progress" style="margin-top:6px">
-                <div style="width:${p.scenes?.length?100:0}%"></div>
-              </div>
-            </div>
-
-            <div class="actions" style="margin-top:14px">
-              <button class="btn sm primary" onclick="openProject('${p.id}')">Open</button>
-              <button class="btn sm danger" onclick="deleteProject('${p.id}')">Delete</button>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    `:`
-      <div class="empty card">No saved projects</div>
-    `}
-  </div>`;
-}
-
-function openProject(id){
-  const p=state.projects.find(x=>x.id===id);
-  if(!p)return;
-
-  state.currentProject=clone(p);
-  saveState();
-  navigate("dashboard");
-  toast("Project opened");
-}
-
-function deleteProject(id){
-  if(!confirm("Delete project?"))return;
-
-  state.projects=state.projects.filter(p=>p.id!==id);
-
-  if(state.currentProject?.id===id){
-    state.currentProject=null;
-  }
+  /* =====================================================
+     SAVE
+     ===================================================== */
 
   saveState();
-  render();
 }
-
-/* =========================================================
-   EXPORT / IMPORT
-========================================================= */
-
-function renderExport(){
-  return `
-  <div class="page">
-    <div class="page-title">Export / Import</div>
-    <div class="page-sub">Backup the complete app data and project</div>
-
-    <div class="grid grid2">
-      <div class="card">
-        <h3>Export Project JSON</h3>
-        <p class="muted">Backup your stories, scenes, characters, locations and settings.</p>
-        <button class="btn primary" onclick="exportJSON()">⬇ Export JSON</button>
-      </div>
-
-      <div class="card">
-        <h3>Import Project JSON</h3>
-        <p class="muted">Restore a previous backup.</p>
-        <input type="file" id="importFile" accept=".json,application/json">
-        <button class="btn cyan" style="margin-top:10px" onclick="importJSON()">Import</button>
-      </div>
-
-      <div class="card">
-        <h3>Export Current Story</h3>
-        <button class="btn success" onclick="exportCurrentStory()">⬇ Story TXT</button>
-      </div>
-
-      <div class="card">
-        <h3>Export Complete Production</h3>
-        <button class="btn warning" onclick="exportAllScenes()">⬇ All Scenes TXT</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-function exportJSON(){
-  const data={
-    app:"AUNG AI STORY VIDEO PRO",
-    version:"2.0",
-    exportedAt:new Date().toISOString(),
-    state
-  };
-
-  downloadText(
-    "AUNG_AI_STORY_VIDEO_PRO_BACKUP.json",
-    JSON.stringify(data,null,2)
-  );
-
-  toast("Backup exported");
-}
-
-function importJSON(){
-  const input=document.getElementById("importFile");
-  const file=input?.files?.[0];
-
-  if(!file){
-    toast("Choose JSON file first");
-    return;
-  }
-
-  const reader=new FileReader();
-
-  reader.onload=()=>{
-    try{
-      const data=JSON.parse(reader.result);
-
-      if(data.state){
-        state={...state,...data.state};
-      }else{
-        state={...state,...data};
-      }
-
-      migrateCharacters();
-      migrateLocations();
-      normalizeProjects();
-      saveState();
-      render();
-
-      toast("Backup imported");
-    }catch(e){
-      console.error(e);
-      toast("Invalid JSON");
-    }
-  };
-
-  reader.readAsText(file);
-}
-
-function exportCurrentStory(){
-  const p=state.currentProject;
-
-  if(!p){
-    toast("No project");
-    return;
-  }
-
-  const text=
-`AUNG AI STORY VIDEO PRO
-
-TITLE
-${p.title}
-
-LEVEL
-${p.level}
-
-TYPE
-${p.type}
-
-DURATION
-${p.duration} MINUTES
-
-STORY
-${p.story}
-
-SCENES
-${p.scenes.map(scenePackage).join("\n\n")}`;
-
-  downloadText("AUNG_AI_STORY_COMPLETE.txt",text);
-}
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-function renderSettings(){
-  return `
-  <div class="page">
-    <div class="page-title">Settings</div>
-    <div class="page-sub">Production defaults</div>
-
-    <div class="card">
-      <div class="form">
-        <div>
-          <label class="label">Default English Level</label>
-          <select id="setLevel">
-            ${LEVELS.map(x=>`<option ${x===state.settings.defaultLevel?"selected":""}>${x}</option>`).join("")}
-          </select>
-        </div>
-
-        <div>
-          <label class="label">Animation Style Lock</label>
-          <textarea id="setStyle">${esc(state.settings.style)}</textarea>
-        </div>
-
-        <div>
-          <label class="label">Narrator</label>
-          <input id="setNarrator" value="${esc(state.settings.narrator)}">
-        </div>
-
-        <div>
-          <label class="label">Voice Gender</label>
-          <select id="setVoiceGender">
-            <option ${state.settings.voiceGender==="Female"?"selected":""}>Female</option>
-            <option ${state.settings.voiceGender==="Male"?"selected":""}>Male</option>
-          </select>
-        </div>
-
-        <label class="check">
-          <input id="setAutoSave" type="checkbox" ${state.settings.autoSave?"checked":""}>
-          Auto Save
-        </label>
-
-        <div class="actions">
-          <button class="btn primary" onclick="saveSettings()">Save Settings</button>
-          <button class="btn danger" onclick="resetApp()">Reset App</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="section card">
-      <h3>Default Style Lock</h3>
-      <div class="lock-box">
-3D educational family animation
-High-quality cinematic cartoon
-Soft realistic lighting
-Consistent character proportions
-Clean colorful environment
-Family-friendly visual style
-No deformation
-No random character changes
-No subtitles
-No watermark
-      </div>
-    </div>
-  </div>`;
-}
-
-function saveSettings(){
-  state.settings.defaultLevel=document.getElementById("setLevel").value;
-  state.settings.style=document.getElementById("setStyle").value;
-  state.settings.narrator=document.getElementById("setNarrator").value;
-  state.settings.voiceGender=document.getElementById("setVoiceGender").value;
-  state.settings.autoSave=document.getElementById("setAutoSave").checked;
-
-  saveState();
-  render();
-  toast("Settings saved");
-}
-
-function resetApp(){
-  if(!confirm("Reset all local app data?"))return;
-
-  localStorage.removeItem(STORAGE_KEY);
-
-  state={
-    activePage:"dashboard",
-    currentProject:null,
-    projects:[],
-    ideas:generateIdeasDatabase(),
-    characters:clone(DEFAULT_CHARACTERS),
-    locations:clone(DEFAULT_LOCATIONS),
-    settings:{...DEFAULT_SETTINGS}
-  };
-
-  saveState();
-  render();
-  toast("App reset");
-}
-
-/* =========================================================
-   EMPTY PAGE
-========================================================= */
-
-function emptyPage(title,message){
-  return `
-  <div class="page">
-    <div class="page-title">${esc(title)}</div>
-    <div class="empty card">
-      <h2>${esc(message)}</h2>
-      <button class="btn primary" onclick="navigate('story')">Create Story</button>
-    </div>
-  </div>`;
-}
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-loadState();
-render();
-
-</script>
-</body>
-</html>
