@@ -1,173 +1,492 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" content="#0b1020">
 <title>AUNG AI STORY VIDEO PRO V4</title>
 
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#080c18;color:#eef2ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-body{min-height:100vh}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.app{display:flex;min-height:100vh}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  font-family:Inter,Arial,sans-serif;
+  background:#070b14;
+  color:#f5f7fb;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ================= SIDEBAR ================= */
 
 .sidebar{
- width:250px;background:#0d1324;border-right:1px solid #202943;
- position:fixed;left:0;top:0;bottom:0;z-index:20;
- overflow-y:auto;padding:18px 12px
+  width:260px;
+  min-height:100vh;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  background:#0c1220;
+  border-right:1px solid #1d2638;
+  z-index:100;
+  overflow-y:auto;
 }
-.logo{font-weight:900;font-size:17px;padding:8px 10px 20px;line-height:1.3}
-.logo span{display:block;color:#8b9cff;font-size:11px;margin-top:4px;font-weight:600}
+
+.brand{
+  padding:22px 18px;
+  border-bottom:1px solid #1d2638;
+}
+
+.brand-title{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+
+.brand-sub{
+  margin-top:5px;
+  color:#8792a8;
+  font-size:11px;
+}
+
+.nav{
+  padding:12px;
+}
+
 .nav button{
- width:100%;text-align:left;background:transparent;color:#aeb8d4;
- border:0;border-radius:10px;padding:11px 12px;margin:2px 0;
- font-weight:650
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#9aa5ba;
+  padding:12px 13px;
+  border-radius:10px;
+  text-align:left;
+  margin-bottom:4px;
+  transition:.2s;
 }
-.nav button:hover,.nav button.active{background:#18213a;color:#fff}
-.main{margin-left:250px;width:calc(100% - 250px);min-width:0}
+
+.nav button:hover{
+  background:#151d2d;
+  color:#fff;
+}
+
+.nav button.active{
+  background:#202b43;
+  color:#fff;
+  box-shadow:inset 3px 0 0 #7c8cff;
+}
+
+.nav-icon{
+  display:inline-block;
+  width:25px;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+  width:100%;
+  margin-left:260px;
+  min-height:100vh;
+}
+
 .topbar{
- height:62px;border-bottom:1px solid #202943;background:#0a0f1e;
- display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:10
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  border-bottom:1px solid #1d2638;
+  background:#090e19;
+  position:sticky;
+  top:0;
+  z-index:50;
 }
-.menuBtn{display:none}
-.topTitle{font-weight:800}
-.content{padding:22px;max-width:1500px;margin:auto}
 
-h1{font-size:27px;margin:0 0 7px}
-h2{font-size:20px;margin:0 0 12px}
-h3{font-size:15px;margin:0 0 9px}
-.muted{color:#8d98b5}
-.small{font-size:12px;color:#8d98b5}
+.top-title{
+  font-size:20px;
+  font-weight:800;
+}
 
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.status{
+  padding:7px 11px;
+  border-radius:20px;
+  background:#13231c;
+  color:#6fe3a4;
+  font-size:11px;
+  font-weight:700;
+}
+
+.page{
+  display:none;
+  padding:28px;
+  max-width:1500px;
+  margin:auto;
+}
+
+.page.active{
+  display:block;
+}
+
+/* ================= CARDS ================= */
+
+.grid{
+  display:grid;
+  gap:16px;
+}
+
+.grid-2{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.grid-3{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.grid-4{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+
 .card{
- background:#10172a;border:1px solid #202943;border-radius:16px;
- padding:17px;margin-bottom:14px
-}
-.stat{font-size:26px;font-weight:900;margin-top:5px}
-.badge{
- display:inline-block;padding:5px 9px;border-radius:20px;
- background:#1b2745;color:#aebcff;font-size:11px;font-weight:800
+  background:#0d1422;
+  border:1px solid #1d2638;
+  border-radius:16px;
+  padding:20px;
 }
 
-.btn{
- border:1px solid #293556;background:#151e35;color:#fff;
- border-radius:10px;padding:10px 14px;font-weight:750
-}
-.btn:hover{background:#202c4a}
-.btn.primary{background:#536dfe;border-color:#536dfe}
-.btn.success{background:#17895c;border-color:#17895c}
-.btn.danger{background:#8c3045;border-color:#8c3045}
-.btn.gold{background:#a87516;border-color:#b88926}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-
-input,select,textarea{
- width:100%;background:#0a1020;color:#f1f4ff;
- border:1px solid #293556;border-radius:10px;padding:11px 12px;
- outline:none
-}
-textarea{min-height:110px;resize:vertical}
-input:focus,select:focus,textarea:focus{border-color:#6178ff}
-label{display:block;font-size:12px;font-weight:750;color:#9fa9c4;margin:0 0 6px}
-.field{margin-bottom:12px}
-
-.page{display:none}
-.page.active{display:block}
-
-.progress{
- height:8px;background:#1b243b;border-radius:20px;overflow:hidden;margin-top:8px
-}
-.progress i{display:block;height:100%;background:#6378ff;width:0}
-
-.charGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.charCard{border:1px solid #263250;background:#111a2d;border-radius:14px;padding:14px}
-.charIcon{
- width:48px;height:48px;border-radius:50%;display:flex;
- align-items:center;justify-content:center;background:#29365c;
- font-size:21px;font-weight:900;margin-bottom:10px
+.card-title{
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:8px;
 }
 
-.scene{
- border:1px solid #263250;background:#0f1729;border-radius:16px;
- margin-bottom:16px;overflow:hidden
+.muted{
+  color:#8792a8;
+  font-size:13px;
 }
-.sceneHead{
- padding:14px 16px;background:#131d33;display:flex;
- justify-content:space-between;align-items:center;gap:10px
-}
-.sceneNum{font-size:16px;font-weight:900}
-.sceneBody{padding:16px}
-.sceneGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sceneBox{
- background:#090f1d;border:1px solid #202b46;border-radius:10px;
- padding:12px;margin-bottom:10px
-}
-.sceneBox .label{
- font-size:10px;color:#8390b2;font-weight:900;
- text-transform:uppercase;margin-bottom:7px
-}
-.sceneText{white-space:pre-wrap;line-height:1.55;font-size:13px}
-.charChips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{
- border:1px solid #334267;background:#111a2e;color:#aeb9d8;
- padding:7px 10px;border-radius:20px;font-size:11px;font-weight:800
-}
-.chip.on{background:#4055ba;border-color:#657aff;color:#fff}
 
-.tableWrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:650px}
-th,td{border-bottom:1px solid #222d47;padding:10px;text-align:left;font-size:12px}
-th{color:#8e9abd}
+.big{
+  font-size:28px;
+  font-weight:900;
+  margin-top:8px;
+}
 
 .hero{
- background:linear-gradient(135deg,#131c36,#101426);
- border:1px solid #29365b;border-radius:20px;padding:22px;margin-bottom:16px
+  background:linear-gradient(135deg,#151d34,#0d1422);
+  border:1px solid #283653;
+  border-radius:20px;
+  padding:26px;
+  margin-bottom:20px;
 }
-.heroTitle{font-size:24px;font-weight:900}
-.heroText{color:#9ca8c4;line-height:1.6;margin-top:7px}
 
-.notice{
- padding:12px;border-radius:10px;background:#171f35;
- border:1px solid #293557;color:#b6c0da;font-size:12px;margin-bottom:12px
+.hero h1{
+  font-size:30px;
+  line-height:1.15;
 }
-.notice.warn{background:#302617;border-color:#624a1d;color:#f0d59a}
 
-.thumb{
- aspect-ratio:16/9;background:linear-gradient(135deg,#16234a,#263c72);
- border-radius:14px;border:1px solid #354774;
- display:flex;align-items:center;justify-content:center;text-align:center;
- padding:20px;margin-bottom:12px
+.hero p{
+  margin-top:10px;
+  color:#9da8bd;
+  max-width:800px;
+  line-height:1.6;
 }
-.thumbText small{display:block;font-size:13px;font-weight:900;letter-spacing:2px}
-.thumbText strong{display:block;font-size:24px;margin-top:8px}
 
-.empty{text-align:center;padding:45px 15px;color:#8994b1}
-hr{border:0;border-top:1px solid #222c44;margin:18px 0}
+/* ================= BUTTONS ================= */
+
+.btn{
+  border:1px solid #2b3854;
+  background:#151e31;
+  color:#fff;
+  border-radius:10px;
+  padding:11px 15px;
+  font-weight:700;
+}
+
+.btn:hover{
+  background:#202c45;
+}
+
+.btn-primary{
+  background:#5969e8;
+  border-color:#5969e8;
+}
+
+.btn-primary:hover{
+  background:#6b79f0;
+}
+
+.btn-success{
+  background:#176b4a;
+  border-color:#1b855b;
+}
+
+.btn-danger{
+  background:#67283a;
+  border-color:#87324b;
+}
+
+.actions{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+
+/* ================= FORMS ================= */
+
+.field{
+  margin-bottom:15px;
+}
+
+.field label{
+  display:block;
+  margin-bottom:7px;
+  color:#aeb8ca;
+  font-size:12px;
+  font-weight:700;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid #27334b;
+  background:#080e19;
+  color:#fff;
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#6575e9;
+}
+
+/* ================= BADGES ================= */
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:800;
+  background:#18223a;
+  color:#aeb9ff;
+  margin:3px;
+}
+
+.badge.green{
+  background:#123323;
+  color:#6fe3a4;
+}
+
+.badge.yellow{
+  background:#3a3012;
+  color:#f2cf6c;
+}
+
+/* ================= SCENE ================= */
+
+.scene-card{
+  background:#0d1422;
+  border:1px solid #1d2638;
+  border-radius:16px;
+  margin-bottom:16px;
+  overflow:hidden;
+}
+
+.scene-head{
+  padding:15px 18px;
+  background:#121a2b;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.scene-number{
+  font-weight:900;
+}
+
+.scene-body{
+  padding:18px;
+}
+
+.scene-time{
+  color:#7f8cff;
+  font-size:12px;
+  font-weight:800;
+}
+
+.scene-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.package{
+  white-space:pre-wrap;
+  background:#070b13;
+  border:1px solid #202b40;
+  padding:14px;
+  border-radius:10px;
+  line-height:1.55;
+  font-size:12px;
+  color:#cbd3e2;
+}
+
+/* ================= CHARACTERS ================= */
+
+.character-card{
+  position:relative;
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#202b45;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  margin-bottom:12px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%) translateY(80px);
+  background:#151e31;
+  border:1px solid #33425f;
+  color:#fff;
+  padding:12px 17px;
+  border-radius:10px;
+  z-index:999;
+  opacity:0;
+  transition:.25s;
+  pointer-events:none;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+  text-align:center;
+  padding:45px 20px;
+  color:#7f899d;
+}
+
+.empty strong{
+  display:block;
+  color:#fff;
+  margin-bottom:7px;
+}
+
+/* ================= MOBILE ================= */
 
 @media(max-width:900px){
- .sidebar{width:225px;transform:translateX(-100%);transition:.2s}
- .sidebar.open{transform:translateX(0)}
- .main{margin-left:0;width:100%}
- .menuBtn{
-  display:block;background:none;border:0;color:#fff;font-size:23px;
-  margin-right:12px
- }
- .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .charGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:620px){
- .content{padding:14px}
- .grid,.grid2,.charGrid,.sceneGrid{grid-template-columns:1fr}
- .topbar{padding:0 13px}
- h1{font-size:23px}
- .heroTitle{font-size:20px}
- .sceneHead{align-items:flex-start}
- .sceneHead .actions{margin-top:0}
- .btn{padding:9px 11px}
+
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+    width:280px;
+    box-shadow:20px 0 60px rgba(0,0,0,.35);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .mobile-menu{
+    display:block;
+    border:1px solid #293650;
+    background:#131c2d;
+    color:#fff;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+  }
+
+  .topbar{
+    padding:0 14px;
+  }
+
+  .page{
+    padding:18px 14px;
+  }
+
+  .grid-4,
+  .grid-3,
+  .grid-2,
+  .scene-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:25px;
+  }
+
+  .top-title{
+    font-size:16px;
+  }
+
+  .status{
+    display:none;
+  }
 }
 </style>
 </head>
@@ -176,2092 +495,2685 @@ hr{border:0;border-top:1px solid #222c44;margin:18px 0}
 
 <div class="app">
 
-<aside class="sidebar" id="sidebar">
- <div class="logo">
-  AUNG AI STORY VIDEO PRO
-  <span>V4 • iPhone Safe Edition</span>
- </div>
+<!-- ================= SIDEBAR ================= -->
 
- <nav class="nav">
-  <button data-page="dashboard">⌂ Dashboard</button>
-  <button data-page="ai-story">✦ AI Story</button>
-  <button data-page="ideas">💡 Story Ideas</button>
-  <button data-page="characters">👥 Characters</button>
-  <button data-page="locations">⌖ Locations</button>
-  <button data-page="scenes">🎬 Scene Studio</button>
-  <button data-page="image-prompts">🖼 Image Prompts</button>
-  <button data-page="video-prompts">▶ Video Prompts</button>
-  <button data-page="text">Aa On-Screen Text</button>
-  <button data-page="voice">🎙 Voice</button>
-  <button data-page="srt">CC SRT / Subtitles</button>
-  <button data-page="lesson">📚 English Lesson</button>
-  <button data-page="thumbnail">▣ Thumbnail</button>
-  <button data-page="youtube">YT YouTube Pack</button>
-  <button data-page="shorts">⚡ Shorts</button>
-  <button data-page="projects">▤ Projects</button>
-  <button data-page="backup">⇅ Backup / Import</button>
-  <button data-page="settings">⚙ Settings</button>
- </nav>
+<aside class="sidebar" id="sidebar">
+
+  <div class="brand">
+    <div class="brand-title">AUNG AI STORY VIDEO PRO</div>
+    <div class="brand-sub">V4 • iPhone Safe Edition</div>
+  </div>
+
+  <nav class="nav">
+
+    <button class="nav-btn active" data-page="dashboard">
+      <span class="nav-icon">⌂</span> Dashboard
+    </button>
+
+    <button class="nav-btn" data-page="ai-story">
+      <span class="nav-icon">✦</span> AI Story
+    </button>
+
+    <button class="nav-btn" data-page="ideas">
+      <span class="nav-icon">💡</span> Story Ideas
+    </button>
+
+    <button class="nav-btn" data-page="characters">
+      <span class="nav-icon">👥</span> Characters
+    </button>
+
+    <button class="nav-btn" data-page="locations">
+      <span class="nav-icon">⌖</span> Locations
+    </button>
+
+    <button class="nav-btn" data-page="scene-studio">
+      <span class="nav-icon">🎬</span> Scene Studio
+    </button>
+
+    <button class="nav-btn" data-page="image-prompts">
+      <span class="nav-icon">🖼</span> Image Prompts
+    </button>
+
+    <button class="nav-btn" data-page="video-prompts">
+      <span class="nav-icon">▶</span> Video Prompts
+    </button>
+
+    <button class="nav-btn" data-page="on-screen">
+      <span class="nav-icon">Aa</span> On-Screen Text
+    </button>
+
+    <button class="nav-btn" data-page="voice">
+      <span class="nav-icon">🎙</span> Voice
+    </button>
+
+    <button class="nav-btn" data-page="srt">
+      <span class="nav-icon">CC</span> SRT / Subtitles
+    </button>
+
+    <button class="nav-btn" data-page="lesson">
+      <span class="nav-icon">📚</span> English Lesson
+    </button>
+
+    <button class="nav-btn" data-page="thumbnail">
+      <span class="nav-icon">▣</span> Thumbnail
+    </button>
+
+    <button class="nav-btn" data-page="youtube">
+      <span class="nav-icon">YT</span> YouTube Pack
+    </button>
+
+    <button class="nav-btn" data-page="shorts">
+      <span class="nav-icon">⚡</span> Shorts
+    </button>
+
+    <button class="nav-btn" data-page="projects">
+      <span class="nav-icon">▤</span> Projects
+    </button>
+
+    <button class="nav-btn" data-page="backup">
+      <span class="nav-icon">⇅</span> Backup / Import
+    </button>
+
+    <button class="nav-btn" data-page="settings">
+      <span class="nav-icon">⚙</span> Settings
+    </button>
+
+  </nav>
 </aside>
+
+<!-- ================= MAIN ================= -->
 
 <main class="main">
 
 <header class="topbar">
- <button class="menuBtn" id="menuBtn">☰</button>
- <div class="topTitle" id="topTitle">Dashboard</div>
+
+  <div style="display:flex;align-items:center;gap:10px">
+
+    <button class="mobile-menu" id="mobileMenu">☰</button>
+
+    <div class="top-title" id="topTitle">
+      Dashboard
+    </div>
+
+  </div>
+
+  <div class="top-right">
+    <div class="status">● SYSTEM READY</div>
+  </div>
+
 </header>
 
-<div class="content">
+<!-- ================= DASHBOARD ================= -->
 
-<!-- DASHBOARD -->
-<section class="page" id="page-dashboard">
- <div class="hero">
-  <div class="heroTitle">AUNG AI STORY VIDEO PRO</div>
-  <div class="heroText">
-   Create original international English-learning animated videos,
-   then copy each production prompt into Google Flow
-  </div>
-  <div class="actions">
-   <button class="btn primary" onclick="newProject()">＋ Create New Story</button>
-   <button class="btn" onclick="go('ai-story')">✦ AI Story Builder</button>
-  </div>
- </div>
+<section class="page active" id="page-dashboard">
 
- <div id="dashboardContent"></div>
+  <div class="hero">
+
+    <div class="badge green">GLOBAL ENGLISH CHANNEL</div>
+
+    <h1>AUNG AI STORY VIDEO PRO V4</h1>
+
+    <p>
+      Create original English-learning animated videos from story idea
+      to scene prompts, voice script, on-screen English, subtitles,
+      thumbnail, YouTube SEO and Shorts
+    </p>
+
+    <div class="actions">
+
+      <button class="btn btn-primary" id="dashboardCreate">
+        ✦ Create New Story
+      </button>
+
+      <button class="btn" id="dashboardScene">
+        🎬 Scene Studio
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="grid grid-4">
+
+    <div class="card">
+      <div class="muted">CURRENT PROJECT</div>
+      <div class="big" id="dashProject">Family Trip</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">CEFR LEVEL</div>
+      <div class="big" id="dashLevel">A1</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">DURATION</div>
+      <div class="big" id="dashDuration">1 MIN</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">SCENES</div>
+      <div class="big" id="dashScenes">6</div>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div class="grid grid-3">
+
+    <div class="card">
+      <div class="card-title">🌍 Global Audience Mode</div>
+      <div class="muted">
+        International English-learning content workflow
+      </div>
+      <div style="margin-top:12px">
+        <span class="badge">A1 → C2</span>
+        <span class="badge">Slow English</span>
+        <span class="badge">Global SEO</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎬 10-Second Scene Engine</div>
+      <div class="muted">
+        Every scene becomes a complete production package
+      </div>
+      <div style="margin-top:12px">
+        <span class="badge green">10 SEC / SCENE</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Aa On-Screen English</div>
+      <div class="muted">
+        English sentence can be requested directly inside the
+        Google Flow video prompt
+      </div>
+      <div style="margin-top:12px">
+        <span class="badge yellow">FLOW READY</span>
+      </div>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div class="card">
+
+    <div class="card-title">Production Workflow</div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+
+      <span class="badge">01 AI Story</span>
+      <span class="badge">02 CEFR</span>
+      <span class="badge">03 Characters</span>
+      <span class="badge">04 Character Lock</span>
+      <span class="badge">05 Story Scenes</span>
+      <span class="badge">06 10-sec Packages</span>
+      <span class="badge">07 Voice</span>
+      <span class="badge">08 On-Screen English</span>
+      <span class="badge">09 SRT</span>
+      <span class="badge">10 English Lesson</span>
+      <span class="badge">11 Thumbnail</span>
+      <span class="badge">12 YouTube SEO</span>
+      <span class="badge">13 Shorts</span>
+
+    </div>
+
+  </div>
+
 </section>
 
-<!-- AI STORY -->
+<!-- ================= AI STORY ================= -->
+
 <section class="page" id="page-ai-story">
- <div class="card">
-  <h1>AI Story Builder</h1>
-  <p class="muted">Idea မရှိလည်း story တစ်ခုလုံးကို generate လုပ်နိုင်ပါတယ်</p>
 
-  <div class="grid2">
-   <div class="field">
-    <label>CEFR LEVEL</label>
-    <select id="level">
-     <option>A1</option><option>A2</option><option>B1</option>
-     <option>B2</option><option>C1</option><option>C2</option>
-    </select>
-   </div>
-
-   <div class="field">
-    <label>DURATION</label>
-    <select id="duration">
-     <option value="1">1 Minute</option>
-     <option value="2">2 Minutes</option>
-     <option value="3" selected>3 Minutes</option>
-     <option value="5">5 Minutes</option>
-     <option value="10">10 Minutes</option>
-     <option value="15">15 Minutes</option>
-    </select>
-   </div>
-
-   <div class="field">
-    <label>STORY TYPE</label>
-    <select id="storyType">
-     <option>Daily Life</option>
-     <option>Family</option>
-     <option>Travel</option>
-     <option>School</option>
-     <option>Work</option>
-     <option>Friendship</option>
-     <option>Adventure</option>
-     <option>English Lesson</option>
-    </select>
-   </div>
-
-   <div class="field">
-    <label>ENGLISH MODE</label>
-    <select id="englishMode">
-     <option>Slow English</option>
-     <option>Normal English</option>
-     <option>Natural English</option>
-    </select>
-   </div>
+  <div class="hero">
+    <div class="badge">AI STORY BUILDER</div>
+    <h1>Create Your Story</h1>
+    <p>
+      You can write your own idea or let the system create an original
+      English-learning story for you
+    </p>
   </div>
 
-  <div class="field">
-   <label>YOUR STORY IDEA — OPTIONAL</label>
-   <textarea id="storyIdea" placeholder="Example: A family goes to the airport for their first international trip"></textarea>
+  <div class="grid grid-2">
+
+    <div class="card">
+
+      <div class="field">
+        <label>Story Title</label>
+        <input id="storyTitle" value="A Family Trip to the Airport">
+      </div>
+
+      <div class="field">
+        <label>Story Idea / Topic</label>
+        <textarea id="storyIdea">A family is getting ready for a trip to the airport. They talk about packing, checking tickets and going through the airport.</textarea>
+      </div>
+
+      <div class="field">
+        <label>CEFR English Level</label>
+        <select id="storyLevel">
+          <option>A1</option>
+          <option>A2</option>
+          <option>B1</option>
+          <option>B2</option>
+          <option>C1</option>
+          <option>C2</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Video Duration</label>
+        <select id="storyDuration">
+          <option value="1">1 Minute</option>
+          <option value="2">2 Minutes</option>
+          <option value="3">3 Minutes</option>
+          <option value="5">5 Minutes</option>
+          <option value="10">10 Minutes</option>
+          <option value="15">15 Minutes</option>
+        </select>
+      </div>
+
+      <div class="actions">
+
+        <button class="btn btn-primary" id="generateStory">
+          ✦ Build Story
+        </button>
+
+        <button class="btn" id="randomStory">
+          🎲 Random Story
+        </button>
+
+        <button class="btn" id="noIdeaStory">
+          💭 I Don't Know What To Make
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-title">Generated Story</div>
+
+      <div id="storyOutput" class="package">
+A family is preparing for an exciting trip.
+
+David checks the tickets while Sarah organizes the bags.
+Emma is excited about the airport.
+Leo carries his small backpack.
+
+The family leaves home together and travels to the airport.
+At the check-in counter, they prepare for their journey.
+
+This story is designed for simple A1 English-learning practice.
+      </div>
+
+      <div class="actions">
+
+        <button class="btn" id="copyStory">
+          Copy Story
+        </button>
+
+        <button class="btn btn-success" id="makeScenes">
+          🎬 Create Scenes
+        </button>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="actions">
-   <button class="btn primary" onclick="generateStory()">✦ Generate Story</button>
-   <button class="btn gold" onclick="randomStory()">🎲 I DON'T KNOW WHAT TO MAKE</button>
-  </div>
- </div>
-
- <div id="storyResult"></div>
 </section>
 
-<!-- IDEAS -->
+<!-- ================= IDEAS ================= -->
+
 <section class="page" id="page-ideas">
- <div class="card">
-  <h1>Story Ideas</h1>
-  <p class="muted">International English-learning YouTube topics</p>
-  <button class="btn primary" onclick="generateIdeas()">🎲 Generate 10 Ideas</button>
- </div>
- <div id="ideasList"></div>
+
+  <div class="hero">
+    <div class="badge">INTERNATIONAL TOPIC LIBRARY</div>
+    <h1>Story Ideas</h1>
+    <p>
+      Original topics for global English-learning videos
+    </p>
+  </div>
+
+  <div class="grid grid-3" id="ideaGrid"></div>
+
 </section>
 
-<!-- CHARACTERS -->
+<!-- ================= CHARACTERS ================= -->
+
 <section class="page" id="page-characters">
- <div class="card">
-  <h1>Characters</h1>
-  <p class="muted">Character Lock is automatically included in every selected scene</p>
- </div>
- <div id="charactersList" class="charGrid"></div>
+
+  <div class="hero">
+
+    <div class="badge">CHARACTER MASTER LOCK</div>
+
+    <h1>Characters</h1>
+
+    <p>
+      Keep character face, hair, clothing, body proportions and
+      personality consistent across every scene
+    </p>
+
+  </div>
+
+  <div class="grid grid-4" id="characterGrid"></div>
+
 </section>
 
-<!-- LOCATIONS -->
+<!-- ================= LOCATIONS ================= -->
+
 <section class="page" id="page-locations">
- <div class="card">
-  <h1>Locations</h1>
-  <p class="muted">Location Lock for Google Flow consistency</p>
- </div>
- <div id="locationsList"></div>
+
+  <div class="hero">
+    <div class="badge">LOCATION LOCK</div>
+    <h1>Locations</h1>
+    <p>Keep environment and visual continuity consistent</p>
+  </div>
+
+  <div class="grid grid-3" id="locationGrid"></div>
+
 </section>
 
-<!-- SCENES -->
-<section class="page" id="page-scenes">
- <div class="hero">
-  <div class="heroTitle">Scene Studio</div>
-  <div class="heroText">
-   Every scene is a complete standalone 10-second Google Flow production package
-  </div>
-  <div class="actions">
-   <button class="btn primary" onclick="generateScenes()">🎬 Generate Scenes</button>
-   <button class="btn success" onclick="copyAllScenes()">📋 COPY ALL SCENES</button>
-   <button class="btn" onclick="exportScenesTxt()">⇩ Export All Scenes TXT</button>
-  </div>
- </div>
+<!-- ================= SCENE STUDIO ================= -->
 
- <div class="notice">
-  Each scene includes Character Lock, Location Lock, Style Lock,
-  Image Prompt, Video Prompt, Dialogue, On-Screen English Text,
-  Text Style, Camera, Action, Emotion, SFX and Continuity
- </div>
+<section class="page" id="page-scene-studio">
 
- <div id="scenesList"></div>
+  <div class="hero">
+
+    <div class="badge">10-SECOND PRODUCTION ENGINE</div>
+
+    <h1>Scene Studio</h1>
+
+    <p>
+      Every scene is a standalone production package for Google Flow
+    </p>
+
+    <div class="actions">
+
+      <button class="btn btn-primary" id="generateScenes">
+        🎬 Generate 10-sec Scenes
+      </button>
+
+      <button class="btn" id="copyAllScenes">
+        Copy All Scenes
+      </button>
+
+      <button class="btn" id="exportScenes">
+        Export All Scenes TXT
+      </button>
+
+    </div>
+
+  </div>
+
+  <div id="sceneList"></div>
+
 </section>
 
-<!-- IMAGE PROMPTS -->
+<!-- ================= IMAGE PROMPTS ================= -->
+
 <section class="page" id="page-image-prompts">
- <div class="card">
-  <h1>Image Prompts</h1>
-  <p class="muted">Scene-by-scene image prompts with Character Lock</p>
-  <button class="btn primary" onclick="copyAllImages()">📋 Copy All Image Prompts</button>
- </div>
- <div id="imagePromptList"></div>
+
+  <div class="hero">
+    <div class="badge">IMAGE PROMPTS</div>
+    <h1>Image Prompt Studio</h1>
+    <p>Scene-specific prompts with Character Lock and Location Lock</p>
+  </div>
+
+  <div id="imagePromptList"></div>
+
 </section>
 
-<!-- VIDEO PROMPTS -->
+<!-- ================= VIDEO PROMPTS ================= -->
+
 <section class="page" id="page-video-prompts">
- <div class="card">
-  <h1>Video Prompts</h1>
-  <p class="muted">Google Flow-ready 10-second prompts</p>
-  <button class="btn primary" onclick="copyAllVideos()">📋 Copy All Video Prompts</button>
- </div>
- <div id="videoPromptList"></div>
-</section>
 
-<!-- TEXT -->
-<section class="page" id="page-text">
- <div class="card">
-  <h1>On-Screen English Text</h1>
-  <p class="muted">
-   English စာသားကို video ထဲမှာ visually ပြဖို့ Flow Prompt ထဲမှာ တစ်ခါတည်းထည့်ပေးထားပါတယ်
-  </p>
-  <div class="notice warn">
-   IMPORTANT: The generated video should display the exact English sentence
-   as visible educational text inside the video, not merely as subtitles
+  <div class="hero">
+    <div class="badge">GOOGLE FLOW READY</div>
+    <h1>Video Prompts</h1>
+    <p>
+      Copy each complete prompt into your video generation workflow
+    </p>
   </div>
- </div>
- <div id="textList"></div>
+
+  <div id="videoPromptList"></div>
+
 </section>
 
-<!-- VOICE -->
+<!-- ================= ON SCREEN ================= -->
+
+<section class="page" id="page-on-screen">
+
+  <div class="hero">
+
+    <div class="badge">ON-SCREEN ENGLISH</div>
+
+    <h1>English Text Inside Video</h1>
+
+    <p>
+      Each scene prompt includes instructions for the English sentence
+      to appear visually inside the generated video
+    </p>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-title">Recommended Text Style</div>
+
+    <div class="package">ON-SCREEN ENGLISH TEXT:
+Display the exact English sentence inside the generated video.
+
+TEXT STYLE:
+Large, clear educational English text.
+Bold rounded font.
+White main text with a bright yellow highlight
+on the key learning word.
+Dark semi-transparent rounded background.
+Place the text in the lower third.
+Keep text inside safe margins.
+Keep the sentence clearly readable.
+Do not crop or distort the text.
+Do not add any other words.
+
+IMPORTANT:
+The English sentence must appear visually inside
+the generated video, not only as subtitles.</div>
+
+  </div>
+
+</section>
+
+<!-- ================= VOICE ================= -->
+
 <section class="page" id="page-voice">
- <div class="card">
-  <h1>Voice Director</h1>
-  <div class="grid2">
-   <div class="field">
-    <label>VOICE MODE</label>
-    <select id="voiceMode">
-     <option>Character Voice</option>
-     <option>Narrator + Character</option>
-     <option>Dialogue Only</option>
-    </select>
-   </div>
-   <div class="field">
-    <label>SPEED</label>
-    <select id="voiceSpeed">
-     <option>Slow</option>
-     <option selected>Natural</option>
-     <option>Fast</option>
-    </select>
-   </div>
+
+  <div class="hero">
+    <div class="badge">VOICE DIRECTOR</div>
+    <h1>Voice & Slow English</h1>
+    <p>Prepare dialogue and narration for international learners</p>
   </div>
- </div>
- <div id="voiceList"></div>
+
+  <div class="grid grid-3">
+
+    <div class="card">
+      <div class="card-title">Voice Mode</div>
+      <select>
+        <option>Slow English</option>
+        <option>Natural English</option>
+        <option>Very Slow English</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Narrator</div>
+      <select>
+        <option>Warm Female</option>
+        <option>Warm Male</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Dialogue Speed</div>
+      <select>
+        <option>0.85x</option>
+        <option>0.90x</option>
+        <option>1.00x</option>
+      </select>
+    </div>
+
+  </div>
+
 </section>
 
-<!-- SRT -->
+<!-- ================= SRT ================= -->
+
 <section class="page" id="page-srt">
- <div class="card">
-  <h1>SRT / Subtitles</h1>
-  <p class="muted">Exact 10-second scene timing</p>
-  <textarea id="srtOutput" style="min-height:400px"></textarea>
-  <div class="actions">
-   <button class="btn primary" onclick="generateSRT()">Generate SRT</button>
-   <button class="btn" onclick="copyText(document.getElementById('srtOutput').value)">Copy SRT</button>
-   <button class="btn" onclick="downloadText('story.srt',document.getElementById('srtOutput').value)">Download SRT</button>
+
+  <div class="hero">
+    <div class="badge">SUBTITLE ENGINE</div>
+    <h1>SRT / Subtitles</h1>
+    <p>Exact 10-second scene timing</p>
   </div>
- </div>
+
+  <div class="card">
+
+    <textarea id="srtOutput" style="min-height:350px"></textarea>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="generateSrt">
+        Generate SRT
+      </button>
+
+      <button class="btn" id="copySrt">
+        Copy SRT
+      </button>
+    </div>
+
+  </div>
+
 </section>
 
-<!-- LESSON -->
+<!-- ================= LESSON ================= -->
+
 <section class="page" id="page-lesson">
- <div id="lessonContent"></div>
+
+  <div class="hero">
+    <div class="badge">ENGLISH LEARNING PACK</div>
+    <h1>English Lesson</h1>
+    <p>Vocabulary, key sentences and comprehension practice</p>
+  </div>
+
+  <div class="grid grid-3">
+
+    <div class="card">
+      <div class="card-title">Vocabulary</div>
+      <div class="package">
+airport
+ticket
+luggage
+check-in
+trip
+family
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Key Sentences</div>
+      <div class="package">
+Are you ready?
+Where is my ticket?
+Let's go to the airport.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Mini Quiz</div>
+      <div class="package">
+1. Where is the family going?
+
+A. School
+B. Airport
+C. Restaurant
+
+Answer: B
+      </div>
+    </div>
+
+  </div>
+
 </section>
 
-<!-- THUMBNAIL -->
+<!-- ================= THUMBNAIL ================= -->
+
 <section class="page" id="page-thumbnail">
- <div class="card">
-  <h1>YouTube Thumbnail</h1>
-  <p class="muted">
-   One thumbnail per video — not one thumbnail per scene
-  </p>
-  <div class="thumb">
-   <div class="thumbText">
-    <small>SLOW ENGLISH</small>
-    <strong id="thumbPreview">A Family Trip to the Airport</strong>
-   </div>
+
+  <div class="hero">
+
+    <div class="badge">YOUTUBE THUMBNAIL GENERATOR</div>
+
+    <h1>One Thumbnail Per Video</h1>
+
+    <p>
+      The thumbnail represents the whole story, not individual scenes
+    </p>
+
   </div>
 
-  <div class="field">
-   <label>THUMBNAIL TITLE</label>
-   <input id="thumbTitle">
+  <div class="card">
+
+    <div class="field">
+      <label>Thumbnail Text</label>
+      <input id="thumbnailText" value="SLOW ENGLISH">
+    </div>
+
+    <div class="field">
+      <label>Video Title</label>
+      <input id="thumbnailTitle" value="A Family Trip to the Airport">
+    </div>
+
+    <div class="package" id="thumbnailPrompt">Create a high-quality 16:9 YouTube thumbnail for an original English-learning animated family story.
+
+Main characters:
+David, Sarah, Emma and Leo.
+
+Show the family together in a modern international airport with luggage.
+
+Bright expressive faces, friendly family emotion, cinematic 3D animated family illustration, polished international educational YouTube look.
+
+Composition:
+The whole story should be represented.
+Do not show Scene 01, Scene 02 or Scene 03.
+Use one strong main image.
+
+Text:
+SLOW ENGLISH
+A FAMILY TRIP TO THE AIRPORT
+
+Large readable title area.
+Clean composition.
+High contrast.
+Safe margins.
+16:9 YouTube thumbnail.</div>
+
+    <div class="actions">
+      <button class="btn" id="copyThumbnail">
+        Copy Thumbnail Prompt
+      </button>
+    </div>
+
   </div>
 
-  <textarea id="thumbPrompt" style="min-height:270px"></textarea>
-
-  <div class="actions">
-   <button class="btn primary" onclick="buildThumbnail()">Generate Thumbnail Prompt</button>
-   <button class="btn" onclick="copyText(document.getElementById('thumbPrompt').value)">Copy Prompt</button>
-  </div>
- </div>
 </section>
 
-<!-- YOUTUBE -->
+<!-- ================= YOUTUBE ================= -->
+
 <section class="page" id="page-youtube">
- <div id="youtubeContent"></div>
+
+  <div class="hero">
+    <div class="badge">INTERNATIONAL YOUTUBE PACK</div>
+    <h1>YouTube Pack</h1>
+    <p>Global title, description, keywords, hashtags and chapters</p>
+  </div>
+
+  <div class="card">
+
+    <div class="field">
+      <label>SEO Title</label>
+      <input id="ytTitle" value="A Family Trip to the Airport | Slow English for Beginners A1">
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <textarea id="ytDescription">Learn simple English through an original animated family story.
+
+In this A1 Slow English lesson, you will learn useful everyday English vocabulary and simple sentences about family travel, luggage, tickets and the airport.
+
+Perfect for English beginners and learners who want to improve listening and everyday conversation.</textarea>
+    </div>
+
+    <div class="field">
+      <label>Tags</label>
+      <input id="ytTags" value="slow english, english for beginners, A1 english, learn english, english listening, english conversation, english story, animated english story">
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="copyYoutube">
+        Copy YouTube Pack
+      </button>
+    </div>
+
+  </div>
+
 </section>
 
-<!-- SHORTS -->
+<!-- ================= SHORTS ================= -->
+
 <section class="page" id="page-shorts">
- <div class="card">
-  <h1>Shorts Generator</h1>
-  <p class="muted">Create short-form ideas from the main story</p>
-  <button class="btn primary" onclick="generateShorts()">⚡ Generate 5 Shorts</button>
- </div>
- <div id="shortsList"></div>
+
+  <div class="hero">
+    <div class="badge">SHORTS GENERATOR</div>
+    <h1>Shorts Ideas</h1>
+    <p>Turn the long story into short English-learning clips</p>
+  </div>
+
+  <div class="grid grid-3">
+
+    <div class="card">
+      <div class="card-title">Short 01</div>
+      <div class="muted">3 useful airport English sentences</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Short 02</div>
+      <div class="muted">Learn the word “luggage”</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Short 03</div>
+      <div class="muted">Slow English family conversation</div>
+    </div>
+
+  </div>
+
 </section>
 
-<!-- PROJECTS -->
+<!-- ================= PROJECTS ================= -->
+
 <section class="page" id="page-projects">
- <div class="card">
-  <h1>Projects</h1>
-  <button class="btn primary" onclick="newProject()">＋ New Project</button>
- </div>
- <div id="projectsList"></div>
+
+  <div class="hero">
+    <div class="badge">PROJECT MANAGER</div>
+    <h1>Projects</h1>
+    <p>Save and continue your stories</p>
+  </div>
+
+  <div id="projectList"></div>
+
 </section>
 
-<!-- BACKUP -->
+<!-- ================= BACKUP ================= -->
+
 <section class="page" id="page-backup">
- <div class="card">
-  <h1>Backup / Import</h1>
-  <p class="muted">Save the complete project as JSON</p>
-  <div class="actions">
-   <button class="btn primary" onclick="backupProject()">⇩ Export JSON</button>
-   <button class="btn" onclick="document.getElementById('importFile').click()">⇧ Import JSON</button>
-   <input type="file" id="importFile" accept=".json,application/json" style="display:none">
+
+  <div class="hero">
+    <div class="badge">DATA SAFETY</div>
+    <h1>Backup / Import</h1>
+    <p>Export your complete project as JSON and restore it later</p>
   </div>
- </div>
+
+  <div class="card">
+
+    <div class="actions">
+
+      <button class="btn btn-primary" id="exportBackup">
+        ⇩ Export JSON
+      </button>
+
+      <button class="btn" id="importButton">
+        ⇧ Import JSON
+      </button>
+
+      <input
+        type="file"
+        id="importFile"
+        accept=".json"
+        style="display:none"
+      >
+
+    </div>
+
+  </div>
+
 </section>
 
-<!-- SETTINGS -->
+<!-- ================= SETTINGS ================= -->
+
 <section class="page" id="page-settings">
- <div class="card">
-  <h1>Settings</h1>
 
-  <div class="field">
-   <label>CHANNEL NAME</label>
-   <input id="channelName" value="Slow English">
+  <div class="hero">
+    <div class="badge">SETTINGS</div>
+    <h1>App Settings</h1>
+    <p>Global production preferences</p>
   </div>
 
-  <div class="field">
-   <label>VISUAL STYLE</label>
-   <textarea id="visualStyle">High-quality 3D educational family animation, cinematic cartoon illustration, soft realistic lighting, clean colorful environment, expressive faces, consistent character proportions, family-friendly international YouTube visual style</textarea>
+  <div class="grid grid-2">
+
+    <div class="card">
+
+      <div class="field">
+        <label>Audience</label>
+        <select id="settingAudience">
+          <option>International</option>
+          <option>Myanmar</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>English Level</label>
+        <select id="settingLevel">
+          <option>A1</option>
+          <option>A2</option>
+          <option>B1</option>
+          <option>B2</option>
+          <option>C1</option>
+          <option>C2</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>English Mode</label>
+        <select id="settingEnglish">
+          <option>Slow English</option>
+          <option>Natural English</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" id="saveSettings">
+        Save Settings
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      <div class="card-title">Global Visual Style Lock</div>
+
+      <div class="package">ORIGINAL 3D EDUCATIONAL FAMILY ANIMATION
+
+High-quality cinematic cartoon animation.
+Consistent character proportions.
+Consistent clothing and colors.
+Clean colorful environments.
+Soft realistic lighting.
+Family-friendly educational visual style.
+International YouTube learning content.
+16:9 master composition.</div>
+
+    </div>
+
   </div>
 
-  <button class="btn primary" onclick="saveSettings()">Save Settings</button>
- </div>
 </section>
 
-</div>
 </main>
 </div>
 
+<div class="toast" id="toast">Copied</div>
+
 <script>
-/* =========================================================
-   AUNG AI STORY VIDEO PRO V4
-   iPhone Safe Edition
-   ========================================================= */
+(function(){
 
-var STORAGE_KEY = "AUNG_AI_STORY_VIDEO_PRO_V4_SAFE";
-var state = null;
-var currentPage = "dashboard";
+"use strict";
 
-/* ---------- DEFAULT CHARACTERS ---------- */
+/* ================= DATA ================= */
 
-var DEFAULT_CHARS = [
- {
-  id:"david",name:"David",role:"Father",age:42,gender:"Male",
-  appearance:"42-year-old father, warm natural skin tone, friendly mature oval face, short neat black hair with a few gray strands",
-  clothes:"light blue shirt, navy trousers, white sneakers, silver wristwatch, black travel bag",
-  personality:"calm, responsible, caring, helpful",
-  voice:"warm mature male voice"
- },
- {
-  id:"sarah",name:"Sarah",role:"Mother",age:39,gender:"Female",
-  appearance:"39-year-old mother, warm natural skin tone, friendly oval face, shoulder-length dark brown hair",
-  clothes:"pink cardigan, white blouse, beige trousers, white sneakers, beige handbag",
-  personality:"kind, caring, organized, cheerful",
-  voice:"warm mature female voice"
- },
- {
-  id:"emma",name:"Emma",role:"Girl",age:12,gender:"Female",
-  appearance:"12-year-old girl, warm natural skin tone, cute youthful face, long dark brown ponytail",
-  clothes:"yellow hoodie, blue jeans, white sneakers, pink backpack",
-  personality:"curious, cheerful, energetic, friendly",
-  voice:"young cheerful girl voice"
- },
- {
-  id:"leo",name:"Leo",role:"Boy",age:9,gender:"Male",
-  appearance:"9-year-old boy, warm natural skin tone, cute round youthful face, short slightly messy black hair",
-  clothes:"green T-shirt, blue shorts, white sneakers, blue backpack",
-  personality:"playful, curious, energetic, happy",
-  voice:"young cheerful boy voice"
- }
-];
+var STORAGE_KEY = "AUNG_AI_STORY_VIDEO_PRO_V4_CLEAN";
 
-/* ---------- DEFAULT LOCATIONS ---------- */
+var state = {
+  project: {
+    title: "A Family Trip to the Airport",
+    level: "A1",
+    duration: 1,
+    idea: "A family is getting ready for a trip to the airport.",
+    scenes: []
+  },
 
-var DEFAULT_LOCATIONS = [
- {
-  id:"airport",
-  name:"Modern International Airport",
-  description:"Large modern international airport with glass windows, check-in counters, airport signs, luggage carts, clean polished floor, warm natural morning lighting"
- },
- {
-  id:"home",
-  name:"Modern Family Home",
-  description:"Bright comfortable modern family home, clean living room, dining area, soft daylight, warm family atmosphere"
- },
- {
-  id:"school",
-  name:"Modern International School",
-  description:"Clean modern school campus, bright classroom, educational posters, desks, windows and natural daylight"
- }
-];
+  characters: [
+    {
+      name:"David",
+      role:"Father",
+      age:42,
+      gender:"Male",
+      hair:"Short neat black hair with a few gray strands",
+      skin:"Warm natural skin tone",
+      clothes:"Light blue shirt, navy trousers, white sneakers",
+      accessories:"Silver wristwatch, black travel bag",
+      personality:"Warm, calm, responsible and caring father",
+      voice:"Warm mature male voice"
+    },
+    {
+      name:"Sarah",
+      role:"Mother",
+      age:39,
+      gender:"Female",
+      hair:"Shoulder-length dark brown hair",
+      skin:"Warm natural skin tone",
+      clothes:"Pink cardigan, white blouse, beige trousers, white sneakers",
+      accessories:"Beige handbag",
+      personality:"Kind, caring, organized and cheerful mother",
+      voice:"Warm mature female voice"
+    },
+    {
+      name:"Emma",
+      role:"Girl",
+      age:12,
+      gender:"Female",
+      hair:"Long dark brown ponytail",
+      skin:"Warm natural skin tone",
+      clothes:"Yellow hoodie, blue jeans, white sneakers",
+      accessories:"Pink backpack",
+      personality:"Curious, cheerful and energetic girl",
+      voice:"Young cheerful girl voice"
+    },
+    {
+      name:"Leo",
+      role:"Boy",
+      age:9,
+      gender:"Male",
+      hair:"Short slightly messy black hair",
+      skin:"Warm natural skin tone",
+      clothes:"Green T-shirt, blue shorts, white sneakers",
+      accessories:"Blue backpack",
+      personality:"Playful, friendly and excited boy",
+      voice:"Young cheerful boy voice"
+    }
+  ],
 
-/* ---------- STORY IDEAS ---------- */
+  locations:[
+    {
+      name:"Modern International Airport",
+      description:"Clean modern international airport with large glass windows, check-in counters, airport signs, luggage carts and warm natural morning lighting."
+    },
+    {
+      name:"Modern Family Home",
+      description:"Comfortable modern family home with bright living room, luggage, travel bags and natural morning light."
+    },
+    {
+      name:"Modern School",
+      description:"Bright modern school with classrooms, hallways, books and friendly educational atmosphere."
+    }
+  ],
 
-var STORY_IDEAS = [
- "A family prepares for their first international trip",
- "A girl orders breakfast at a small cafe",
- "A boy learns how to ask for directions",
- "Two friends meet at a train station",
- "A family checks into a hotel",
- "A student prepares for an English presentation",
- "A young person gets their first part-time job",
- "A family visits a new city",
- "A child learns useful airport English",
- "A family goes shopping for a birthday",
- "A student makes a new international friend",
- "A family has a picnic in a beautiful park",
- "A boy loses his backpack and asks for help",
- "A girl practices English at a restaurant",
- "A family learns how to use public transportation"
-];
+  settings:{
+    audience:"International",
+    level:"A1",
+    english:"Slow English"
+  }
+};
 
-/* ---------- UTILITIES ---------- */
+/* ================= LOAD ================= */
 
-function clone(obj){
- try{return JSON.parse(JSON.stringify(obj));}
- catch(e){return obj;}
+function loadState(){
+
+  try{
+
+    var saved = localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+
+      var parsed = JSON.parse(saved);
+
+      if(parsed.project){
+        state.project = parsed.project;
+      }
+
+      if(parsed.characters){
+        state.characters = parsed.characters;
+      }
+
+      if(parsed.locations){
+        state.locations = parsed.locations;
+      }
+
+      if(parsed.settings){
+        state.settings = parsed.settings;
+      }
+
+    }
+
+  }catch(error){
+
+    console.log("Storage load skipped");
+
+  }
+
 }
 
-function uid(){
- return "p_" + new Date().getTime() + "_" + Math.floor(Math.random()*9999);
-}
-
-function escapeHtml(str){
- str = String(str == null ? "" : str);
- return str.replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-}
-
-function safeGet(key){
- try{return localStorage.getItem(key);}
- catch(e){return null;}
-}
-
-function safeSet(key,val){
- try{
-  localStorage.setItem(key,val);
-  return true;
- }catch(e){
-  return false;
- }
-}
+/* ================= SAVE ================= */
 
 function saveState(){
- if(!state)return;
- safeSet(STORAGE_KEY,JSON.stringify(state));
+
+  try{
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+    );
+  }catch(error){
+    console.log("Storage save skipped");
+  }
+
+}
+
+/* ================= HELPERS ================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+function showToast(message){
+
+  var toast = $("toast");
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(function(){
+    toast.classList.remove("show");
+  },1800);
+
 }
 
 function copyText(text){
- text = String(text || "");
- if(!text){
-  alert("Nothing to copy");
-  return;
- }
 
- if(navigator.clipboard && navigator.clipboard.writeText){
-  navigator.clipboard.writeText(text).then(function(){
-   alert("Copied");
-  }).catch(function(){
-   fallbackCopy(text);
-  });
- }else{
-  fallbackCopy(text);
- }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+
+    navigator.clipboard.writeText(text)
+    .then(function(){
+      showToast("Copied");
+    })
+    .catch(function(){
+      fallbackCopy(text);
+    });
+
+  }else{
+
+    fallbackCopy(text);
+
+  }
+
 }
 
 function fallbackCopy(text){
- var ta=document.createElement("textarea");
- ta.value=text;
- ta.style.position="fixed";
- ta.style.left="-9999px";
- document.body.appendChild(ta);
- ta.focus();
- ta.select();
 
- try{
-  document.execCommand("copy");
-  alert("Copied");
- }catch(e){
-  alert("Copy failed. Please select and copy manually.");
- }
+  var area = document.createElement("textarea");
 
- document.body.removeChild(ta);
-}
+  area.value = text;
 
-function downloadText(filename,text){
- var blob=new Blob([text],{type:"text/plain;charset=utf-8"});
- var url=URL.createObjectURL(blob);
- var a=document.createElement("a");
- a.href=url;
- a.download=filename;
- document.body.appendChild(a);
- a.click();
- setTimeout(function(){
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
- },500);
-}
+  document.body.appendChild(area);
 
-function go(page){
- currentPage=page;
+  area.select();
 
- var pages=document.querySelectorAll(".page");
- for(var i=0;i<pages.length;i++){
-  pages[i].classList.remove("active");
- }
-
- var target=document.getElementById("page-"+page);
- if(target)target.classList.add("active");
-
- var nav=document.querySelectorAll(".nav button");
- for(var j=0;j<nav.length;j++){
-  nav[j].classList.remove("active");
-  if(nav[j].getAttribute("data-page")===page){
-   nav[j].classList.add("active");
+  try{
+    document.execCommand("copy");
+    showToast("Copied");
+  }catch(error){
+    showToast("Copy failed");
   }
- }
 
- var names={
-  dashboard:"Dashboard",
+  document.body.removeChild(area);
+
+}
+
+/* ================= NAVIGATION ================= */
+
+var titles = {
+  "dashboard":"Dashboard",
   "ai-story":"AI Story",
-  ideas:"Story Ideas",
-  characters:"Characters",
-  locations:"Locations",
-  scenes:"Scene Studio",
+  "ideas":"Story Ideas",
+  "characters":"Characters",
+  "locations":"Locations",
+  "scene-studio":"Scene Studio",
   "image-prompts":"Image Prompts",
   "video-prompts":"Video Prompts",
-  text:"On-Screen Text",
-  voice:"Voice",
-  srt:"SRT / Subtitles",
-  lesson:"English Lesson",
-  thumbnail:"Thumbnail",
-  youtube:"YouTube Pack",
-  shorts:"Shorts",
-  projects:"Projects",
-  backup:"Backup / Import",
-  settings:"Settings"
- };
+  "on-screen":"On-Screen Text",
+  "voice":"Voice",
+  "srt":"SRT / Subtitles",
+  "lesson":"English Lesson",
+  "thumbnail":"Thumbnail",
+  "youtube":"YouTube Pack",
+  "shorts":"Shorts",
+  "projects":"Projects",
+  "backup":"Backup / Import",
+  "settings":"Settings"
+};
 
- document.getElementById("topTitle").textContent=names[page] || "AUNG AI STORY VIDEO PRO";
+function openPage(page){
 
- document.getElementById("sidebar").classList.remove("open");
+  var pages = document.querySelectorAll(".page");
 
- refreshPage(page);
-}
+  var buttons = document.querySelectorAll(".nav-btn");
 
-/* ---------- DEFAULT PROJECT ---------- */
+  var i;
 
-function makeDefaultProject(){
- return {
-  id:uid(),
-  title:"A Family Trip to the Airport",
-  level:"A1",
-  duration:3,
-  storyType:"Family",
-  englishMode:"Slow English",
-  idea:"A family prepares for their first international trip and goes to the airport",
-  story:"",
-  structure:[],
-  scenes:[],
-  created:new Date().toISOString(),
-  updated:new Date().toISOString()
- };
-}
-
-function createState(){
- var p=makeDefaultProject();
-
- return {
-  version:4,
-  currentProjectId:p.id,
-  projects:[p],
-  characters:clone(DEFAULT_CHARS),
-  locations:clone(DEFAULT_LOCATIONS),
-  settings:{
-   channelName:"Slow English",
-   visualStyle:"High-quality 3D educational family animation, cinematic cartoon illustration, soft realistic lighting, clean colorful environment, expressive faces, consistent character proportions, family-friendly international YouTube visual style"
+  for(i=0;i<pages.length;i++){
+    pages[i].classList.remove("active");
   }
-}
 
-function loadState(){
- var raw=safeGet(STORAGE_KEY);
-
- if(raw){
-  try{
-   state=JSON.parse(raw);
-  }catch(e){
-   state=createState();
+  for(i=0;i<buttons.length;i++){
+    buttons[i].classList.remove("active");
   }
- }else{
-  state=createState();
- }
 
- if(!state || !state.projects || !state.projects.length){
-  state=createState();
- }
+  var target = $("page-"+page);
 
- if(!state.characters || !state.characters.length){
-  state.characters=clone(DEFAULT_CHARS);
- }
-
- if(!state.locations || !state.locations.length){
-  state.locations=clone(DEFAULT_LOCATIONS);
- }
-
- if(!state.settings){
-  state.settings={
-   channelName:"Slow English",
-   visualStyle:"High-quality 3D educational family animation, cinematic cartoon illustration, soft realistic lighting, clean colorful environment, expressive faces, consistent character proportions, family-friendly international YouTube visual style"
-  };
- }
-
- if(!state.currentProjectId || !getProject()){
-  state.currentProjectId=state.projects[0].id;
- }
-
- for(var i=0;i<state.projects.length;i++){
-  normalizeProject(state.projects[i]);
- }
-
- saveState();
-}
-
-function getProject(){
- if(!state || !state.projects)return null;
-
- for(var i=0;i<state.projects.length;i++){
-  if(state.projects[i].id===state.currentProjectId){
-   return state.projects[i];
+  if(target){
+    target.classList.add("active");
   }
- }
 
- return state.projects[0] || null;
+  for(i=0;i<buttons.length;i++){
+
+    if(buttons[i].getAttribute("data-page") === page){
+      buttons[i].classList.add("active");
+    }
+
+  }
+
+  $("topTitle").textContent = titles[page] || "Dashboard";
+
+  $("sidebar").classList.remove("open");
+
+  refreshPage(page);
+
 }
 
-function normalizeProject(p){
- if(!p.scenes)p.scenes=[];
- if(!p.structure)p.structure=[];
- if(!p.title)p.title="Untitled English Story";
- if(!p.level)p.level="A1";
- if(!p.duration)p.duration=3;
- if(!p.storyType)p.storyType="Family";
- if(!p.englishMode)p.englishMode="Slow English";
+function setupNavigation(){
 
- for(var i=0;i<p.scenes.length;i++){
-  var s=p.scenes[i];
-  if(!s.characters)s.characters=[];
-  if(!s.onScreenText)s.onScreenText=s.dialogue || "";
-  if(!s.highlightWord)s.highlightWord="";
-  if(!s.textStyle)s.textStyle="Large bold white educational text with yellow highlight on the key word, dark semi-transparent rounded background, lower third, safe margins";
-  if(!s.locationId)s.locationId="airport";
-  if(!s.duration)s.duration=10;
- }
+  var buttons = document.querySelectorAll(".nav-btn");
+
+  for(var i=0;i<buttons.length;i++){
+
+    buttons[i].addEventListener("click",function(){
+
+      openPage(
+        this.getAttribute("data-page")
+      );
+
+    });
+
+  }
+
+  $("mobileMenu").addEventListener("click",function(){
+
+    $("sidebar").classList.toggle("open");
+
+  });
+
 }
 
-/* ---------- PROJECT ---------- */
+/* ================= DASHBOARD ================= */
 
-function newProject(){
- var p=makeDefaultProject();
- state.projects.unshift(p);
- state.currentProjectId=p.id;
- saveState();
+function refreshDashboard(){
 
- document.getElementById("storyIdea").value="";
- document.getElementById("storyResult").innerHTML="";
- go("ai-story");
+  var p = state.project;
+
+  $("dashProject").textContent =
+    p.title || "Untitled Story";
+
+  $("dashLevel").textContent =
+    p.level || "A1";
+
+  $("dashDuration").textContent =
+    String(p.duration || 1) + " MIN";
+
+  var sceneCount =
+    p.scenes && p.scenes.length
+      ? p.scenes.length
+      : Number(p.duration || 1) * 6;
+
+  $("dashScenes").textContent =
+    String(sceneCount);
+
 }
 
-function deleteProject(id){
- if(state.projects.length<=1){
-  alert("At least one project must remain");
-  return;
- }
+/* ================= STORY ================= */
 
- var next=[];
- for(var i=0;i<state.projects.length;i++){
-  if(state.projects[i].id!==id)next.push(state.projects[i]);
- }
+var randomIdeas = [
 
- state.projects=next;
+  {
+    title:"A Morning at School",
+    type:"School",
+    idea:"Emma arrives at school and talks with her friend about the morning."
+  },
 
- if(state.currentProjectId===id){
-  state.currentProjectId=state.projects[0].id;
- }
+  {
+    title:"A Day at the Supermarket",
+    type:"Daily Life",
+    idea:"A family goes shopping and learns useful English words."
+  },
 
- saveState();
- renderProjects();
-}
+  {
+    title:"A Family Trip to the Airport",
+    type:"Travel",
+    idea:"A family prepares their bags and travels to the airport."
+  },
 
-function openProject(id){
- state.currentProjectId=id;
- saveState();
- go("dashboard");
-}
+  {
+    title:"My First Day at Work",
+    type:"Work",
+    idea:"A young worker arrives at a new office and meets the team."
+  },
 
-function syncProject(){
- var p=getProject();
- if(p)p.updated=new Date().toISOString();
- saveState();
-}
+  {
+    title:"Making a New Friend",
+    type:"Friendship",
+    idea:"Two students meet for the first time and start a friendly conversation."
+  },
 
-/* ---------- STORY GENERATION ---------- */
+  {
+    title:"A Rainy Day",
+    type:"Daily Life",
+    idea:"A family stays home on a rainy day and enjoys simple activities."
+  },
+
+  {
+    title:"At the Coffee Shop",
+    type:"Daily Life",
+    idea:"A customer orders a drink and practices polite English."
+  },
+
+  {
+    title:"A Weekend Adventure",
+    type:"Adventure",
+    idea:"A family visits a beautiful place and discovers something new."
+  },
+
+  {
+    title:"Going to the Doctor",
+    type:"Daily Life",
+    idea:"A young person visits a doctor and explains how they feel."
+  },
+
+  {
+    title:"Shopping for Clothes",
+    type:"Daily Life",
+    idea:"Emma goes shopping and asks about sizes and prices."
+  }
+
+];
 
 function generateStory(){
- var p=getProject();
 
- var level=document.getElementById("level").value;
- var duration=parseInt(document.getElementById("duration").value,10);
- var type=document.getElementById("storyType").value;
- var mode=document.getElementById("englishMode").value;
- var idea=document.getElementById("storyIdea").value.trim();
+  var title = $("storyTitle").value.trim();
+  var idea = $("storyIdea").value.trim();
+  var level = $("storyLevel").value;
+  var duration = Number($("storyDuration").value);
 
- if(!idea){
-  idea=STORY_IDEAS[Math.floor(Math.random()*STORY_IDEAS.length)];
- }
+  if(!title){
+    title = "My New English Story";
+  }
 
- p.level=level;
- p.duration=duration;
- p.storyType=type;
- p.englishMode=mode;
- p.idea=idea;
+  if(!idea){
+    idea = "An original everyday English-learning story.";
+  }
 
- var title=makeTitle(idea,type);
- p.title=title;
+  state.project.title = title;
+  state.project.idea = idea;
+  state.project.level = level;
+  state.project.duration = duration;
+  state.project.scenes = [];
 
- p.structure=[
-  "HOOK — Introduce a simple interesting situation",
-  "INTRODUCTION — Introduce the family and setting",
-  "PROBLEM — A small everyday problem appears",
-  "DEVELOPMENT — Characters communicate and solve it",
-  "CLIMAX — They make an important decision",
-  "ENDING — The family reaches a positive result",
-  "ENGLISH LESSON — Repeat useful real-life expressions"
- ];
+  var output =
+    title + "\n\n" +
+    "Level: " + level + "\n" +
+    "Duration: " + duration + " minute(s)\n\n" +
+    "STORY\n\n" +
+    idea + "\n\n" +
+    "David, Sarah, Emma and Leo experience this situation together.\n" +
+    "They speak simple English and learn useful everyday expressions.\n\n" +
+    "The story should be divided into " +
+    (duration * 6) +
+    " scenes of exactly 10 seconds each.";
 
- p.story=buildStoryText(p);
+  $("storyOutput").textContent = output;
 
- saveState();
- renderStoryResult();
+  saveState();
+  refreshDashboard();
 
- generateScenes();
-}
+  showToast("Story created");
 
-function makeTitle(idea,type){
- var lower=idea.toLowerCase();
-
- if(lower.indexOf("airport")>=0)return "A Family Trip to the Airport";
- if(lower.indexOf("restaurant")>=0)return "English at a Restaurant";
- if(lower.indexOf("hotel")>=0)return "Checking Into a Hotel";
- if(lower.indexOf("school")>=0)return "A New Day at School";
- if(lower.indexOf("train")>=0)return "Meeting at the Train Station";
-
- var titles={
-  "Daily Life":"A Simple Day, A Useful English Lesson",
-  "Family":"A Family Day Full of English",
-  "Travel":"A Family Adventure in English",
-  "School":"A School Day in English",
-  "Work":"A Day at Work in English",
-  "Friendship":"Making a New Friend",
-  "Adventure":"A Small Adventure",
-  "English Lesson":"Learn English Through a Story"
- };
-
- return titles[type] || "Learn English Through a Story";
-}
-
-function buildStoryText(p){
- var idea=p.idea;
-
- return [
-  "HOOK",
-  "The family is getting ready for an important day.",
-  "",
-  "INTRODUCTION",
-  "David, Sarah, Emma and Leo are together.",
-  "They talk about their plan and prepare for the day.",
-  "",
-  "PROBLEM",
-  "Leo has a simple question and the family needs to find the right place.",
-  "",
-  "DEVELOPMENT",
-  "Emma asks a useful English question.",
-  "Sarah explains the next step.",
-  "David helps the children understand what to do.",
-  "",
-  "CLIMAX",
-  "The family works together and solves the small problem.",
-  "",
-  "ENDING",
-  "Everyone feels happy and confident.",
-  "They learn that simple English can be useful in everyday life.",
-  "",
-  "STORY IDEA",
-  idea,
-  "",
-  "LEARNING LEVEL",
-  p.level,
-  "",
-  "ENGLISH MODE",
-  p.englishMode
- ].join("\n");
 }
 
 function randomStory(){
- var idea=STORY_IDEAS[Math.floor(Math.random()*STORY_IDEAS.length)];
- document.getElementById("storyIdea").value=idea;
- generateStory();
+
+  var item =
+    randomIdeas[
+      Math.floor(
+        Math.random()*randomIdeas.length
+      )
+    ];
+
+  $("storyTitle").value = item.title;
+  $("storyIdea").value = item.idea;
+
+  generateStory();
+
 }
 
-function renderStoryResult(){
- var p=getProject();
+function noIdeaStory(){
 
- var html="";
- html+="<div class='card'>";
- html+="<h2>"+escapeHtml(p.title)+"</h2>";
- html+="<div class='actions'>";
- html+="<span class='badge'>"+escapeHtml(p.level)+"</span>";
- html+="<span class='badge'>"+escapeHtml(p.duration)+" MIN</span>";
- html+="<span class='badge'>"+escapeHtml(p.englishMode)+"</span>";
- html+="</div>";
- html+="<hr>";
- html+="<h3>STORY</h3>";
- html+="<div class='sceneText'>"+escapeHtml(p.story)+"</div>";
- html+="<hr>";
- html+="<h3>STORY STRUCTURE</h3>";
+  var item =
+    randomIdeas[
+      Math.floor(
+        Math.random()*randomIdeas.length
+      )
+    ];
 
- for(var i=0;i<p.structure.length;i++){
-  html+="<div class='notice'>"+escapeHtml(p.structure[i])+"</div>";
- }
+  $("storyTitle").value = item.title;
+  $("storyIdea").value = item.idea;
 
- html+="<div class='actions'>";
- html+="<button class='btn primary' onclick='generateScenes();go(\"scenes\")'>🎬 Build Scene Studio</button>";
- html+="<button class='btn' onclick='copyText(getProject().story)'>Copy Story</button>";
- html+="</div>";
- html+="</div>";
+  showToast("Story idea created");
 
- document.getElementById("storyResult").innerHTML=html;
+  generateStory();
+
 }
 
-/* ---------- CHARACTER LOGIC ---------- */
+/* ================= IDEAS ================= */
 
-function getSceneCharacters(index){
- var groups=[
-  ["david","sarah","emma","leo"],
-  ["david","sarah"],
-  ["emma","leo"],
-  ["david","leo"],
-  ["sarah","emma"],
-  ["david","emma"],
-  ["sarah","leo"],
-  ["david","sarah","emma"],
-  ["david","emma","leo"],
-  ["david","sarah","emma","leo"]
- ];
+function renderIdeas(){
 
- return groups[index % groups.length];
+  var html = "";
+
+  for(var i=0;i<randomIdeas.length;i++){
+
+    var item = randomIdeas[i];
+
+    html +=
+      '<div class="card">' +
+      '<div class="badge">'+item.type+'</div>' +
+      '<div class="card-title">'+item.title+'</div>' +
+      '<div class="muted">'+item.idea+'</div>' +
+      '<div class="actions">' +
+      '<button class="btn use-idea" data-index="'+i+'">Use Idea</button>' +
+      '</div>' +
+      '</div>';
+
+  }
+
+  $("ideaGrid").innerHTML = html;
+
+  var buttons =
+    document.querySelectorAll(".use-idea");
+
+  for(var j=0;j<buttons.length;j++){
+
+    buttons[j].addEventListener("click",function(){
+
+      var index =
+        Number(this.getAttribute("data-index"));
+
+      $("storyTitle").value =
+        randomIdeas[index].title;
+
+      $("storyIdea").value =
+        randomIdeas[index].idea;
+
+      openPage("ai-story");
+
+    });
+
+  }
+
 }
 
-function getChar(id){
- for(var i=0;i<state.characters.length;i++){
-  if(state.characters[i].id===id)return state.characters[i];
- }
- return null;
-}
+/* ================= CHARACTERS ================= */
 
-function characterLock(ids){
- var out=[];
+function characterLock(character){
 
- for(var i=0;i<ids.length;i++){
-  var c=getChar(ids[i]);
-  if(!c)continue;
-
-  out.push(
-   c.name+" ("+c.role+", "+c.age+"):\n"+
-   c.appearance+".\n"+
-   "Clothing: "+c.clothes+".\n"+
-   "Personality: "+c.personality+".\n"+
-   "Voice: "+c.voice+".\n"+
-   "CHARACTER LOCK: Keep face, hair, age, body proportions, skin tone, clothing, colors and accessories exactly consistent throughout the video."
+  return (
+    character.name +
+    ", " +
+    character.age +
+    "-year-old " +
+    character.gender +
+    ", " +
+    character.skin +
+    ", " +
+    character.hair +
+    ", wearing " +
+    character.clothes +
+    ", " +
+    character.accessories +
+    ". Personality: " +
+    character.personality +
+    ". Keep face, hair, skin tone, body proportions, clothing, colors and accessories exactly consistent throughout every scene."
   );
- }
 
- if(!out.length)return "NARRATOR ONLY — No visible character";
-
- return out.join("\n\n");
 }
 
-/* ---------- SCENE GENERATION ---------- */
+function renderCharacters(){
+
+  var html = "";
+
+  for(var i=0;i<state.characters.length;i++){
+
+    var c = state.characters[i];
+
+    html +=
+      '<div class="card character-card">' +
+      '<div class="avatar">👤</div>' +
+      '<div class="badge">'+c.role+'</div>' +
+      '<div class="card-title">'+c.name+'</div>' +
+      '<div class="muted">'+
+      c.age+' years old • '+c.gender+
+      '</div>' +
+      '<br>' +
+      '<div class="muted">'+
+      c.clothes+
+      '</div>' +
+      '<div class="actions">' +
+      '<button class="btn copy-character" data-index="'+i+'">Copy Character Lock</button>' +
+      '</div>' +
+      '</div>';
+
+  }
+
+  $("characterGrid").innerHTML = html;
+
+  var buttons =
+    document.querySelectorAll(".copy-character");
+
+  for(var j=0;j<buttons.length;j++){
+
+    buttons[j].addEventListener("click",function(){
+
+      var index =
+        Number(this.getAttribute("data-index"));
+
+      copyText(
+        characterLock(
+          state.characters[index]
+        )
+      );
+
+    });
+
+  }
+
+}
+
+/* ================= LOCATIONS ================= */
+
+function renderLocations(){
+
+  var html = "";
+
+  for(var i=0;i<state.locations.length;i++){
+
+    var l = state.locations[i];
+
+    html +=
+      '<div class="card">' +
+      '<div class="badge">LOCATION LOCK</div>' +
+      '<div class="card-title">'+l.name+'</div>' +
+      '<div class="muted">'+l.description+'</div>' +
+      '<div class="actions">' +
+      '<button class="btn copy-location" data-index="'+i+'">Copy Location Lock</button>' +
+      '</div>' +
+      '</div>';
+
+  }
+
+  $("locationGrid").innerHTML = html;
+
+  var buttons =
+    document.querySelectorAll(".copy-location");
+
+  for(var j=0;j<buttons.length;j++){
+
+    buttons[j].addEventListener("click",function(){
+
+      var index =
+        Number(this.getAttribute("data-index"));
+
+      copyText(
+        state.locations[index].name +
+        "\n" +
+        state.locations[index].description +
+        "\nKeep the environment visually consistent across all scenes."
+      );
+
+    });
+
+  }
+
+}
+
+/* ================= SCENES ================= */
+
+function pad(number){
+
+  return number < 10
+    ? "0"+number
+    : String(number);
+
+}
 
 function sceneTime(index){
- var start=index*10;
- var end=start+10;
 
- function fmt(sec){
-  var m=Math.floor(sec/60);
-  var s=sec%60;
-  return (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
- }
+  var start = index * 10;
+  var end = start + 10;
 
- return fmt(start)+" - "+fmt(end);
+  function time(sec){
+
+    var minute =
+      Math.floor(sec/60);
+
+    var second =
+      sec % 60;
+
+    return (
+      pad(minute) +
+      ":" +
+      pad(second)
+    );
+
+  }
+
+  return time(start)+" - "+time(end);
+
 }
 
-function makeDialogue(index,p){
- var lines=[
-  'Emma: "Are we ready to go?"',
-  'David: "Yes. Let us check our bags first."',
-  'Leo: "Where should we go now?"',
-  'David: "Let us go to the check-in counter."',
-  'Sarah: "Please stay close to us, Emma."',
-  'Emma: "I am excited about our trip!"',
-  'Leo: "This place is amazing!"',
-  'Sarah: "Let us follow the airport signs."',
-  'Emma: "Thank you, Dad. I understand now."',
-  'David: "Great job, everyone. Let us go!"'
- ];
+function getSceneCharacters(index){
 
- return lines[index % lines.length];
+  var groups = [
+
+    [0,1,2,3],
+    [0,1],
+    [2,3],
+    [0,3],
+    [1,2],
+    [0,2],
+    [1,3],
+    [0,1,2,3],
+    [0,2,3],
+    [0,1]
+
+  ];
+
+  var group =
+    groups[index % groups.length];
+
+  var result = [];
+
+  for(var i=0;i<group.length;i++){
+
+    if(state.characters[group[i]]){
+      result.push(
+        state.characters[group[i]]
+      );
+    }
+
+  }
+
+  return result;
+
 }
 
-function extractSentence(dialogue){
- var m=dialogue.match(/"([^"]+)"/);
- if(m)return m[1];
- return dialogue.replace(/^[^:]+:\s*/,"").trim();
-}
+function buildScene(index){
 
-function makeAction(index,ids){
- var names=[];
- for(var i=0;i<ids.length;i++){
-  var c=getChar(ids[i]);
-  if(c)names.push(c.name);
- }
+  var chars =
+    getSceneCharacters(index);
 
- if(names.length===4)return names.join(", ")+" stand together and prepare for the next step.";
- if(names.length===2)return names[0]+" speaks while "+names[1]+" listens and responds naturally.";
- if(names.length===1)return names[0]+" speaks naturally and uses a friendly hand gesture.";
- return "The scene focuses on the environment and narration.";
-}
+  var characterText = "";
 
-function makeEmotion(index){
- var emotions=[
-  "excited and curious",
-  "calm and focused",
-  "happy and curious",
-  "friendly and confident",
-  "caring and supportive",
-  "excited and positive",
-  "surprised and happy",
-  "calm and helpful",
-  "proud and confident",
-  "happy and relaxed"
- ];
- return emotions[index % emotions.length];
-}
+  for(var i=0;i<chars.length;i++){
 
-function makeCamera(index){
- var cameras=[
-  "Wide establishing shot → gentle push-in",
-  "Medium two-shot → subtle camera movement",
-  "Medium shot → slow tracking movement",
-  "Over-the-shoulder shot → gentle push-in",
-  "Medium close-up → smooth pan",
-  "Wide shot → slow dolly forward",
-  "Medium shot → slight side tracking",
-  "Wide family shot → gentle push-in",
-  "Close-up → medium reveal",
-  "Medium family shot → slow pull-back"
- ];
- return cameras[index % cameras.length];
-}
+    characterText +=
+      characterLock(chars[i]) +
+      "\n";
 
-function makeSFX(index){
- var sfx=[
-  "soft airport ambience, light luggage movement",
-  "quiet airport ambience, soft footsteps",
-  "children talking softly, light environment ambience",
-  "luggage wheels rolling, gentle indoor ambience",
-  "soft family ambience, light footsteps",
-  "quiet airport ambience",
-  "soft crowd ambience",
-  "airport announcement very softly in background",
-  "gentle luggage movement",
-  "warm family ambience"
- ];
- return sfx[index % sfx.length];
-}
+  }
 
-function makeLocation(index){
- return state.locations[0] ? state.locations[0].id : "airport";
-}
+  var location =
+    state.locations[0];
 
-function getLocation(id){
- for(var i=0;i<state.locations.length;i++){
-  if(state.locations[i].id===id)return state.locations[i];
- }
- return state.locations[0];
-}
+  var sentence;
 
-function locationLock(id){
- var l=getLocation(id);
- if(!l)return "";
- return l.name+": "+l.description+". LOCATION LOCK: Keep the environment, architecture, lighting, colors and major background elements consistent.";
-}
+  var actions;
 
-function styleLock(){
- return state.settings.visualStyle+
- ". STYLE LOCK: consistent cinematic 3D educational animation, clean composition, expressive faces, smooth natural movement, family-friendly, international YouTube quality.";
-}
+  var emotion;
 
-function buildImagePrompt(scene){
- return [
-  "Create a high-quality 3D educational English-learning animation image.",
-  "",
-  "SCENE: "+scene.number,
-  "TIME: "+scene.time,
-  "",
-  "CHARACTERS:",
-  characterLock(scene.characters),
-  "",
-  "LOCATION LOCK:",
-  locationLock(scene.locationId),
-  "",
-  "STYLE LOCK:",
-  styleLock(),
-  "",
-  "SCENE ACTION:",
-  scene.action,
-  "",
-  "EMOTION:",
-  scene.emotion,
-  "",
-  "COMPOSITION:",
-  "16:9 YouTube video frame, cinematic composition, clear foreground characters, detailed but uncluttered background, natural lighting.",
-  "",
-  "IMPORTANT:",
-  "Do not change character appearance, clothing, age, hairstyle or colors. Do not add unrelated characters."
- ].join("\n");
-}
+  if(index === 0){
 
-function buildVideoPrompt(scene){
- var text=scene.onScreenText || scene.dialogue || "";
+    sentence =
+      'Emma: "Are you ready for our trip?"';
 
- return [
-  "Create a 10-second cinematic 3D animated English-learning scene.",
-  "",
-  "SCENE:",
-  scene.number+" | "+scene.time+" | EXACTLY 10 SECONDS",
-  "",
-  "CHARACTERS:",
-  characterLock(scene.characters),
-  "",
-  "LOCATION LOCK:",
-  locationLock(scene.locationId),
-  "",
-  "STYLE LOCK:",
-  styleLock(),
-  "",
-  "ACTION:",
-  scene.action,
-  "",
-  "DIALOGUE:",
-  scene.dialogue,
-  "",
-  "NARRATION:",
-  scene.narration,
-  "",
-  "ON-SCREEN ENGLISH TEXT:",
-  'Display the exact English sentence inside the generated video:',
-  '"' + text + '"',
-  "",
-  "TEXT STYLE:",
-  scene.textStyle,
-  "Use a large bold rounded educational font.",
-  "Keep the English text highly readable.",
-  "Use white main text with a bright yellow highlight on the key word when appropriate.",
-  "Use a dark semi-transparent rounded background behind the text.",
-  "Place the text in the lower third inside safe margins.",
-  "Do not crop, distort, blur or misspell the text.",
-  "Do not add any other words.",
-  "",
-  "CAMERA:",
-  scene.camera,
-  "",
-  "AUDIO / SFX:",
-  scene.sfx,
-  "",
-  "CONTINUITY:",
-  scene.continuity,
-  "",
-  "FINAL REQUIREMENT:",
-  "The English sentence must appear VISUALLY INSIDE THE GENERATED VIDEO as educational on-screen text.",
-  "Do not treat it as subtitles only.",
-  "Do not place the text outside the video.",
-  "Keep all selected characters visually consistent."
- ].join("\n");
+    actions =
+      "Emma stands beside her family with her backpack while everyone prepares to leave.";
+
+    emotion =
+      "Excited, happy and curious";
+
+  }else if(index === 1){
+
+    sentence =
+      'David: "Let me check the tickets."';
+
+    actions =
+      "David checks the travel tickets while Sarah organizes the luggage.";
+
+    emotion =
+      "Calm, focused and organized";
+
+  }else if(index === 2){
+
+    sentence =
+      'Leo: "I have my backpack!"';
+
+    actions =
+      "Leo proudly holds his small backpack and smiles at the family.";
+
+    emotion =
+      "Playful and excited";
+
+  }else if(index === 3){
+
+    sentence =
+      'Sarah: "Let us go to the airport."';
+
+    actions =
+      "Sarah gestures toward the door as the family prepares to leave home.";
+
+    emotion =
+      "Warm, cheerful and ready";
+
+  }else if(index === 4){
+
+    sentence =
+      'Emma: "Where should we go first?"';
+
+    actions =
+      "Emma looks around the airport and points toward the check-in area.";
+
+    emotion =
+      "Curious and interested";
+
+  }else{
+
+    sentence =
+      'David: "We need to check in here."';
+
+    actions =
+      "David points toward the check-in counter while the family stands with their luggage.";
+
+    emotion =
+      "Helpful, calm and confident";
+
+  }
+
+  var imagePrompt =
+    "Create a high-quality original 3D educational family animation scene.\n\n" +
+
+    "CHARACTER LOCK:\n" +
+    characterText +
+
+    "\nLOCATION LOCK:\n" +
+    location.name +
+    ". " +
+    location.description +
+
+    "\n\nSTYLE LOCK:\n" +
+    "Original 3D educational family animation, cinematic cartoon quality, soft realistic lighting, clean colorful environment, consistent character proportions, family-friendly international English-learning visual style.\n\n" +
+
+    "SCENE ACTION:\n" +
+    actions +
+    "\n\n" +
+
+    "Keep all selected characters visually consistent with their Character Lock.";
+
+  var videoPrompt =
+    "Create a 10-second cinematic 3D animated English-learning scene.\n\n" +
+
+    "TIME:\n" +
+    sceneTime(index) +
+    "\n\n" +
+
+    "CHARACTER LOCK:\n" +
+    characterText +
+
+    "\nLOCATION LOCK:\n" +
+    location.name +
+    ". " +
+    location.description +
+
+    "\n\nSTYLE LOCK:\n" +
+    "Original high-quality 3D educational family animation, cinematic cartoon look, soft realistic lighting, clean colorful environment, smooth natural animation, consistent character proportions.\n\n" +
+
+    "ACTION:\n" +
+    actions +
+    "\n\n" +
+
+    "DIALOGUE:\n" +
+    sentence +
+    "\n\n" +
+
+    "ON-SCREEN ENGLISH TEXT:\n" +
+    "Display the exact English sentence spoken in this scene inside the generated video:\n" +
+    sentence +
+    "\n\n" +
+
+    "TEXT STYLE:\n" +
+    "Large, clear educational English text. Bold rounded font. White main text with a bright yellow highlight on the key learning word. Dark semi-transparent rounded background. Place the text in the lower third. Keep text inside safe margins. Text must be clearly readable. Do not crop or distort the text. Do not add any other words.\n\n" +
+
+    "CAMERA:\n" +
+    "Medium shot with a smooth slow cinematic push-in.\n\n" +
+
+    "EMOTION:\n" +
+    emotion +
+    "\n\n" +
+
+    "AUDIO:\n" +
+    "Natural family ambience and soft environment sound.\n\n" +
+
+    "IMPORTANT:\n" +
+    "The English sentence must appear visually inside the generated video as on-screen English text. Do not treat it as subtitles only. Keep all characters identical to their Character Lock.";
+
+  return {
+
+    number:index+1,
+    time:sceneTime(index),
+    duration:10,
+    characters:chars,
+    dialogue:sentence,
+    action:actions,
+    emotion:emotion,
+    imagePrompt:imagePrompt,
+    videoPrompt:videoPrompt
+
+  };
+
 }
 
 function generateScenes(){
- var p=getProject();
 
- if(!p){
-  state=createState();
-  p=getProject();
- }
+  var count =
+    Number(state.project.duration || 1) * 6;
 
- var count=parseInt(p.duration,10)*6;
- var scenes=[];
+  state.project.scenes = [];
 
- for(var i=0;i<count;i++){
-  var ids=getSceneCharacters(i);
-  var dialogue=makeDialogue(i,p);
-  var text=extractSentence(dialogue);
-  var loc=makeLocation(i);
+  for(var i=0;i<count;i++){
 
-  var scene={
-   id:"scene_"+(i+1),
-   number:"SCENE "+String(i+1).padStart(2,"0"),
-   time:sceneTime(i),
-   duration:10,
-   characters:ids,
-   locationId:loc,
-   dialogue:dialogue,
-   narration:"Narrator: Learn this useful everyday English expression.",
-   onScreenText:text,
-   highlightWord:getHighlightWord(text),
-   textStyle:"Large bold white educational English text with a bright yellow highlight on the key word, dark semi-transparent rounded background, lower third, safe margins",
-   camera:makeCamera(i),
-   action:makeAction(i,ids),
-   emotion:makeEmotion(i),
-   sfx:makeSFX(i),
-   continuity:"Keep all selected characters identical to their Character Lock. Maintain the same face, hairstyle, age, body proportions, clothing, colors and accessories. Maintain location continuity from previous scenes.",
-   imagePrompt:"",
-   videoPrompt:""
-  };
+    state.project.scenes.push(
+      buildScene(i)
+    );
 
-  scene.imagePrompt=buildImagePrompt(scene);
-  scene.videoPrompt=buildVideoPrompt(scene);
-
-  scenes.push(scene);
- }
-
- p.scenes=scenes;
- syncProject();
-
- renderScenes();
-}
-
-function getHighlightWord(text){
- var words=String(text).replace(/[?.!,]/g,"").split(" ");
- if(words.length>3)return words[words.length-1];
- return words[0] || "";
-}
-
-/* ---------- SCENE PACKAGE ---------- */
-
-function packageScene(scene){
- var names=[];
-
- for(var i=0;i<scene.characters.length;i++){
-  var c=getChar(scene.characters[i]);
-  if(c)names.push(c.name+" — "+c.role);
- }
-
- return [
-  scene.number,
-  "TIME: "+scene.time,
-  "DURATION: 10 SECONDS",
-  "",
-  "CHARACTERS IN THIS SCENE",
-  names.length?names.join("\n"):"NARRATOR ONLY",
-  "",
-  "CHARACTER LOCK",
-  characterLock(scene.characters),
-  "",
-  "LOCATION LOCK",
-  locationLock(scene.locationId),
-  "",
-  "STYLE LOCK",
-  styleLock(),
-  "",
-  "IMAGE PROMPT",
-  scene.imagePrompt,
-  "",
-  "VIDEO PROMPT",
-  scene.videoPrompt,
-  "",
-  "VOICE / DIALOGUE",
-  scene.dialogue,
-  "",
-  "NARRATION",
-  scene.narration,
-  "",
-  "ON-SCREEN ENGLISH TEXT",
-  '"' + scene.onScreenText + '"',
-  "",
-  "TEXT STYLE",
-  scene.textStyle,
-  "",
-  "CAMERA",
-  scene.camera,
-  "",
-  "ACTION",
-  scene.action,
-  "",
-  "EMOTION",
-  scene.emotion,
-  "",
-  "SFX",
-  scene.sfx,
-  "",
-  "CONTINUITY",
-  scene.continuity
- ].join("\n");
-}
-
-function copyScene(id){
- var p=getProject();
-
- for(var i=0;i<p.scenes.length;i++){
-  if(p.scenes[i].id===id){
-   copyText(packageScene(p.scenes[i]));
-   return;
   }
- }
+
+  saveState();
+
+  renderScenes();
+  renderPromptPages();
+  refreshDashboard();
+
+  showToast(
+    count+" scenes generated"
+  );
+
+}
+
+function scenePackage(scene){
+
+  var names = "";
+
+  for(var i=0;i<scene.characters.length;i++){
+
+    names +=
+      scene.characters[i].name;
+
+    if(i < scene.characters.length-1){
+      names += ", ";
+    }
+
+  }
+
+  return (
+"========================================\n" +
+"SCENE "+pad(scene.number)+"\n" +
+"TIME: "+scene.time+"\n" +
+"DURATION: 10 SECONDS\n" +
+"========================================\n\n" +
+
+"CHARACTERS IN THIS SCENE\n"+
+names+
+"\n\n"+
+
+"CHARACTER LOCK\n"+
+scene.imagePrompt.split(
+  "LOCATION LOCK:"
+)[0].replace(
+  "Create a high-quality original 3D educational family animation scene.\n\nCHARACTER LOCK:\n",
+  ""
+)+
+
+"\nLOCATION LOCK\n"+
+state.locations[0].name+
+"\n"+
+state.locations[0].description+
+
+"\n\nSTYLE LOCK\n"+
+"Original high-quality 3D educational family animation, cinematic cartoon quality, soft realistic lighting, clean colorful environment, consistent character proportions, family-friendly visual style."+
+
+"\n\nIMAGE PROMPT\n"+
+scene.imagePrompt+
+
+"\n\nVIDEO PROMPT\n"+
+scene.videoPrompt+
+
+"\n\nVOICE / DIALOGUE\n"+
+scene.dialogue+
+
+"\n\nCAMERA\n"+
+"Medium shot → slow cinematic push-in"+
+
+"\n\nACTION\n"+
+scene.action+
+
+"\n\nEMOTION\n"+
+scene.emotion+
+
+"\n\nSFX\n"+
+"Natural environment ambience, subtle movement sounds"+
+
+"\n\nCONTINUITY\n"+
+"Keep every selected character identical to the Character Lock. Do not change face, hair, skin tone, body proportions, clothing, colors or accessories. Keep location and visual style consistent."
+  );
+
+}
+
+function renderScenes(){
+
+  var container = $("sceneList");
+
+  if(!state.project.scenes.length){
+
+    container.innerHTML =
+      '<div class="card empty">' +
+      '<strong>No scenes yet</strong>' +
+      'Click Generate 10-sec Scenes to create your production packages.' +
+      '</div>';
+
+    return;
+
+  }
+
+  var html = "";
+
+  for(var i=0;i<state.project.scenes.length;i++){
+
+    var scene =
+      state.project.scenes[i];
+
+    var names = "";
+
+    for(var j=0;j<scene.characters.length;j++){
+
+      names +=
+        '<span class="badge">'+
+        scene.characters[j].name+
+        '</span>';
+
+    }
+
+    html +=
+      '<div class="scene-card">' +
+
+      '<div class="scene-head">' +
+
+      '<div>' +
+      '<div class="scene-number">SCENE '+
+      pad(scene.number)+
+      '</div>' +
+      '<div class="scene-time">'+
+      scene.time+
+      ' • 10 SEC</div>' +
+      '</div>' +
+
+      '<div>'+
+      names+
+      '</div>' +
+
+      '</div>' +
+
+      '<div class="scene-body">' +
+
+      '<div class="scene-grid">' +
+
+      '<div>' +
+      '<div class="card-title">Voice / Dialogue</div>' +
+      '<div class="package">'+
+      escapeHtml(scene.dialogue)+
+      '</div>' +
+      '</div>' +
+
+      '<div>' +
+      '<div class="card-title">Action / Emotion</div>' +
+      '<div class="package">'+
+      escapeHtml(scene.action)+
+      "\n\n"+
+      escapeHtml(scene.emotion)+
+      '</div>' +
+      '</div>' +
+
+      '<div>' +
+      '<div class="card-title">Image Prompt</div>' +
+      '<div class="package">'+
+      escapeHtml(scene.imagePrompt)+
+      '</div>' +
+      '</div>' +
+
+      '<div>' +
+      '<div class="card-title">Video Prompt</div>' +
+      '<div class="package">'+
+      escapeHtml(scene.videoPrompt)+
+      '</div>' +
+      '</div>' +
+
+      '</div>' +
+
+      '<div class="actions">' +
+
+      '<button class="btn copy-scene" data-index="'+i+'">' +
+      'Copy Scene' +
+      '</button>' +
+
+      '<button class="btn btn-primary copy-package" data-index="'+i+'">' +
+      'Copy Complete Package' +
+      '</button>' +
+
+      '</div>' +
+
+      '</div>' +
+
+      '</div>';
+
+  }
+
+  container.innerHTML = html;
+
+  var copyButtons =
+    document.querySelectorAll(".copy-scene");
+
+  for(var k=0;k<copyButtons.length;k++){
+
+    copyButtons[k].addEventListener("click",function(){
+
+      var index =
+        Number(this.getAttribute("data-index"));
+
+      copyText(
+        scenePackage(
+          state.project.scenes[index]
+        )
+      );
+
+    });
+
+  }
+
+  var packageButtons =
+    document.querySelectorAll(".copy-package");
+
+  for(var m=0;m<packageButtons.length;m++){
+
+    packageButtons[m].addEventListener("click",function(){
+
+      var index =
+        Number(this.getAttribute("data-index"));
+
+      copyText(
+        scenePackage(
+          state.project.scenes[index]
+        )
+      );
+
+    });
+
+  }
+
+}
+
+function escapeHtml(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+
+}
+
+/* ================= ALL SCENES ================= */
+
+function allScenesText(){
+
+  var text =
+    "AUNG AI STORY VIDEO PRO V4\n" +
+    state.project.title +
+    "\n\n";
+
+  for(var i=0;i<state.project.scenes.length;i++){
+
+    text +=
+      scenePackage(
+        state.project.scenes[i]
+      ) +
+      "\n\n";
+
+  }
+
+  return text;
+
 }
 
 function copyAllScenes(){
- var p=getProject();
 
- if(!p.scenes.length){
-  generateScenes();
- }
+  if(!state.project.scenes.length){
 
- var parts=[];
- for(var i=0;i<p.scenes.length;i++){
-  parts.push(packageScene(p.scenes[i]));
- }
+    showToast("Generate scenes first");
+    return;
 
- copyText(parts.join("\n\n==============================\n\n"));
+  }
+
+  copyText(
+    allScenesText()
+  );
+
+}
+
+/* ================= PROMPTS ================= */
+
+function renderPromptPages(){
+
+  var imageHtml = "";
+  var videoHtml = "";
+
+  for(var i=0;i<state.project.scenes.length;i++){
+
+    var s =
+      state.project.scenes[i];
+
+    imageHtml +=
+      '<div class="card" style="margin-bottom:15px">' +
+      '<div class="card-title">SCENE '+
+      pad(s.number)+
+      ' • '+
+      s.time+
+      '</div>' +
+      '<div class="package">'+
+      escapeHtml(s.imagePrompt)+
+      '</div>' +
+      '<div class="actions">' +
+      '<button class="btn copy-image" data-index="'+i+'">Copy Image Prompt</button>' +
+      '</div>' +
+      '</div>';
+
+    videoHtml +=
+      '<div class="card" style="margin-bottom:15px">' +
+      '<div class="card-title">SCENE '+
+      pad(s.number)+
+      ' • '+
+      s.time+
+      '</div>' +
+      '<div class="package">'+
+      escapeHtml(s.videoPrompt)+
+      '</div>' +
+      '<div class="actions">' +
+      '<button class="btn copy-video" data-index="'+i+'">Copy Video Prompt</button>' +
+      '</div>' +
+      '</div>';
+
+  }
+
+  $("imagePromptList").innerHTML =
+    imageHtml ||
+    '<div class="card empty"><strong>No prompts yet</strong>Generate scenes first</div>';
+
+  $("videoPromptList").innerHTML =
+    videoHtml ||
+    '<div class="card empty"><strong>No prompts yet</strong>Generate scenes first</div>';
+
+  var imageButtons =
+    document.querySelectorAll(".copy-image");
+
+  for(var j=0;j<imageButtons.length;j++){
+
+    imageButtons[j].addEventListener("click",function(){
+
+      var index =
+        Number(this.getAttribute("data-index"));
+
+      copyText(
+        state.project.scenes[index].imagePrompt
+      );
+
+    });
+
+  }
+
+  var videoButtons =
+    document.querySelectorAll(".copy-video");
+
+  for(var k=0;k<videoButtons.length;k++){
+
+    videoButtons[k].addEventListener("click",function(){
+
+      var index =
+        Number(this.getAttribute("data-index"));
+
+      copyText(
+        state.project.scenes[index].videoPrompt
+      );
+
+    });
+
+  }
+
+}
+
+/* ================= SRT ================= */
+
+function srtTime(seconds){
+
+  var h =
+    Math.floor(seconds/3600);
+
+  var m =
+    Math.floor(
+      (seconds%3600)/60
+    );
+
+  var s =
+    seconds%60;
+
+  return (
+    pad(h)+":"+
+    pad(m)+":"+
+    pad(s)+",000"
+  );
+
+}
+
+function generateSrt(){
+
+  var scenes =
+    state.project.scenes;
+
+  if(!scenes.length){
+
+    generateScenes();
+    scenes =
+      state.project.scenes;
+
+  }
+
+  var result = "";
+
+  for(var i=0;i<scenes.length;i++){
+
+    var start =
+      i*10;
+
+    var end =
+      start+10;
+
+    result +=
+      (i+1)+"\n"+
+      srtTime(start)+" --> "+
+      srtTime(end)+"\n"+
+      scenes[i].dialogue.replace(
+        /^[^:]+:\s*/,
+        ""
+      ).replace(/^"|"$/g,"")+
+      "\n\n";
+
+  }
+
+  $("srtOutput").value =
+    result.trim();
+
 }
 
 function exportScenesTxt(){
- var p=getProject();
 
- if(!p.scenes.length)generateScenes();
+  if(!state.project.scenes.length){
 
- var parts=[];
- for(var i=0;i<p.scenes.length;i++){
-  parts.push(packageScene(p.scenes[i]));
- }
+    showToast("Generate scenes first");
+    return;
 
- downloadText(
-  safeFilename(p.title)+"_ALL_SCENES.txt",
-  parts.join("\n\n==============================\n\n")
- );
-}
-
-function safeFilename(name){
- return String(name||"story").replace(/[^a-z0-9]+/gi,"_").replace(/^_+|_+$/g,"");
-}
-
-/* ---------- SCENE RENDER ---------- */
-
-function renderScenes(){
- var box=document.getElementById("scenesList");
- if(!box)return;
-
- var p=getProject();
-
- if(!p || !p.scenes.length){
-  box.innerHTML=
-   "<div class='card empty'>No scenes yet.<br><br>"+
-   "<button class='btn primary' onclick='generateScenes()'>Generate 10-Second Scenes</button></div>";
-  return;
- }
-
- var html="";
-
- for(var i=0;i<p.scenes.length;i++){
-  var s=p.scenes[i];
-
-  html+="<div class='scene'>";
-  html+="<div class='sceneHead'>";
-  html+="<div><div class='sceneNum'>"+escapeHtml(s.number)+"</div><div class='small'>"+escapeHtml(s.time)+"</div></div>";
-  html+="<div class='actions'>";
-  html+="<button class='btn primary' onclick='copyScene(\""+s.id+"\")'>📋 Copy Scene</button>";
-  html+="</div>";
-  html+="</div>";
-
-  html+="<div class='sceneBody'>";
-
-  html+="<div class='sceneBox'>";
-  html+="<div class='label'>Characters in this Scene</div>";
-  html+="<div class='charChips'>";
-
-  for(var c=0;c<state.characters.length;c++){
-   var ch=state.characters[c];
-   var active=s.characters.indexOf(ch.id)>=0;
-   html+="<button class='chip "+(active?"on":"")+"' onclick='toggleSceneChar(\""+s.id+"\",\""+ch.id+"\")'>";
-   html+=escapeHtml(ch.name);
-   html+="</button>";
   }
 
-  html+="</div></div>";
+  var blob =
+    new Blob(
+      [allScenesText()],
+      {type:"text/plain;charset=utf-8"}
+    );
 
-  html+="<div class='sceneGrid'>";
+  var url =
+    URL.createObjectURL(blob);
 
-  html+=sceneBox("CHARACTER LOCK",characterLock(s.characters));
-  html+=sceneBox("LOCATION LOCK",locationLock(s.locationId));
-  html+=sceneBox("STYLE LOCK",styleLock());
-  html+=sceneBox("IMAGE PROMPT",s.imagePrompt);
-  html+=sceneBox("VIDEO PROMPT",s.videoPrompt);
-  html+=sceneBox("VOICE / DIALOGUE",s.dialogue);
-  html+=sceneBox("NARRATION",s.narration);
-  html+=sceneBox("ON-SCREEN ENGLISH TEXT",'"'+s.onScreenText+'"');
-  html+=sceneBox("TEXT STYLE",s.textStyle);
-  html+=sceneBox("CAMERA",s.camera);
-  html+=sceneBox("ACTION",s.action);
-  html+=sceneBox("EMOTION",s.emotion);
-  html+=sceneBox("SFX",s.sfx);
-  html+=sceneBox("CONTINUITY",s.continuity);
+  var a =
+    document.createElement("a");
 
-  html+="</div>";
-  html+="</div></div>";
- }
+  a.href = url;
 
- box.innerHTML=html;
+  a.download =
+    "AUNG_AI_STORY_VIDEO_PRO_V4_SCENES.txt";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  document.body.removeChild(a);
+
+  URL.revokeObjectURL(url);
+
 }
 
-function sceneBox(label,text){
- return "<div class='sceneBox'><div class='label'>"+
-  escapeHtml(label)+"</div><div class='sceneText'>"+
-  escapeHtml(text)+"</div></div>";
-}
-
-function toggleSceneChar(sceneId,charId){
- var p=getProject();
-
- for(var i=0;i<p.scenes.length;i++){
-  if(p.scenes[i].id===sceneId){
-   var s=p.scenes[i];
-   var index=s.characters.indexOf(charId);
-
-   if(index>=0){
-    s.characters.splice(index,1);
-   }else{
-    s.characters.push(charId);
-   }
-
-   s.action=makeAction(i,s.characters);
-   s.imagePrompt=buildImagePrompt(s);
-   s.videoPrompt=buildVideoPrompt(s);
-
-   break;
-  }
- }
-
- syncProject();
- renderScenes();
-}
-
-function copyCompleteScene(id){
- copyScene(id);
-}
-
-/* ---------- IMAGE / VIDEO ---------- */
-
-function renderImagePrompts(){
- var p=getProject();
- var box=document.getElementById("imagePromptList");
-
- if(!p || !p.scenes.length){
-  box.innerHTML="<div class='card empty'>Generate scenes first</div>";
-  return;
- }
-
- var html="";
-
- for(var i=0;i<p.scenes.length;i++){
-  var s=p.scenes[i];
-  html+="<div class='card'>";
-  html+="<h3>"+escapeHtml(s.number)+" — "+escapeHtml(s.time)+"</h3>";
-  html+="<div class='sceneBox'><div class='sceneText'>"+escapeHtml(s.imagePrompt)+"</div></div>";
-  html+="<button class='btn' onclick='copyText("+JSON.stringify(s.imagePrompt)+")'>Copy Image Prompt</button>";
-  html+="</div>";
- }
-
- box.innerHTML=html;
-}
-
-function copyAllImages(){
- var p=getProject();
- var arr=[];
-
- for(var i=0;i<p.scenes.length;i++){
-  arr.push(p.scenes[i].number+"\n"+p.scenes[i].imagePrompt);
- }
-
- copyText(arr.join("\n\n====================\n\n"));
-}
-
-function renderVideoPrompts(){
- var p=getProject();
- var box=document.getElementById("videoPromptList");
-
- if(!p || !p.scenes.length){
-  box.innerHTML="<div class='card empty'>Generate scenes first</div>";
-  return;
- }
-
- var html="";
-
- for(var i=0;i<p.scenes.length;i++){
-  var s=p.scenes[i];
-  html+="<div class='card'>";
-  html+="<h3>"+escapeHtml(s.number)+" — "+escapeHtml(s.time)+"</h3>";
-  html+="<div class='sceneBox'><div class='sceneText'>"+escapeHtml(s.videoPrompt)+"</div></div>";
-  html+="<button class='btn primary' onclick='copyText("+JSON.stringify(s.videoPrompt)+")'>📋 Copy Flow Prompt</button>";
-  html+="</div>";
- }
-
- box.innerHTML=html;
-}
-
-function copyAllVideos(){
- var p=getProject();
- var arr=[];
-
- for(var i=0;i<p.scenes.length;i++){
-  arr.push(p.scenes[i].number+"\n"+p.scenes[i].videoPrompt);
- }
-
- copyText(arr.join("\n\n====================\n\n"));
-}
-
-/* ---------- ON SCREEN TEXT ---------- */
-
-function renderTextPage(){
- var p=getProject();
- var box=document.getElementById("textList");
-
- if(!p.scenes.length){
-  box.innerHTML="<div class='card empty'>Generate scenes first</div>";
-  return;
- }
-
- var html="";
-
- for(var i=0;i<p.scenes.length;i++){
-  var s=p.scenes[i];
-
-  html+="<div class='card'>";
-  html+="<h3>"+escapeHtml(s.number)+" · "+escapeHtml(s.time)+"</h3>";
-
-  html+="<div class='field'><label>EXACT ENGLISH TEXT</label>";
-  html+="<input value='"+escapeHtml(s.onScreenText)+"' onchange='updateSceneText("+i+",this.value)'>";
-  html+="</div>";
-
-  html+="<div class='field'><label>HIGHLIGHT WORD</label>";
-  html+="<input value='"+escapeHtml(s.highlightWord)+"' onchange='updateHighlight("+i+",this.value)'>";
-  html+="</div>";
-
-  html+="<div class='field'><label>TEXT STYLE</label>";
-  html+="<textarea onchange='updateTextStyle("+i+",this.value)'>"+escapeHtml(s.textStyle)+"</textarea>";
-  html+="</div>";
-
-  html+="<div class='notice'>";
-  html+="Flow instruction: Display the exact English sentence visually inside the generated video. ";
-  html+="Do not treat it as subtitles only. Do not add other words.";
-  html+="</div>";
-
-  html+="</div>";
- }
-
- box.innerHTML=html;
-}
-
-function updateSceneText(index,val){
- var p=getProject();
- p.scenes[index].onScreenText=val;
- p.scenes[index].videoPrompt=buildVideoPrompt(p.scenes[index]);
- syncProject();
-}
-
-function updateHighlight(index,val){
- var p=getProject();
- p.scenes[index].highlightWord=val;
- syncProject();
-}
-
-function updateTextStyle(index,val){
- var p=getProject();
- p.scenes[index].textStyle=val;
- p.scenes[index].videoPrompt=buildVideoPrompt(p.scenes[index]);
- syncProject();
-}
-
-/* ---------- CHARACTERS PAGE ---------- */
-
-function renderCharacters(){
- var box=document.getElementById("charactersList");
- var html="";
-
- for(var i=0;i<state.characters.length;i++){
-  var c=state.characters[i];
-
-  html+="<div class='charCard'>";
-  html+="<div class='charIcon'>"+escapeHtml(c.name.charAt(0))+"</div>";
-  html+="<h3>"+escapeHtml(c.name)+"</h3>";
-  html+="<div class='small'>"+escapeHtml(c.role)+" · "+escapeHtml(c.age)+" · "+escapeHtml(c.gender)+"</div>";
-  html+="<hr>";
-  html+="<div class='small'>APPEARANCE</div>";
-  html+="<div class='sceneText'>"+escapeHtml(c.appearance)+"</div>";
-  html+="<br><div class='small'>CLOTHING</div>";
-  html+="<div class='sceneText'>"+escapeHtml(c.clothes)+"</div>";
-  html+="<br><div class='small'>PERSONALITY</div>";
-  html+="<div class='sceneText'>"+escapeHtml(c.personality)+"</div>";
-  html+="<br><div class='small'>VOICE</div>";
-  html+="<div class='sceneText'>"+escapeHtml(c.voice)+"</div>";
-  html+="</div>";
- }
-
- box.innerHTML=html;
-}
-
-/* ---------- LOCATIONS ---------- */
-
-function renderLocations(){
- var box=document.getElementById("locationsList");
- var html="";
-
- for(var i=0;i<state.locations.length;i++){
-  var l=state.locations[i];
-
-  html+="<div class='card'>";
-  html+="<span class='badge'>LOCATION LOCK</span>";
-  html+="<h2>"+escapeHtml(l.name)+"</h2>";
-  html+="<div class='sceneText'>"+escapeHtml(l.description)+"</div>";
-  html+="</div>";
- }
-
- box.innerHTML=html;
-}
-
-/* ---------- IDEAS ---------- */
-
-function generateIdeas(){
- var shuffled=clone(STORY_IDEAS);
-
- for(var i=shuffled.length-1;i>0;i--){
-  var j=Math.floor(Math.random()*(i+1));
-  var t=shuffled[i];
-  shuffled[i]=shuffled[j];
-  shuffled[j]=t;
- }
-
- var html="";
-
- for(var x=0;x<10;x++){
-  html+="<div class='card'>";
-  html+="<h3>"+(x+1)+". "+escapeHtml(shuffled[x])+"</h3>";
-  html+="<button class='btn primary' onclick='useIdea("+JSON.stringify(shuffled[x])+")'>Use This Idea</button>";
-  html+="</div>";
- }
-
- document.getElementById("ideasList").innerHTML=html;
-}
-
-function useIdea(idea){
- document.getElementById("storyIdea").value=idea;
- go("ai-story");
-}
-
-/* ---------- VOICE ---------- */
-
-function renderVoice(){
- var p=getProject();
- var box=document.getElementById("voiceList");
-
- if(!p.scenes.length){
-  box.innerHTML="<div class='card empty'>Generate scenes first</div>";
-  return;
- }
-
- var html="";
-
- for(var i=0;i<p.scenes.length;i++){
-  var s=p.scenes[i];
-  var words=(s.dialogue+" "+s.narration).trim().split(/\s+/).length;
-
-  html+="<div class='card'>";
-  html+="<h3>"+escapeHtml(s.number)+" · "+escapeHtml(s.time)+"</h3>";
-  html+="<div class='sceneText'>"+escapeHtml(s.dialogue)+"</div>";
-  html+="<p class='small'>Approx. "+words+" words · 10-second timing</p>";
-
-  if(words>28){
-   html+="<div class='notice warn'>Voice may be too long for 10 seconds. Consider shorter dialogue.</div>";
-  }
-
-  html+="</div>";
- }
-
- box.innerHTML=html;
-}
-
-/* ---------- SRT ---------- */
-
-function generateSRT(){
- var p=getProject();
-
- var out=[];
-
- for(var i=0;i<p.scenes.length;i++){
-  var s=p.scenes[i];
-  var start=i*10;
-  var end=start+10;
-
-  out.push(
-   String(i+1)+"\n"+
-   srtTime(start)+" --> "+srtTime(end)+"\n"+
-   s.onScreenText+"\n"
-  );
- }
-
- document.getElementById("srtOutput").value=out.join("\n");
-}
-
-function srtTime(sec){
- var h=Math.floor(sec/3600);
- sec=sec%3600;
- var m=Math.floor(sec/60);
- var s=sec%60;
-
- return pad(h)+":"+pad(m)+":"+pad(s)+",000";
-}
-
-function pad(n){
- return n<10?"0"+n:String(n);
-}
-
-/* ---------- LESSON ---------- */
-
-function renderLesson(){
- var p=getProject();
-
- var words=[
-  ["ready","prepared"],
-  ["trip","a journey"],
-  ["airport","a place where airplanes arrive and leave"],
-  ["counter","a place where you get a service"],
-  ["excited","very happy about something"],
-  ["follow","go after someone or something"],
-  ["understand","know the meaning"],
-  ["together","with other people"]
- ];
-
- var sentences=[
-  "Are we ready to go?",
-  "Where should we go now?",
-  "Let us go to the check-in counter.",
-  "I am excited about our trip.",
-  "Please stay close to us."
- ];
-
- var html="<div class='card'>";
- html+="<h1>English Lesson</h1>";
- html+="<p class='muted'>CEFR "+escapeHtml(p.level)+" · "+escapeHtml(p.englishMode)+"</p>";
- html+="<h3>KEY VOCABULARY</h3>";
-
- for(var i=0;i<words.length;i++){
-  html+="<div class='notice'><b>"+escapeHtml(words[i][0])+"</b> — "+escapeHtml(words[i][1])+"</div>";
- }
-
- html+="<hr><h3>KEY SENTENCES</h3>";
-
- for(var j=0;j<sentences.length;j++){
-  html+="<div class='notice'>"+escapeHtml(sentences[j])+"</div>";
- }
-
- html+="<hr><h3>MINI QUIZ</h3>";
- html+="<div class='notice'>What does “excited” mean?</div>";
- html+="<div class='actions'>";
- html+="<button class='btn' onclick='alert(\"Very happy about something\")'>A. Very happy</button>";
- html+="<button class='btn' onclick='alert(\"Try again\")'>B. Very tired</button>";
- html+="</div>";
-
- html+="</div>";
-
- document.getElementById("lessonContent").innerHTML=html;
-}
-
-/* ---------- THUMBNAIL ---------- */
-
-function buildThumbnail(){
- var p=getProject();
-
- var title=document.getElementById("thumbTitle").value.trim();
-
- if(!title)title=p.title;
-
- document.getElementById("thumbTitle").value=title;
- document.getElementById("thumbPreview").textContent=title;
-
- var prompt=[
-  "Create ONE YouTube thumbnail for the complete English-learning video.",
-  "",
-  "TEXT AT TOP:",
-  "SLOW ENGLISH",
-  "",
-  "MAIN VIDEO TITLE:",
-  title,
-  "",
-  "CONCEPT:",
-  "Create one strong visual composition representing the entire story, not a single scene.",
-  "Show the main family characters David, Sarah, Emma and Leo together.",
-  "Use an expressive, happy, curious family moment related to the overall story.",
-  "",
-  "CHARACTERS:",
-  characterLock(["david","sarah","emma","leo"]),
-  "",
-  "VISUAL STYLE:",
-  "High-quality 3D educational family animation, cinematic family animation, bright polished colors, expressive faces, clean international YouTube thumbnail composition.",
-  "",
-  "COMPOSITION:",
-  "16:9 YouTube thumbnail, large readable title area, strong facial expressions, clear visual hierarchy, colorful background, professional creator thumbnail.",
-  "",
-  "IMPORTANT:",
-  "Do not create Scene 01, Scene 02 or scene-specific thumbnail text.",
-  "This is ONE thumbnail representing the complete video.",
-  "Keep the title readable and visually dominant."
- ].join("\n");
-
- document.getElementById("thumbPrompt").value=prompt;
-}
-
-/* ---------- YOUTUBE ---------- */
-
-function renderYoutube(){
- var p=getProject();
-
- var desc=
-  "Learn practical English through an original animated story.\n\n"+
-  "In this "+p.level+" Slow English lesson, you will learn useful everyday English expressions through a simple family story.\n\n"+
-  "This video is designed for English learners who want to improve listening, vocabulary, pronunciation and everyday communication.\n\n"+
-  "Watch the story, repeat the sentences, and practice the English expressions.";
-
- var tags=[
-  "slow english",
-  "learn english",
-  "english listening",
-  "english speaking",
-  "english conversation",
-  "english story",
-  "english for beginners",
-  "A1 English",
-  "A2 English",
-  "English learning",
-  "ESL",
-  "learn English through stories"
- ];
-
- var html="<div class='card'>";
- html+="<h1>YouTube Pack</h1>";
-
- html+="<div class='field'><label>SEO TITLE</label>";
- html+="<input id='ytTitle' value='"+escapeHtml(p.title+" | Slow English Story")+"' readonly>";
- html+="</div>";
-
- html+="<div class='field'><label>DESCRIPTION</label>";
- html+="<textarea id='ytDesc' style='min-height:220px'>"+escapeHtml(desc)+"</textarea></div>";
-
- html+="<div class='field'><label>TAGS</label>";
- html+="<textarea id='ytTags'>"+escapeHtml(tags.join(", "))+"</textarea></div>";
-
- html+="<div class='field'><label>HASHTAGS</label>";
- html+="<input value='#SlowEnglish #LearnEnglish #EnglishStory #EnglishListening #ESL' readonly>";
- html+="</div>";
-
- html+="<div class='actions'>";
- html+="<button class='btn primary' onclick='copyText(document.getElementById(\"ytTitle\").value+\"\\n\\n\"+document.getElementById(\"ytDesc\").value+\"\\n\\n\"+document.getElementById(\"ytTags\").value)'>Copy YouTube Pack</button>";
- html+="</div>";
-
- html+="</div>";
-
- document.getElementById("youtubeContent").innerHTML=html;
-}
-
-/* ---------- SHORTS ---------- */
-
-function generateShorts(){
- var p=getProject();
-
- var templates=[
-  "3 useful English sentences from "+p.title,
-  "Can you understand this English conversation?",
-  "Learn this everyday English question",
-  "Slow English listening practice",
-  "Repeat this English sentence with me"
- ];
-
- var html="";
-
- for(var i=0;i<templates.length;i++){
-  html+="<div class='card'>";
-  html+="<h3>SHORT "+(i+1)+"</h3>";
-  html+="<div class='sceneText'>"+escapeHtml(templates[i])+"</div>";
-  html+="<div class='actions'>";
-  html+="<button class='btn' onclick='copyText("+JSON.stringify(templates[i])+")'>Copy Idea</button>";
-  html+="</div>";
-  html+="</div>";
- }
-
- document.getElementById("shortsList").innerHTML=html;
-}
-
-/* ---------- PROJECTS ---------- */
+/* ================= PROJECTS ================= */
 
 function renderProjects(){
- var box=document.getElementById("projectsList");
- var html="";
 
- for(var i=0;i<state.projects.length;i++){
-  var p=state.projects[i];
-  var active=p.id===state.currentProjectId;
+  var html =
+    '<div class="card">' +
+    '<div class="card-title">'+
+    escapeHtml(state.project.title)+
+    '</div>' +
+    '<div class="muted">'+
+    state.project.level+
+    ' • '+
+    state.project.duration+
+    ' minute(s) • '+
+    state.project.scenes.length+
+    ' scenes'+
+    '</div>' +
+    '<div class="actions">' +
+    '<button class="btn btn-primary" id="openCurrentProject">Open Project</button>' +
+    '</div>' +
+    '</div>';
 
-  html+="<div class='card'>";
-  html+="<span class='badge'>"+(active?"CURRENT":"PROJECT")+"</span>";
-  html+="<h2>"+escapeHtml(p.title)+"</h2>";
-  html+="<p class='muted'>"+escapeHtml(p.level)+" · "+escapeHtml(p.duration)+" min · "+escapeHtml(p.storyType)+" · "+p.scenes.length+" scenes</p>";
-  html+="<div class='actions'>";
-  html+="<button class='btn primary' onclick='openProject(\""+p.id+"\")'>Open</button>";
-  html+="<button class='btn danger' onclick='deleteProject(\""+p.id+"\")'>Delete</button>";
-  html+="</div>";
-  html+="</div>";
- }
+  $("projectList").innerHTML =
+    html;
 
- box.innerHTML=html;
+  $("openCurrentProject").addEventListener(
+    "click",
+    function(){
+      openPage("ai-story");
+    }
+  );
+
 }
 
-/* ---------- BACKUP ---------- */
+/* ================= BACKUP ================= */
 
-function backupProject(){
- var p=getProject();
+function exportBackup(){
 
- downloadText(
-  safeFilename(p.title)+"_project.json",
-  JSON.stringify({
-   version:4,
-   exported:new Date().toISOString(),
-   project:p,
-   characters:state.characters,
-   locations:state.locations,
-   settings:state.settings
-  },null,2)
- );
+  var blob =
+    new Blob(
+      [JSON.stringify(state,null,2)],
+      {type:"application/json;charset=utf-8"}
+    );
+
+  var url =
+    URL.createObjectURL(blob);
+
+  var a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "AUNG_AI_STORY_VIDEO_PRO_V4_BACKUP.json";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  document.body.removeChild(a);
+
+  URL.revokeObjectURL(url);
+
 }
 
-document.getElementById("importFile").addEventListener("change",function(){
- var file=this.files && this.files[0];
+function importBackup(file){
 
- if(!file)return;
+  var reader =
+    new FileReader();
 
- var reader=new FileReader();
+  reader.onload = function(){
 
- reader.onload=function(e){
-  try{
-   var data=JSON.parse(e.target.result);
+    try{
 
-   if(data.project){
-    data.project.id=uid();
-    normalizeProject(data.project);
+      var imported =
+        JSON.parse(
+          reader.result
+        );
 
-    state.projects.unshift(data.project);
-    state.currentProjectId=data.project.id;
+      if(imported.project){
+        state.project =
+          imported.project;
+      }
 
-    if(data.characters)state.characters=data.characters;
-    if(data.locations)state.locations=data.locations;
-    if(data.settings)state.settings=data.settings;
+      if(imported.characters){
+        state.characters =
+          imported.characters;
+      }
 
-    saveState();
-    alert("Project imported");
-    go("dashboard");
-   }else{
-    alert("Invalid project file");
-   }
-  }catch(err){
-   alert("Import failed");
-  }
- };
+      if(imported.locations){
+        state.locations =
+          imported.locations;
+      }
 
- reader.readAsText(file);
- this.value="";
-});
+      if(imported.settings){
+        state.settings =
+          imported.settings;
+      }
 
-/* ---------- SETTINGS ---------- */
+      saveState();
 
-function renderSettings(){
- var s=state.settings;
+      refreshAll();
 
- document.getElementById("channelName").value=s.channelName || "Slow English";
- document.getElementById("visualStyle").value=s.visualStyle || "";
+      showToast("Backup restored");
+
+    }catch(error){
+
+      showToast("Invalid JSON");
+
+    }
+
+  };
+
+  reader.readAsText(file);
+
+}
+
+/* ================= SETTINGS ================= */
+
+function loadSettings(){
+
+  $("settingAudience").value =
+    state.settings.audience;
+
+  $("settingLevel").value =
+    state.settings.level;
+
+  $("settingEnglish").value =
+    state.settings.english;
+
 }
 
 function saveSettings(){
- state.settings.channelName=document.getElementById("channelName").value.trim();
- state.settings.visualStyle=document.getElementById("visualStyle").value.trim();
 
- saveState();
+  state.settings.audience =
+    $("settingAudience").value;
 
- var p=getProject();
+  state.settings.level =
+    $("settingLevel").value;
 
- for(var i=0;i<p.scenes.length;i++){
-  p.scenes[i].imagePrompt=buildImagePrompt(p.scenes[i]);
-  p.scenes[i].videoPrompt=buildVideoPrompt(p.scenes[i]);
- }
+  state.settings.english =
+    $("settingEnglish").value;
 
- saveState();
- alert("Settings saved");
+  state.project.level =
+    state.settings.level;
+
+  saveState();
+
+  refreshDashboard();
+
+  showToast("Settings saved");
+
 }
 
-/* ---------- DASHBOARD ---------- */
+/* ================= THUMBNAIL ================= */
 
-function renderDashboard(){
- var box=document.getElementById("dashboardContent");
- var p=getProject();
+function updateThumbnail(){
 
- if(!p){
-  state=createState();
-  p=getProject();
- }
+  var title =
+    $("thumbnailTitle").value ||
+    state.project.title;
 
- var total=p.duration*6;
- var done=p.scenes.length;
- var percent=total?Math.min(100,Math.round(done/total*100)):0;
+  var text =
+    $("thumbnailText").value ||
+    "SLOW ENGLISH";
 
- var html="";
+  $("thumbnailPrompt").textContent =
+    "Create a high-quality 16:9 YouTube thumbnail for an original English-learning animated family story.\n\n" +
 
- html+="<div class='grid'>";
+    "Main characters:\n" +
+    "David, Sarah, Emma and Leo.\n\n" +
 
- html+=statCard("CURRENT STORY",p.title);
- html+=statCard("CEFR",p.level);
- html+=statCard("DURATION",p.duration+" min");
- html+=statCard("SCENES",done+" / "+total);
+    "Show the family together in a modern international airport with luggage.\n\n" +
 
- html+="</div>";
+    "Bright expressive faces, friendly family emotion, cinematic 3D animated family illustration, polished international educational YouTube look.\n\n" +
 
- html+="<div class='card'>";
- html+="<h2>"+escapeHtml(p.title)+"</h2>";
- html+="<p class='muted'>"+escapeHtml(p.idea)+"</p>";
- html+="<div class='progress'><i style='width:"+percent+"%'></i></div>";
- html+="<p class='small'>Production progress: "+percent+"%</p>";
+    "Composition:\n" +
+    "The whole story should be represented.\n" +
+    "Do not show Scene 01, Scene 02 or Scene 03.\n" +
+    "Use one strong main image.\n\n" +
 
- html+="<div class='actions'>";
- html+="<button class='btn primary' onclick='go(\"ai-story\")'>✦ AI Story</button>";
- html+="<button class='btn' onclick='go(\"characters\")'>👥 Characters</button>";
- html+="<button class='btn' onclick='go(\"scenes\")'>🎬 Scene Studio</button>";
- html+="<button class='btn' onclick='go(\"thumbnail\")'>▣ Thumbnail</button>";
- html+="<button class='btn' onclick='go(\"youtube\")'>YT YouTube Pack</button>";
- html+="</div>";
- html+="</div>";
+    "Text:\n" +
+    text +
+    "\n" +
+    title +
+    "\n\n" +
 
- html+="<div class='grid2'>";
+    "Large readable title area.\n" +
+    "Clean composition.\n" +
+    "High contrast.\n" +
+    "Safe margins.\n" +
+    "16:9 YouTube thumbnail.";
 
- html+="<div class='card'>";
- html+="<h3>PRODUCTION FLOW</h3>";
- html+="<div class='notice'>1. AI Story</div>";
- html+="<div class='notice'>2. Character Lock</div>";
- html+="<div class='notice'>3. 10-sec Scene Studio</div>";
- html+="<div class='notice'>4. Image Prompt</div>";
- html+="<div class='notice'>5. Google Flow Video Prompt</div>";
- html+="<div class='notice'>6. On-Screen English Text</div>";
- html+="<div class='notice'>7. Voice + SRT</div>";
- html+="<div class='notice'>8. Thumbnail + YouTube SEO</div>";
- html+="</div>";
-
- html+="<div class='card'>";
- html+="<h3>FLOW PROMPT RULE</h3>";
- html+="<div class='notice warn'>";
- html+="Copy the scene prompt and paste it manually into Google Flow. ";
- html+="The prompt explicitly asks the generated video to show the English sentence visually inside the video.";
- html+="</div>";
- html+="<button class='btn success' onclick='go(\"scenes\")'>Open Scene Studio</button>";
- html+="</div>";
-
- html+="</div>";
-
- box.innerHTML=html;
 }
 
-function statCard(label,value){
- return "<div class='card'><div class='small'>"+escapeHtml(label)+"</div><div class='stat'>"+escapeHtml(value)+"</div></div>";
+/* ================= YOUTUBE ================= */
+
+function youtubePack(){
+
+  return (
+    "TITLE\n"+
+    $("ytTitle").value+
+    "\n\n"+
+    "DESCRIPTION\n"+
+    $("ytDescription").value+
+    "\n\n"+
+    "TAGS\n"+
+    $("ytTags").value+
+    "\n\n"+
+    "HASHTAGS\n"+
+    "#SlowEnglish #LearnEnglish #EnglishForBeginners #A1English #EnglishStory"
+  );
+
 }
 
-/* ---------- REFRESH ---------- */
+/* ================= REFRESH ================= */
 
 function refreshPage(page){
- try{
-  if(page==="dashboard")renderDashboard();
-  if(page==="ai-story")renderStoryResult();
-  if(page==="ideas")generateIdeas();
-  if(page==="characters")renderCharacters();
-  if(page==="locations")renderLocations();
-  if(page==="scenes")renderScenes();
-  if(page==="image-prompts")renderImagePrompts();
-  if(page==="video-prompts")renderVideoPrompts();
-  if(page==="text")renderTextPage();
-  if(page==="voice")renderVoice();
-  if(page==="lesson")renderLesson();
-  if(page==="thumbnail"){
-   var p=getProject();
-   document.getElementById("thumbTitle").value=p.title;
-   buildThumbnail();
+
+  if(page === "dashboard"){
+    refreshDashboard();
   }
-  if(page==="youtube")renderYoutube();
-  if(page==="shorts")generateShorts();
-  if(page==="projects")renderProjects();
-  if(page==="settings")renderSettings();
-  if(page==="srt"){
-   if(!document.getElementById("srtOutput").value)generateSRT();
+
+  if(page === "characters"){
+    renderCharacters();
   }
- }catch(e){
-  var target=document.getElementById("page-"+page);
-  if(target){
-   target.insertAdjacentHTML(
-    "afterbegin",
-    "<div class='notice warn'>This section needs to be refreshed. Your project data is still saved.</div>"
-   );
+
+  if(page === "locations"){
+    renderLocations();
   }
- }
+
+  if(page === "ideas"){
+    renderIdeas();
+  }
+
+  if(page === "scene-studio"){
+    renderScenes();
+  }
+
+  if(page === "image-prompts" ||
+     page === "video-prompts"){
+    renderPromptPages();
+  }
+
+  if(page === "projects"){
+    renderProjects();
+  }
+
+  if(page === "settings"){
+    loadSettings();
+  }
+
 }
 
-/* ---------- NAV EVENTS ---------- */
+function refreshAll(){
 
-var navButtons=document.querySelectorAll(".nav button");
+  refreshDashboard();
+  renderIdeas();
+  renderCharacters();
+  renderLocations();
+  renderScenes();
+  renderPromptPages();
+  renderProjects();
+  loadSettings();
+  updateThumbnail();
 
-for(var n=0;n<navButtons.length;n++){
- navButtons[n].addEventListener("click",function(){
-  go(this.getAttribute("data-page"));
- });
 }
 
-document.getElementById("menuBtn").addEventListener("click",function(){
- document.getElementById("sidebar").classList.toggle("open");
-});
+/* ================= EVENTS ================= */
 
-/* ---------- INIT ---------- */
+function setupEvents(){
+
+  $("dashboardCreate").addEventListener(
+    "click",
+    function(){
+      openPage("ai-story");
+    }
+  );
+
+  $("dashboardScene").addEventListener(
+    "click",
+    function(){
+      openPage("scene-studio");
+    }
+  );
+
+  $("generateStory").addEventListener(
+    "click",
+    generateStory
+  );
+
+  $("randomStory").addEventListener(
+    "click",
+    randomStory
+  );
+
+  $("noIdeaStory").addEventListener(
+    "click",
+    noIdeaStory
+  );
+
+  $("copyStory").addEventListener(
+    "click",
+    function(){
+      copyText(
+        $("storyOutput").textContent
+      );
+    }
+  );
+
+  $("makeScenes").addEventListener(
+    "click",
+    function(){
+      generateScenes();
+      openPage("scene-studio");
+    }
+  );
+
+  $("generateScenes").addEventListener(
+    "click",
+    generateScenes
+  );
+
+  $("copyAllScenes").addEventListener(
+    "click",
+    copyAllScenes
+  );
+
+  $("exportScenes").addEventListener(
+    "click",
+    exportScenesTxt
+  );
+
+  $("generateSrt").addEventListener(
+    "click",
+    generateSrt
+  );
+
+  $("copySrt").addEventListener(
+    "click",
+    function(){
+      copyText(
+        $("srtOutput").value
+      );
+    }
+  );
+
+  $("copyThumbnail").addEventListener(
+    "click",
+    function(){
+      copyText(
+        $("thumbnailPrompt").textContent
+      );
+    }
+  );
+
+  $("thumbnailTitle").addEventListener(
+    "input",
+    updateThumbnail
+  );
+
+  $("thumbnailText").addEventListener(
+    "input",
+    updateThumbnail
+  );
+
+  $("copyYoutube").addEventListener(
+    "click",
+    function(){
+      copyText(
+        youtubePack()
+      );
+    }
+  );
+
+  $("saveSettings").addEventListener(
+    "click",
+    saveSettings
+  );
+
+  $("exportBackup").addEventListener(
+    "click",
+    exportBackup
+  );
+
+  $("importButton").addEventListener(
+    "click",
+    function(){
+      $("importFile").click();
+    }
+  );
+
+  $("importFile").addEventListener(
+    "change",
+    function(){
+
+      if(this.files && this.files[0]){
+        importBackup(
+          this.files[0]
+        );
+      }
+
+    }
+  );
+
+}
+
+/* ================= INIT ================= */
 
 function init(){
- loadState();
 
- document.getElementById("page-dashboard").classList.add("active");
+  loadState();
 
- var nav=document.querySelectorAll(".nav button");
- for(var i=0;i<nav.length;i++){
-  if(nav[i].getAttribute("data-page")==="dashboard"){
-   nav[i].classList.add("active");
+  if(!state.project){
+    state.project = {
+      title:"A Family Trip to the Airport",
+      level:"A1",
+      duration:1,
+      idea:"",
+      scenes:[]
+    };
   }
- }
 
- renderDashboard();
+  refreshAll();
+
+  setupNavigation();
+
+  setupEvents();
+
+  updateThumbnail();
+
+  openPage("dashboard");
+
 }
 
-try{
- init();
-}catch(e){
- try{
-  state=createState();
-  saveState();
-  renderDashboard();
- }catch(err){
-  document.getElementById("dashboardContent").innerHTML=
-   "<div class='card notice warn'>Please refresh this page. A new project will be created automatically.</div>";
- }
+if(document.readyState === "loading"){
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    init
+  );
+
+}else{
+
+  init();
+
 }
+
+})();
 </script>
 
 </body>
 </html>
+```
