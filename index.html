@@ -1,0 +1,4107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AUNG AI STORY VIDEO PRO V1</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#0b0d12;
+  --panel:#121620;
+  --panel2:#171c27;
+  --border:#293140;
+  --text:#f4f6fb;
+  --muted:#929bad;
+  --accent:#8b5cf6;
+  --accent2:#a78bfa;
+  --green:#22c55e;
+  --orange:#f59e0b;
+  --red:#ef4444;
+}
+
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:250px;
+  background:#0f1219;
+  border-right:1px solid var(--border);
+  padding:20px 14px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  overflow-y:auto;
+  z-index:20;
+}
+
+.brand{
+  padding:8px 10px 22px;
+}
+
+.brand-title{
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:.3px;
+}
+
+.brand-sub{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+.nav-title{
+  font-size:10px;
+  color:#697286;
+  margin:18px 10px 8px;
+  text-transform:uppercase;
+  letter-spacing:1.3px;
+}
+
+.nav button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#aeb6c7;
+  padding:11px 12px;
+  border-radius:10px;
+  text-align:left;
+  margin-bottom:3px;
+  transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+  background:#1c2030;
+  color:#fff;
+}
+
+.nav button.active{
+  border-left:3px solid var(--accent);
+  padding-left:9px;
+}
+
+/* MAIN */
+
+.main{
+  margin-left:250px;
+  width:calc(100% - 250px);
+}
+
+.topbar{
+  height:70px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  background:rgba(11,13,18,.94);
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(12px);
+}
+
+.page-title{
+  font-size:18px;
+  font-weight:750;
+}
+
+.top-status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.status-dot{
+  width:8px;
+  height:8px;
+  background:var(--green);
+  border-radius:50%;
+}
+
+.content{
+  padding:28px;
+  max-width:1500px;
+  margin:auto;
+}
+
+.view{
+  display:none;
+}
+
+.view.active{
+  display:block;
+}
+
+/* HERO */
+
+.hero{
+  background:
+    radial-gradient(circle at 80% 20%,rgba(139,92,246,.20),transparent 35%),
+    linear-gradient(135deg,#151925,#10131b);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:30px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-size:32px;
+  margin-bottom:9px;
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:760px;
+  line-height:1.6;
+}
+
+.hero-actions{
+  margin-top:22px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* BUTTONS */
+
+.btn{
+  border:1px solid var(--border);
+  background:#181d28;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:9px;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  background:#202635;
+}
+
+.btn.primary{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.btn.primary:hover{
+  background:#7c3aed;
+}
+
+.btn.green{
+  background:#166534;
+  border-color:#166534;
+}
+
+.btn.danger{
+  background:#44151b;
+  border-color:#6b1d27;
+}
+
+.btn.small{
+  padding:7px 10px;
+  font-size:12px;
+}
+
+/* CARDS */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+}
+
+.card-label{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.card-value{
+  font-size:25px;
+  font-weight:800;
+}
+
+.card-desc{
+  color:#737d90;
+  font-size:11px;
+  margin-top:6px;
+}
+
+/* SECTION */
+
+.section{
+  margin-top:22px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+  gap:10px;
+}
+
+.section-head h2{
+  font-size:17px;
+}
+
+.section-head span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* FORM */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.form-group.full{
+  grid-column:1/-1;
+}
+
+label{
+  font-size:12px;
+  color:#aab2c2;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  background:#0d1118;
+  color:#fff;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:11px 12px;
+  outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--accent);
+}
+
+textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+/* IDEA */
+
+.idea-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.idea{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:17px;
+  transition:.2s;
+}
+
+.idea:hover{
+  border-color:#57418e;
+}
+
+.idea-number{
+  font-size:11px;
+  color:var(--accent2);
+  margin-bottom:8px;
+}
+
+.idea h3{
+  font-size:15px;
+  margin-bottom:7px;
+}
+
+.idea p{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.5;
+  margin-bottom:12px;
+}
+
+.idea-meta{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-bottom:13px;
+}
+
+.badge{
+  background:#202633;
+  border:1px solid #303849;
+  padding:4px 7px;
+  border-radius:5px;
+  font-size:10px;
+  color:#b8c0cf;
+}
+
+/* SCENE */
+
+.scene{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:12px;
+  overflow:hidden;
+}
+
+.scene-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 16px;
+  background:#151a24;
+  border-bottom:1px solid var(--border);
+}
+
+.scene-title{
+  font-size:13px;
+  font-weight:750;
+}
+
+.scene-time{
+  font-size:11px;
+  color:var(--accent2);
+}
+
+.scene-body{
+  padding:16px;
+}
+
+.scene-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.prompt-box{
+  background:#0c1016;
+  border:1px solid #252c39;
+  border-radius:9px;
+  padding:12px;
+}
+
+.prompt-title{
+  font-size:10px;
+  color:#8f99ac;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.prompt-text{
+  color:#dce1ea;
+  font-size:12px;
+  line-height:1.55;
+  white-space:pre-wrap;
+}
+
+.copy-row{
+  margin-top:9px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+/* TIMELINE */
+
+.timeline{
+  overflow-x:auto;
+  display:flex;
+  gap:6px;
+  padding-bottom:6px;
+}
+
+.timeline-item{
+  min-width:80px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:9px;
+  background:#131821;
+  font-size:10px;
+  text-align:center;
+}
+
+.timeline-item strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.timeline-item span{
+  color:var(--accent2);
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:55px 20px;
+  color:var(--muted);
+  border:1px dashed var(--border);
+  border-radius:14px;
+}
+
+.empty h3{
+  color:#d9deea;
+  margin-bottom:8px;
+}
+
+/* PROGRESS */
+
+.progress{
+  height:7px;
+  background:#252b36;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  width:0;
+  background:var(--accent);
+  transition:.4s;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#202631;
+  border:1px solid var(--border);
+  padding:12px 15px;
+  border-radius:9px;
+  color:#fff;
+  font-size:12px;
+  opacity:0;
+  transform:translateY(15px);
+  pointer-events:none;
+  transition:.25s;
+  z-index:100;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+
+.mobile-menu{
+  display:none;
+}
+
+@media(max-width:900px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+
+  .mobile-menu{
+    display:block;
+    border:1px solid var(--border);
+    background:#161b25;
+    color:#fff;
+    padding:7px 10px;
+    border-radius:7px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .content{
+    padding:18px;
+  }
+
+  .topbar{
+    padding:0 18px;
+  }
+}
+
+@media(max-width:600px){
+  .grid,
+  .form-grid,
+  .idea-grid,
+  .scene-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero{
+    padding:22px;
+  }
+
+  .hero h1{
+    font-size:25px;
+  }
+
+  .card-value{
+    font-size:22px;
+  }
+
+  .top-status{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+  <div class="brand">
+    <div class="brand-title">AUNG AI STORY</div>
+    <div class="brand-sub">VIDEO PRO V1</div>
+  </div>
+
+  <div class="nav">
+
+    <div class="nav-title">Workspace</div>
+
+    <button class="nav-btn active" data-view="dashboard">
+      🏠 Dashboard
+    </button>
+
+    <button class="nav-btn" data-view="create">
+      ✨ Create Story
+    </button>
+
+    <button class="nav-btn" data-view="ideas">
+      💡 Story Ideas
+    </button>
+
+    <button class="nav-btn" data-view="characters">
+      👤 Characters
+    </button>
+
+    <button class="nav-btn" data-view="locations">
+      🌍 Locations
+    </button>
+
+    <button class="nav-btn" data-view="scenes">
+      🎬 Scene Studio
+    </button>
+
+    <div class="nav-title">Production</div>
+
+    <button class="nav-btn" data-view="image">
+      🖼 Image Prompts
+    </button>
+
+    <button class="nav-btn" data-view="video">
+      🎥 Video Prompts
+    </button>
+
+    <button class="nav-btn" data-view="voice">
+      🎙 Voice Script
+    </button>
+
+    <button class="nav-btn" data-view="srt">
+      📝 SRT / Subtitles
+    </button>
+
+    <button class="nav-btn" data-view="lesson">
+      🇬🇧 English Lesson
+    </button>
+
+    <button class="nav-btn" data-view="youtube">
+      📺 YouTube Pack
+    </button>
+
+    <button class="nav-btn" data-view="shorts">
+      📱 Shorts
+    </button>
+
+    <div class="nav-title">Project</div>
+
+    <button class="nav-btn" data-view="projects">
+      📁 Projects
+    </button>
+
+    <button class="nav-btn" data-view="export">
+      📦 Export / Import
+    </button>
+
+    <button class="nav-btn" data-view="settings">
+      ⚙️ Settings
+    </button>
+
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<header class="topbar">
+
+  <div style="display:flex;align-items:center;gap:10px">
+
+    <button class="mobile-menu" id="mobileMenu">
+      ☰
+    </button>
+
+    <div class="page-title" id="pageTitle">
+      Dashboard
+    </div>
+
+  </div>
+
+  <div class="top-status">
+    <span class="status-dot"></span>
+    Local Project Storage
+  </div>
+
+</header>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+
+<section class="view active" id="dashboard">
+
+  <div class="hero">
+
+    <h1>AUNG AI STORY VIDEO PRO</h1>
+
+    <p>
+      Create original English-learning animated videos from idea to
+      scene-by-scene production. 10 seconds per scene, synchronized
+      voice script and subtitles.
+    </p>
+
+    <div class="hero-actions">
+
+      <button class="btn primary" onclick="showView('create')">
+        ✨ Create New Story
+      </button>
+
+      <button class="btn" onclick="generateIdeas()">
+        💡 I Don't Know What To Make
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-label">Current Project</div>
+      <div class="card-value" id="dashProject">—</div>
+      <div class="card-desc">Active story project</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Duration</div>
+      <div class="card-value" id="dashDuration">—</div>
+      <div class="card-desc">Total video duration</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Scenes</div>
+      <div class="card-value" id="dashScenes">0</div>
+      <div class="card-desc">10 seconds each</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Production</div>
+      <div class="card-value" id="dashProgress">0%</div>
+      <div class="card-desc">Project completion</div>
+    </div>
+
+  </div>
+
+  <div class="section">
+
+    <div class="section-head">
+      <h2>Production Flow</h2>
+      <span>One project → complete YouTube package</span>
+    </div>
+
+    <div class="card">
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <strong>01</strong>
+          Idea
+        </div>
+
+        <div class="timeline-item">
+          <strong>02</strong>
+          Story
+        </div>
+
+        <div class="timeline-item">
+          <strong>03</strong>
+          Character
+        </div>
+
+        <div class="timeline-item">
+          <strong>04</strong>
+          Scenes
+        </div>
+
+        <div class="timeline-item">
+          <strong>05</strong>
+          Image
+        </div>
+
+        <div class="timeline-item">
+          <strong>06</strong>
+          Video
+        </div>
+
+        <div class="timeline-item">
+          <strong>07</strong>
+          Voice
+        </div>
+
+        <div class="timeline-item">
+          <strong>08</strong>
+          SRT
+        </div>
+
+        <div class="timeline-item">
+          <strong>09</strong>
+          YouTube
+        </div>
+
+        <div class="timeline-item">
+          <strong>10</strong>
+          Shorts
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CREATE -->
+
+<section class="view" id="create">
+
+  <div class="section-head">
+    <div>
+      <h2>Create New Story</h2>
+      <span>Don't know a topic? Leave it blank and generate ideas</span>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="form-grid">
+
+      <div class="form-group full">
+        <label>Story Topic / Title — Optional</label>
+        <input
+          id="topic"
+          placeholder="Example: A family trip to the airport"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>English Level</label>
+
+        <select id="level">
+          <option>A1</option>
+          <option>A2</option>
+          <option>B1</option>
+          <option>B2</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Video Duration</label>
+
+        <select id="duration" onchange="updateSceneCount()">
+          <option value="60">1 Minute</option>
+          <option value="120">2 Minutes</option>
+          <option value="180" selected>3 Minutes</option>
+          <option value="300">5 Minutes</option>
+          <option value="600">10 Minutes</option>
+          <option value="900">15 Minutes</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Scene Duration</label>
+
+        <input
+          value="10 Seconds 🔒"
+          readonly
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Total Scenes</label>
+
+        <input
+          id="sceneCount"
+          value="18 Scenes"
+          readonly
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Video Style</label>
+
+        <select id="style">
+          <option>3D Educational Cartoon</option>
+          <option>3D Family Animation</option>
+          <option>2D Illustration</option>
+          <option>Storybook</option>
+          <option>Anime</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Aspect Ratio</label>
+
+        <select id="aspect">
+          <option>16:9</option>
+          <option>9:16</option>
+          <option>1:1</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Voice</label>
+
+        <select id="voice">
+          <option>Female - Friendly Teacher</option>
+          <option>Male - Friendly Teacher</option>
+          <option>Female - Young</option>
+          <option>Male - Young</option>
+          <option>Female - Storyteller</option>
+          <option>Male - Storyteller</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Story Mode</label>
+
+        <select id="storyMode">
+          <option>Daily Life</option>
+          <option>Family</option>
+          <option>Travel</option>
+          <option>School</option>
+          <option>Work</option>
+          <option>Friendship</option>
+          <option>Adventure</option>
+          <option>Random</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+
+      <button class="btn" onclick="generateIdeas()">
+        💡 Generate Story Ideas
+      </button>
+
+      <button class="btn primary" onclick="createProject()">
+        🚀 Generate Complete Project
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="section">
+
+    <div class="card">
+
+      <div class="section-head">
+        <h2>Video Calculation</h2>
+        <span>Scene Duration locked to 10 seconds</span>
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-label">Total Seconds</div>
+          <div class="card-value" id="calcSeconds">180</div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Scene Duration</div>
+          <div class="card-value">10s</div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Total Scenes</div>
+          <div class="card-value" id="calcScenes">18</div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">SRT Blocks</div>
+          <div class="card-value" id="calcSrt">18</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- IDEAS -->
+
+<section class="view" id="ideas">
+
+  <div class="section-head">
+
+    <div>
+      <h2>💡 Story Idea Generator</h2>
+      <span>When you don't know what video to make</span>
+    </div>
+
+    <button class="btn primary" onclick="generateIdeas()">
+      🔄 Generate 10 Ideas
+    </button>
+
+  </div>
+
+  <div id="ideaGrid" class="idea-grid">
+
+    <div class="empty" style="grid-column:1/-1">
+      <h3>No ideas yet</h3>
+      <p>Press Generate 10 Ideas to create story concepts</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CHARACTERS -->
+
+<section class="view" id="characters">
+
+  <div class="section-head">
+    <h2>👤 Character Bible</h2>
+    <button class="btn primary" onclick="addCharacter()">
+      + Add Character
+    </button>
+  </div>
+
+  <div id="characterList"></div>
+
+</section>
+
+
+<!-- LOCATIONS -->
+
+<section class="view" id="locations">
+
+  <div class="section-head">
+    <h2>🌍 Location Bible</h2>
+
+    <button class="btn primary" onclick="addLocation()">
+      + Add Location
+    </button>
+  </div>
+
+  <div id="locationList"></div>
+
+</section>
+
+
+<!-- SCENES -->
+
+<section class="view" id="scenes">
+
+  <div class="section-head">
+
+    <div>
+      <h2>🎬 Scene Studio</h2>
+      <span id="sceneInfo">No project</span>
+    </div>
+
+    <button class="btn primary" onclick="generateScenes()">
+      ⚡ Generate Scenes
+    </button>
+
+  </div>
+
+  <div id="sceneTimeline" class="card" style="margin-bottom:15px"></div>
+
+  <div id="sceneList">
+
+    <div class="empty">
+      <h3>No scenes generated</h3>
+      <p>Create a project first</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- IMAGE PROMPTS -->
+
+<section class="view" id="image">
+
+  <div class="section-head">
+    <div>
+      <h2>🖼 Image Prompts</h2>
+      <span>Google Flow / image generator ready prompts</span>
+    </div>
+  </div>
+
+  <div id="imagePrompts"></div>
+
+</section>
+
+
+<!-- VIDEO PROMPTS -->
+
+<section class="view" id="video">
+
+  <div class="section-head">
+    <div>
+      <h2>🎥 Video Prompts</h2>
+      <span>10-second video prompts for Flow / Veo workflow</span>
+    </div>
+  </div>
+
+  <div id="videoPrompts"></div>
+
+</section>
+
+
+<!-- VOICE -->
+
+<section class="view" id="voice">
+
+  <div class="section-head">
+    <div>
+      <h2>🎙 Voice Script</h2>
+      <span>Voice content designed around 10-second scenes</span>
+    </div>
+  </div>
+
+  <div id="voiceScript"></div>
+
+</section>
+
+
+<!-- SRT -->
+
+<section class="view" id="srt">
+
+  <div class="section-head">
+
+    <div>
+      <h2>📝 SRT / Subtitles</h2>
+      <span>Automatically synchronized to scene timing</span>
+    </div>
+
+    <button class="btn primary" onclick="copySRT()">
+      Copy SRT
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <textarea id="srtOutput" style="min-height:500px" readonly></textarea>
+
+  </div>
+
+</section>
+
+
+<!-- LESSON -->
+
+<section class="view" id="lesson">
+
+  <div class="section-head">
+    <h2>🇬🇧 English Lesson</h2>
+  </div>
+
+  <div id="lessonContent">
+
+    <div class="empty">
+      <h3>Create a story first</h3>
+      <p>Vocabulary, sentences and quiz will appear here</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- YOUTUBE -->
+
+<section class="view" id="youtube">
+
+  <div class="section-head">
+    <h2>📺 YouTube Publishing Pack</h2>
+  </div>
+
+  <div id="youtubePack">
+
+    <div class="empty">
+      <h3>No YouTube package</h3>
+      <p>Generate a project first</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SHORTS -->
+
+<section class="view" id="shorts">
+
+  <div class="section-head">
+    <h2>📱 Shorts Ideas</h2>
+  </div>
+
+  <div id="shortsContent">
+
+    <div class="empty">
+      <h3>Long video required</h3>
+      <p>Create a project to generate Shorts concepts</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PROJECTS -->
+
+<section class="view" id="projects">
+
+  <div class="section-head">
+    <h2>📁 Projects</h2>
+
+    <button class="btn danger" onclick="clearProjects()">
+      Clear All
+    </button>
+  </div>
+
+  <div id="projectList"></div>
+
+</section>
+
+
+<!-- EXPORT -->
+
+<section class="view" id="export">
+
+  <div class="section-head">
+    <h2>📦 Export / Import</h2>
+  </div>
+
+  <div class="card">
+
+    <h3 style="margin-bottom:8px">
+      Universal Project Package
+    </h3>
+
+    <p style="color:var(--muted);font-size:12px;line-height:1.6">
+      Export your Character Bible, Location Bible, Style Lock,
+      Scenes, Image Prompts, Video Prompts, Voice Script and SRT.
+      You can save the JSON file and import it later.
+    </p>
+
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+
+      <button class="btn primary" onclick="exportProject()">
+        ⬇ Export Project JSON
+      </button>
+
+      <label class="btn" style="display:inline-block">
+        ⬆ Import Project
+        <input
+          type="file"
+          id="importFile"
+          accept=".json"
+          style="display:none"
+          onchange="importProject(event)"
+        >
+      </label>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section class="view" id="settings">
+
+  <div class="section-head">
+    <h2>⚙️ Settings</h2>
+  </div>
+
+  <div class="card">
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>App Name</label>
+        <input value="AUNG AI STORY VIDEO PRO" id="appName">
+      </div>
+
+      <div class="form-group">
+        <label>Default Scene Duration</label>
+        <input value="10 Seconds" readonly>
+      </div>
+
+      <div class="form-group">
+        <label>AI Provider</label>
+
+        <select>
+          <option>Local Prompt Engine</option>
+          <option>Gemini API - Setup Required</option>
+          <option>OpenAI API - Setup Required</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Production Style</label>
+
+        <select>
+          <option>Educational Animation</option>
+          <option>Cinematic Animation</option>
+          <option>Storybook</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px">
+
+      <button class="btn primary" onclick="saveSettings()">
+        Save Settings
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+</div>
+</main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================================
+   AUNG AI STORY VIDEO PRO V1
+   LOCAL PROJECT ENGINE
+========================================================= */
+
+const STORAGE_KEY = "aung_ai_story_video_pro_v1";
+
+let appData = {
+  currentProject:null,
+  projects:[],
+  ideas:[],
+  characters:[],
+  locations:[],
+  settings:{
+    appName:"AUNG AI STORY VIDEO PRO"
+  }
+};
+
+
+/* =========================================================
+   LOAD / SAVE
+========================================================= */
+
+function loadData(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+      appData = JSON.parse(saved);
+    }
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+  renderAll();
+}
+
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(appData)
+  );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+const pageNames = {
+
+  dashboard:"Dashboard",
+  create:"Create Story",
+  ideas:"Story Ideas",
+  characters:"Characters",
+  locations:"Locations",
+  scenes:"Scene Studio",
+  image:"Image Prompts",
+  video:"Video Prompts",
+  voice:"Voice Script",
+  srt:"SRT / Subtitles",
+  lesson:"English Lesson",
+  youtube:"YouTube Pack",
+  shorts:"Shorts",
+  projects:"Projects",
+  export:"Export / Import",
+  settings:"Settings"
+
+};
+
+
+document.querySelectorAll(".nav-btn")
+.forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    showView(btn.dataset.view);
+
+    document
+      .querySelectorAll(".nav-btn")
+      .forEach(b=>b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    document
+      .getElementById("sidebar")
+      .classList.remove("open");
+
+  });
+
+});
+
+
+function showView(view){
+
+  document
+    .querySelectorAll(".view")
+    .forEach(v=>v.classList.remove("active"));
+
+  const target =
+    document.getElementById(view);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.getElementById("pageTitle")
+    .textContent =
+    pageNames[view] || "Dashboard";
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        btn.dataset.view===view
+      );
+    });
+
+}
+
+
+document
+  .getElementById("mobileMenu")
+  .addEventListener("click",()=>{
+
+    document
+      .getElementById("sidebar")
+      .classList.toggle("open");
+
+  });
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+  const el =
+    document.getElementById("toast");
+
+  el.textContent=message;
+  el.classList.add("show");
+
+  setTimeout(()=>{
+    el.classList.remove("show");
+  },2200);
+
+}
+
+
+/* =========================================================
+   VIDEO CALCULATION
+========================================================= */
+
+function updateSceneCount(){
+
+  const seconds =
+    Number(
+      document.getElementById("duration").value
+    );
+
+  const scenes =
+    Math.floor(seconds / 10);
+
+  document.getElementById("sceneCount")
+    .value =
+    scenes + " Scenes";
+
+  document.getElementById("calcSeconds")
+    .textContent=seconds;
+
+  document.getElementById("calcScenes")
+    .textContent=scenes;
+
+  document.getElementById("calcSrt")
+    .textContent=scenes;
+
+}
+
+
+/* =========================================================
+   STORY IDEA ENGINE
+========================================================= */
+
+const ideaDatabase = {
+
+  "Daily Life":[
+
+    ["A Busy Morning","Emma wakes up late and prepares for school.","A1"],
+    ["Going to the Supermarket","Tom goes shopping with his mother.","A1"],
+    ["A Rainy Day","Anna forgets her umbrella on a rainy morning.","A1"],
+    ["My New Neighbor","A young boy meets his new neighbor.","A1"],
+    ["At the Café","Two friends practice English at a small café.","A1"],
+    ["The Lost Phone","John finds a phone and tries to return it.","A1"],
+    ["A Surprise Dinner","A family prepares a surprise dinner.","A2"],
+    ["A Day Without Internet","A family spends one day without the internet.","A2"],
+    ["The New Job","Sarah starts her first day at work.","A2"],
+    ["The Broken Bicycle","Two friends fix an old bicycle together.","A2"]
+
+  ],
+
+  Family:[
+
+    ["A Family Trip to the Beach","A family prepares for a fun beach trip.","A1"],
+    ["Mom's Birthday","A family secretly prepares a birthday surprise.","A1"],
+    ["The Missing Birthday Cake","A birthday cake disappears before the party.","A1"],
+    ["Grandma's Visit","Grandma visits her family for the weekend.","A1"],
+    ["Cooking With Dad","A boy learns how to cook with his father.","A1"],
+    ["A Family Picnic","A family spends a beautiful afternoon in a park.","A1"],
+    ["The New Puppy","A family welcomes a new puppy.","A1"],
+    ["Cleaning Day","Everyone helps clean the family house.","A1"],
+    ["Family Movie Night","A family chooses a movie and makes snacks.","A2"],
+    ["A Weekend Adventure","A family explores a new town together.","A2"]
+
+  ],
+
+  Travel:[
+
+    ["A Trip to the Airport","Emma and her family prepare for their first flight.","A1"],
+    ["Finding the Train Station","Tom asks for directions in a new city.","A1"],
+    ["My First Hotel","A young traveler checks into a hotel.","A1"],
+    ["At the Airport","A family checks their luggage before a flight.","A1"],
+    ["The Wrong Bus","John takes the wrong bus and asks for help.","A1"],
+    ["A Day in London","Two friends explore London for one day.","A2"],
+    ["Lost in a New City","Sarah gets lost while visiting a new city.","A2"],
+    ["Ordering Food Abroad","A traveler learns useful restaurant English.","A1"],
+    ["A Weekend in Paris","Friends plan a simple weekend trip.","A2"],
+    ["The Delayed Flight","A family waits for a delayed flight.","A2"]
+
+  ],
+
+  School:[
+
+    ["My First Day at School","A new student meets classmates.","A1"],
+    ["The New Teacher","Students meet a friendly English teacher.","A1"],
+    ["Lunch at School","Friends talk about their favorite foods.","A1"],
+    ["The School Project","Three students work together on a project.","A1"],
+    ["Where Is My Book?","A student searches for a missing book.","A1"],
+    ["The English Test","A student prepares for an English test.","A2"],
+    ["A New Classmate","Students welcome a new classmate.","A1"],
+    ["After School","Friends decide what to do after school.","A1"],
+    ["The Science Fair","Students prepare for a school science fair.","A2"],
+    ["A School Trip","A class visits a museum.","A2"]
+
+  ],
+
+  Work:[
+
+    ["My First Day at Work","A young employee starts a new job.","A1"],
+    ["Morning Team Meeting","A team prepares for a busy workday.","A1"],
+    ["Meeting a Customer","A salesperson meets a new customer.","A2"],
+    ["A Busy Office","Employees work together to solve a problem.","A2"],
+    ["The Late Delivery","A team handles a delayed delivery.","A2"],
+    ["Preparing a Presentation","A young manager prepares for a presentation.","A2"],
+    ["The New Employee","A team welcomes a new colleague.","A1"],
+    ["Lunch With My Team","Coworkers talk during lunch.","A1"],
+    ["A Difficult Customer","An employee calmly helps a customer.","B1"],
+    ["A Successful Meeting","A team reaches an important agreement.","B1"]
+
+  ],
+
+  Friendship:[
+
+    ["A New Friend","Emma meets a new friend at a café.","A1"],
+    ["Helping My Friend","Tom helps his friend prepare for an exam.","A1"],
+    ["A Birthday Surprise","Friends organize a birthday surprise.","A1"],
+    ["The Lost Wallet","Two friends help find a lost wallet.","A1"],
+    ["Friends at the Park","Friends spend a sunny afternoon together.","A1"],
+    ["A Weekend Plan","Friends plan a weekend trip.","A2"],
+    ["Learning Together","Two friends practice English together.","A1"],
+    ["A Small Argument","Two friends learn how to solve a disagreement.","A2"],
+    ["The New Team","Friends start a small project together.","A2"],
+    ["Always There","A story about helping a friend in need.","B1"]
+
+  ],
+
+  Adventure:[
+
+    ["The Hidden Map","Three friends discover an old map.","A2"],
+    ["The Forest Walk","A family explores a safe forest trail.","A1"],
+    ["The Old House","Friends discover an interesting old house.","A2"],
+    ["The Mountain Trip","A family takes a trip to the mountains.","A2"],
+    ["The Secret Garden","Two children discover a hidden garden.","A1"],
+    ["The Lost Backpack","A traveler searches for a lost backpack.","A1"],
+    ["The Treasure Box","Friends find an old box in a garden.","A2"],
+    ["The Long Road","A family travels across the countryside.","A2"],
+    ["The Island Trip","Friends visit a beautiful island.","B1"],
+    ["The Unexpected Journey","A normal trip becomes an exciting adventure.","B1"]
+
+  ]
+
+};
+
+
+function generateIdeas(){
+
+  const mode =
+    document.getElementById("storyMode")
+    ?.value || "Random";
+
+  let pool=[];
+
+  if(mode==="Random"){
+
+    Object.values(ideaDatabase)
+      .forEach(arr=>{
+        pool.push(...arr);
+      });
+
+  }else{
+
+    pool =
+      ideaDatabase[mode] ||
+      ideaDatabase["Daily Life"];
+
+  }
+
+  pool =
+    [...pool]
+    .sort(()=>Math.random()-.5)
+    .slice(0,10);
+
+  appData.ideas=pool;
+
+  saveData();
+
+  renderIdeas();
+
+  showView("ideas");
+
+  toast("10 new story ideas generated");
+
+}
+
+
+function renderIdeas(){
+
+  const grid =
+    document.getElementById("ideaGrid");
+
+  if(!appData.ideas.length){
+
+    grid.innerHTML=`
+      <div class="empty" style="grid-column:1/-1">
+        <h3>No ideas yet</h3>
+        <p>Generate story ideas to begin</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  grid.innerHTML =
+    appData.ideas.map((idea,index)=>`
+
+      <div class="idea">
+
+        <div class="idea-number">
+          IDEA ${String(index+1).padStart(2,"0")}
+        </div>
+
+        <h3>${escapeHtml(idea[0])}</h3>
+
+        <p>${escapeHtml(idea[1])}</p>
+
+        <div class="idea-meta">
+
+          <span class="badge">
+            ${idea[2]}
+          </span>
+
+          <span class="badge">
+            10-sec scenes
+          </span>
+
+        </div>
+
+        <button
+          class="btn primary small"
+          onclick="useIdea(${index})"
+        >
+          Use This Story →
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function useIdea(index){
+
+  const idea =
+    appData.ideas[index];
+
+  if(!idea) return;
+
+  document.getElementById("topic")
+    .value=idea[0];
+
+  document.getElementById("level")
+    .value=idea[2];
+
+  showView("create");
+
+  toast("Story selected");
+
+}
+
+
+/* =========================================================
+   CREATE PROJECT
+========================================================= */
+
+function createProject(){
+
+  let topic =
+    document.getElementById("topic")
+    .value.trim();
+
+  if(!topic){
+
+    generateIdeas();
+
+    toast("Choose a story idea first");
+
+    return;
+
+  }
+
+  const seconds =
+    Number(
+      document.getElementById("duration").value
+    );
+
+  const scenes =
+    Math.floor(seconds/10);
+
+  const project={
+
+    id:Date.now(),
+
+    title:topic,
+
+    level:
+      document.getElementById("level").value,
+
+    duration:seconds,
+
+    sceneDuration:10,
+
+    sceneCount:scenes,
+
+    style:
+      document.getElementById("style").value,
+
+    aspect:
+      document.getElementById("aspect").value,
+
+    voice:
+      document.getElementById("voice").value,
+
+    storyMode:
+      document.getElementById("storyMode").value,
+
+    characters:[],
+
+    locations:[],
+
+    scenes:[],
+
+    createdAt:
+      new Date().toISOString()
+
+  };
+
+  appData.currentProject=project;
+
+  appData.projects.unshift(project);
+
+  createDefaultCharacter(project);
+
+  createDefaultLocation(project);
+
+  generateScenes();
+
+  saveData();
+
+  renderAll();
+
+  showView("scenes");
+
+  toast("Complete project created");
+
+}
+
+
+function createDefaultCharacter(project){
+
+  const character={
+
+    id:"CHAR-001",
+
+    name:"Emma",
+
+    age:"20",
+
+    gender:"Female",
+
+    hair:"Brown shoulder-length hair",
+
+    skin:"Natural warm skin tone",
+
+    clothes:"Yellow casual jacket, white shirt, blue jeans, white sneakers",
+
+    personality:"Friendly, curious and positive",
+
+    voice:"Young friendly female voice",
+
+    reference:""
+
+  };
+
+  project.characters.push(character);
+
+}
+
+
+function createDefaultLocation(project){
+
+  project.locations.push({
+
+    id:"LOC-001",
+
+    name:"Modern Airport",
+
+    description:
+      "A clean modern international airport with large glass windows, check-in counters, signs, luggage carts and warm natural lighting.",
+
+    time:"Morning",
+
+    weather:"Clear",
+
+    style:project.style
+
+  });
+
+}
+
+
+/* =========================================================
+   SCENE ENGINE
+========================================================= */
+
+function generateScenes(){
+
+  const project =
+    appData.currentProject;
+
+  if(!project){
+
+    toast("Create a project first");
+
+    return;
+
+  }
+
+  const char =
+    project.characters[0] ||
+    {
+      id:"CHAR-001",
+      name:"Emma"
+    };
+
+  const loc =
+    project.locations[0] ||
+    {
+      id:"LOC-001",
+      name:"Modern Airport"
+    };
+
+  const count =
+    project.sceneCount;
+
+  const topic =
+    project.title;
+
+  const scenes=[];
+
+  for(let i=0;i<count;i++){
+
+    const start=i*10;
+    const end=start+10;
+
+    const sceneNumber=i+1;
+
+    const actions =
+      generateSceneAction(
+        sceneNumber,
+        count,
+        topic
+      );
+
+    const voiceText =
+      generateVoiceText(
+        sceneNumber,
+        count,
+        topic,
+        char.name
+      );
+
+    const imagePrompt = buildImagePrompt(
+      char,
+      loc,
+      project,
+      sceneNumber,
+      actions
+    );
+
+    const videoPrompt = buildVideoPrompt(
+      char,
+      loc,
+      project,
+      sceneNumber,
+      actions
+    );
+
+    scenes.push({
+
+      id:"SCENE-"+String(sceneNumber)
+        .padStart(3,"0"),
+
+      number:sceneNumber,
+
+      start:start,
+
+      end:end,
+
+      action:actions,
+
+      narration:voiceText,
+
+      imagePrompt:imagePrompt,
+
+      videoPrompt:videoPrompt,
+
+      camera:
+        cameraForScene(sceneNumber),
+
+      sfx:
+        sfxForScene(sceneNumber),
+
+      status:"Prompt Ready"
+
+    });
+
+  }
+
+  project.scenes=scenes;
+
+  saveData();
+
+  renderAll();
+
+  showView("scenes");
+
+  toast(count+" scenes generated");
+
+}
+
+
+function generateSceneAction(n,total,topic){
+
+  const opening=[
+    "The main character begins the day and introduces the situation",
+    "The character prepares the things needed for the day",
+    "The character leaves home and starts the journey",
+    "The character arrives at the destination",
+    "The character looks around and notices something important",
+    "The character talks with another person",
+    "The character asks a simple question",
+    "The character receives useful information",
+    "The character continues the activity",
+    "The character practices a useful English sentence",
+    "A small problem appears",
+    "The character stays calm and thinks about a solution",
+    "A friend or family member offers help",
+    "The characters work together",
+    "The problem becomes easier to solve",
+    "The character learns a useful lesson",
+    "The characters enjoy the successful result",
+    "The story ends with a positive message"
+  ];
+
+  if(total<=18){
+
+    return opening[(n-1)%opening.length];
+
+  }
+
+  if(n===1)
+    return "The story begins and the main character introduces today's situation";
+
+  if(n===total)
+    return "The characters finish the story with a positive English-learning message";
+
+  return opening[(n-2)%opening.length];
+
+}
+
+
+function generateVoiceText(n,total,topic,name){
+
+  const scripts=[
+
+    `Hello! My name is ${name}. Today, we have an interesting story.`,
+
+    `I am getting ready because something important is happening today.`,
+
+    `I take my things and start my journey with a happy feeling.`,
+
+    `When I arrive, I look around and carefully follow the signs.`,
+
+    `I see many people, and I listen carefully to what they are saying.`,
+
+    `I meet someone friendly and say hello with a smile.`,
+
+    `I ask a simple question because I want to understand what to do.`,
+
+    `The answer is easy to understand, and I feel more confident.`,
+
+    `Now I know what to do, so I continue my journey.`,
+
+    `I practice a useful English sentence and say it clearly.`,
+
+    `Suddenly, a small problem appears, but I do not panic.`,
+
+    `I take a deep breath and think about a simple solution.`,
+
+    `Luckily, a friend comes over and offers to help me.`,
+
+    `We work together and slowly solve the problem.`,
+
+    `Everything becomes easier, and I feel happy again.`,
+
+    `Today, I learn that simple English can help me every day.`,
+
+    `We enjoy the moment and feel proud of what we learned.`,
+
+    `Thank you for watching. See you in the next English story!`
+
+  ];
+
+  if(total<=18){
+
+    return scripts[(n-1)%scripts.length];
+
+  }
+
+  if(n===1)
+    return scripts[0];
+
+  if(n===total)
+    return scripts[scripts.length-1];
+
+  return scripts[(n-2)%16+1];
+
+}
+
+
+function cameraForScene(n){
+
+  const cameras=[
+
+    "Wide establishing shot",
+
+    "Medium shot",
+
+    "Slow tracking shot",
+
+    "Medium close-up",
+
+    "Close-up",
+
+    "Over-the-shoulder shot",
+
+    "Gentle camera push-in",
+
+    "Side tracking shot"
+
+  ];
+
+  return cameras[(n-1)%cameras.length];
+
+}
+
+
+function sfxForScene(n){
+
+  const sounds=[
+
+    "Soft morning ambience",
+
+    "Light footsteps",
+
+    "Gentle city ambience",
+
+    "Airport ambience",
+
+    "Soft background chatter",
+
+    "Natural room ambience",
+
+    "Light movement sounds",
+
+    "Subtle transition ambience"
+
+  ];
+
+  return sounds[(n-1)%sounds.length];
+
+}
+
+
+/* =========================================================
+   PROMPT ENGINE
+========================================================= */
+
+function buildImagePrompt(char,loc,project,n,action){
+
+  return `
+16:9 educational animated film frame.
+
+CHARACTER LOCK:
+${char.name}, ${char.age} years old, ${char.gender}.
+Hair: ${char.hair}.
+Skin: ${char.skin}.
+Clothing: ${char.clothes}.
+Personality: ${char.personality}.
+
+LOCATION LOCK:
+${loc.name}.
+${loc.description}
+Time: ${loc.time}.
+Weather: ${loc.weather}.
+
+STYLE LOCK:
+${project.style}.
+Consistent character proportions.
+Consistent facial identity.
+Consistent clothing.
+High-quality polished educational animation.
+Clean composition.
+Natural cinematic lighting.
+Family-friendly.
+No text, no subtitles, no watermark.
+
+SCENE ${n}:
+${action}
+
+Maintain exact character and environment continuity from previous scenes.
+` .trim();
+
+}
+
+
+function buildVideoPrompt(char,loc,project,n,action){
+
+  return `
+10-second animated video.
+
+Use the supplied reference image as the visual source.
+Keep ${char.name}'s face, hairstyle, clothing, body proportions
+and identity consistent throughout the entire scene.
+
+LOCATION:
+${loc.name}.
+
+ACTION:
+${action}.
+
+CAMERA:
+${cameraForScene(n)}.
+
+MOTION:
+Natural human movement, subtle facial expressions,
+realistic walking and hand gestures,
+smooth cinematic animation.
+
+LIGHTING:
+${loc.time} natural cinematic lighting.
+
+STYLE:
+${project.style}.
+
+AUDIO:
+${sfxForScene(n)}.
+
+IMPORTANT:
+Exactly 10 seconds.
+No character redesign.
+No clothing change.
+No random objects.
+No text.
+No subtitles.
+No watermark.
+Maintain continuity with the previous scene.
+` .trim();
+
+}
+
+
+/* =========================================================
+   CHARACTER
+========================================================= */
+
+function addCharacter(){
+
+  if(!appData.currentProject){
+
+    toast("Create a project first");
+
+    return;
+
+  }
+
+  const num =
+    appData.currentProject.characters.length+1;
+
+  appData.currentProject.characters.push({
+
+    id:"CHAR-"+String(num).padStart(3,"0"),
+
+    name:"New Character",
+
+    age:"20",
+
+    gender:"Female",
+
+    hair:"Brown hair",
+
+    skin:"Natural skin tone",
+
+    clothes:"Casual clothes",
+
+    personality:"Friendly",
+
+    voice:"Friendly voice",
+
+    reference:""
+
+  });
+
+  saveData();
+
+  renderCharacters();
+
+  toast("Character added");
+
+}
+
+
+function renderCharacters(){
+
+  const box =
+    document.getElementById("characterList");
+
+  const project =
+    appData.currentProject;
+
+  if(!project){
+
+    box.innerHTML=`
+      <div class="empty">
+        <h3>No project</h3>
+        <p>Create a story first</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML =
+    project.characters.map((c,index)=>`
+
+      <div class="card" style="margin-bottom:13px">
+
+        <div class="section-head">
+          <h3>${escapeHtml(c.id)}</h3>
+
+          <button
+            class="btn danger small"
+            onclick="removeCharacter(${index})"
+          >
+            Remove
+          </button>
+        </div>
+
+        <div class="form-grid">
+
+          ${characterField(
+            "Name",
+            "name",
+            c.name,
+            index
+          )}
+
+          ${characterField(
+            "Age",
+            "age",
+            c.age,
+            index
+          )}
+
+          ${characterField(
+            "Gender",
+            "gender",
+            c.gender,
+            index
+          )}
+
+          ${characterField(
+            "Hair",
+            "hair",
+            c.hair,
+            index
+          )}
+
+          ${characterField(
+            "Skin",
+            "skin",
+            c.skin,
+            index
+          )}
+
+          ${characterField(
+            "Clothes",
+            "clothes",
+            c.clothes,
+            index
+          )}
+
+          ${characterField(
+            "Personality",
+            "personality",
+            c.personality,
+            index
+          )}
+
+          ${characterField(
+            "Voice",
+            "voice",
+            c.voice,
+            index
+          )}
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function characterField(label,key,value,index){
+
+  return `
+
+    <div class="form-group">
+
+      <label>${label}</label>
+
+      <input
+        value="${escapeAttr(value)}"
+        onchange="updateCharacter(${index},'${key}',this.value)"
+      >
+
+    </div>
+
+  `;
+
+}
+
+
+function updateCharacter(index,key,value){
+
+  appData.currentProject.characters[index][key]=value;
+
+  saveData();
+
+}
+
+
+function removeCharacter(index){
+
+  appData.currentProject.characters.splice(index,1);
+
+  saveData();
+
+  renderCharacters();
+
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+function addLocation(){
+
+  if(!appData.currentProject){
+
+    toast("Create a project first");
+
+    return;
+
+  }
+
+  const num =
+    appData.currentProject.locations.length+1;
+
+  appData.currentProject.locations.push({
+
+    id:"LOC-"+String(num).padStart(3,"0"),
+
+    name:"New Location",
+
+    description:"Modern clean environment",
+
+    time:"Morning",
+
+    weather:"Clear",
+
+    style:appData.currentProject.style
+
+  });
+
+  saveData();
+
+  renderLocations();
+
+  toast("Location added");
+
+}
+
+
+function renderLocations(){
+
+  const box =
+    document.getElementById("locationList");
+
+  const project =
+    appData.currentProject;
+
+  if(!project){
+
+    box.innerHTML=`
+      <div class="empty">
+        <h3>No project</h3>
+        <p>Create a story first</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML =
+    project.locations.map((l,index)=>`
+
+      <div class="card" style="margin-bottom:13px">
+
+        <div class="section-head">
+
+          <h3>${escapeHtml(l.id)}</h3>
+
+          <button
+            class="btn danger small"
+            onclick="removeLocation(${index})"
+          >
+            Remove
+          </button>
+
+        </div>
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>Name</label>
+            <input
+              value="${escapeAttr(l.name)}"
+              onchange="updateLocation(${index},'name',this.value)"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Time</label>
+            <input
+              value="${escapeAttr(l.time)}"
+              onchange="updateLocation(${index},'time',this.value)"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Weather</label>
+            <input
+              value="${escapeAttr(l.weather)}"
+              onchange="updateLocation(${index},'weather',this.value)"
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Style</label>
+            <input
+              value="${escapeAttr(l.style)}"
+              onchange="updateLocation(${index},'style',this.value)"
+            >
+          </div>
+
+          <div class="form-group full">
+            <label>Description</label>
+
+            <textarea
+              onchange="updateLocation(${index},'description',this.value)"
+            >${escapeHtml(l.description)}</textarea>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function updateLocation(index,key,value){
+
+  appData.currentProject.locations[index][key]=value;
+
+  saveData();
+
+}
+
+
+function removeLocation(index){
+
+  appData.currentProject.locations.splice(index,1);
+
+  saveData();
+
+  renderLocations();
+
+}
+
+
+/* =========================================================
+   SCENE RENDER
+========================================================= */
+
+function renderScenes(){
+
+  const project =
+    appData.currentProject;
+
+  const list =
+    document.getElementById("sceneList");
+
+  const timeline =
+    document.getElementById("sceneTimeline");
+
+  const info =
+    document.getElementById("sceneInfo");
+
+  if(!project){
+
+    list.innerHTML=`
+      <div class="empty">
+        <h3>No project</h3>
+        <p>Create a story first</p>
+      </div>
+    `;
+
+    timeline.innerHTML="";
+
+    info.textContent="No project";
+
+    return;
+
+  }
+
+  info.textContent =
+    `${project.title} • ${project.sceneCount} scenes • 10 seconds each`;
+
+  timeline.innerHTML = `
+
+    <div class="timeline">
+
+      ${project.scenes.map(s=>`
+
+        <div class="timeline-item">
+
+          <strong>Scene ${s.number}</strong>
+
+          <span>
+            ${formatTime(s.start)}
+          </span>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+  `;
+
+  if(!project.scenes.length){
+
+    list.innerHTML=`
+      <div class="empty">
+        <h3>No scenes generated</h3>
+        <p>Click Generate Scenes</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  list.innerHTML =
+    project.scenes.map(s=>`
+
+      <div class="scene">
+
+        <div class="scene-head">
+
+          <div class="scene-title">
+            Scene ${String(s.number).padStart(2,"0")}
+          </div>
+
+          <div class="scene-time">
+            ${formatTime(s.start)}
+            →
+            ${formatTime(s.end)}
+            • 10s
+          </div>
+
+        </div>
+
+        <div class="scene-body">
+
+          <div class="scene-grid">
+
+            <div class="prompt-box">
+
+              <div class="prompt-title">
+                Story / Action
+              </div>
+
+              <div class="prompt-text">
+${escapeHtml(s.action)}
+              </div>
+
+            </div>
+
+            <div class="prompt-box">
+
+              <div class="prompt-title">
+                Voice
+              </div>
+
+              <div class="prompt-text">
+${escapeHtml(s.narration)}
+              </div>
+
+            </div>
+
+            <div class="prompt-box">
+
+              <div class="prompt-title">
+                Image Prompt
+              </div>
+
+              <div class="prompt-text">
+${escapeHtml(s.imagePrompt)}
+              </div>
+
+              <div class="copy-row">
+
+                <button
+                  class="btn small"
+                  onclick='copyText(${JSON.stringify(s.imagePrompt)})'
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="prompt-box">
+
+              <div class="prompt-title">
+                Video Prompt
+              </div>
+
+              <div class="prompt-text">
+${escapeHtml(s.videoPrompt)}
+              </div>
+
+              <div class="copy-row">
+
+                <button
+                  class="btn small"
+                  onclick='copyText(${JSON.stringify(s.videoPrompt)})'
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div style="
+            margin-top:12px;
+            display:flex;
+            gap:7px;
+            flex-wrap:wrap
+          ">
+
+            <span class="badge">
+              Camera: ${escapeHtml(s.camera)}
+            </span>
+
+            <span class="badge">
+              SFX: ${escapeHtml(s.sfx)}
+            </span>
+
+            <span class="badge">
+              ${escapeHtml(s.status)}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   IMAGE / VIDEO / VOICE
+========================================================= */
+
+function renderImagePrompts(){
+
+  const box =
+    document.getElementById("imagePrompts");
+
+  const p =
+    appData.currentProject;
+
+  if(!p || !p.scenes.length){
+
+    box.innerHTML=emptyHTML(
+      "No image prompts",
+      "Generate a project first"
+    );
+
+    return;
+
+  }
+
+  box.innerHTML =
+    p.scenes.map(s=>`
+
+      <div class="card" style="margin-bottom:12px">
+
+        <div class="section-head">
+
+          <h3>Scene ${s.number}</h3>
+
+          <button
+            class="btn small"
+            onclick='copyText(${JSON.stringify(s.imagePrompt)})'
+          >
+            Copy Prompt
+          </button>
+
+        </div>
+
+        <div class="prompt-box">
+
+          <div class="prompt-text">
+${escapeHtml(s.imagePrompt)}
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function renderVideoPrompts(){
+
+  const box =
+    document.getElementById("videoPrompts");
+
+  const p =
+    appData.currentProject;
+
+  if(!p || !p.scenes.length){
+
+    box.innerHTML=emptyHTML(
+      "No video prompts",
+      "Generate a project first"
+    );
+
+    return;
+
+  }
+
+  box.innerHTML =
+    p.scenes.map(s=>`
+
+      <div class="card" style="margin-bottom:12px">
+
+        <div class="section-head">
+
+          <h3>Scene ${s.number} • 10 seconds</h3>
+
+          <button
+            class="btn small"
+            onclick='copyText(${JSON.stringify(s.videoPrompt)})'
+          >
+            Copy Prompt
+          </button>
+
+        </div>
+
+        <div class="prompt-box">
+
+          <div class="prompt-text">
+${escapeHtml(s.videoPrompt)}
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function renderVoice(){
+
+  const box =
+    document.getElementById("voiceScript");
+
+  const p =
+    appData.currentProject;
+
+  if(!p || !p.scenes.length){
+
+    box.innerHTML=emptyHTML(
+      "No voice script",
+      "Generate a project first"
+    );
+
+    return;
+
+  }
+
+  box.innerHTML =
+    p.scenes.map(s=>`
+
+      <div class="card" style="margin-bottom:10px">
+
+        <div class="section-head">
+
+          <h3>
+            Scene ${s.number}
+          </h3>
+
+          <span>
+            ${formatTime(s.start)}
+            → ${formatTime(s.end)}
+          </span>
+
+        </div>
+
+        <div class="prompt-box">
+
+          <div class="prompt-text">
+${escapeHtml(s.narration)}
+          </div>
+
+        </div>
+
+        <div style="
+          margin-top:9px;
+          display:flex;
+          justify-content:flex-end
+        ">
+
+          <button
+            class="btn small"
+            onclick='copyText(${JSON.stringify(s.narration)})'
+          >
+            Copy Voice
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   SRT
+========================================================= */
+
+function generateSRT(){
+
+  const p =
+    appData.currentProject;
+
+  if(!p || !p.scenes.length){
+
+    document.getElementById("srtOutput")
+      .value="";
+
+    return;
+
+  }
+
+  let output="";
+
+  p.scenes.forEach((s,index)=>{
+
+    output +=
+`${index+1}
+${srtTime(s.start)} --> ${srtTime(s.end)}
+${s.narration}
+
+`;
+
+  });
+
+  document.getElementById("srtOutput")
+    .value=output.trim();
+
+}
+
+
+function srtTime(sec){
+
+  const h =
+    Math.floor(sec/3600);
+
+  const m =
+    Math.floor((sec%3600)/60);
+
+  const s =
+    sec%60;
+
+  return (
+    String(h).padStart(2,"0")+
+    ":"+
+    String(m).padStart(2,"0")+
+    ":"+
+    String(s).padStart(2,"0")+
+    ",000"
+  );
+
+}
+
+
+function copySRT(){
+
+  const value =
+    document.getElementById("srtOutput")
+      .value;
+
+  if(!value){
+
+    toast("No SRT available");
+
+    return;
+
+  }
+
+  copyText(value);
+
+}
+
+
+/* =========================================================
+   ENGLISH LESSON
+========================================================= */
+
+function renderLesson(){
+
+  const box =
+    document.getElementById("lessonContent");
+
+  const p =
+    appData.currentProject;
+
+  if(!p || !p.scenes.length){
+
+    box.innerHTML=emptyHTML(
+      "Create a story first",
+      "English lesson content will appear here"
+    );
+
+    return;
+
+  }
+
+  const words =
+    getVocabulary(p.title);
+
+  const sentences =
+    p.scenes
+      .slice(0,5)
+      .map(s=>s.narration);
+
+  box.innerHTML=`
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="card-label">
+          English Level
+        </div>
+
+        <div class="card-value">
+          ${p.level}
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-label">
+          Vocabulary
+        </div>
+
+        <div class="card-value">
+          ${words.length}
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-label">
+          Key Sentences
+        </div>
+
+        <div class="card-value">
+          ${sentences.length}
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-label">
+          Lesson Scenes
+        </div>
+
+        <div class="card-value">
+          ${p.sceneCount}
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="card">
+
+        <h3 style="margin-bottom:14px">
+          Key Vocabulary
+        </h3>
+
+        <div style="
+          display:flex;
+          gap:8px;
+          flex-wrap:wrap
+        ">
+
+          ${words.map(w=>`
+            <span class="badge">
+              ${escapeHtml(w)}
+            </span>
+          `).join("")}
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="card">
+
+        <h3 style="margin-bottom:14px">
+          Key Sentences
+        </h3>
+
+        ${sentences.map((s,i)=>`
+
+          <div class="prompt-box"
+            style="margin-bottom:8px">
+
+            <div class="prompt-title">
+              Sentence ${i+1}
+            </div>
+
+            <div class="prompt-text">
+${escapeHtml(s)}
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="card">
+
+        <h3 style="margin-bottom:14px">
+          Mini Quiz
+        </h3>
+
+        <p style="
+          color:var(--muted);
+          font-size:13px;
+          line-height:1.6
+        ">
+          What should you say when you want to ask
+          for simple information?
+        </p>
+
+        <div style="margin-top:13px">
+
+          <button
+            class="btn"
+            onclick="toast('Correct answer: Can you help me?')"
+          >
+            Can you help me?
+          </button>
+
+          <button
+            class="btn"
+            onclick="toast('Try again')"
+          >
+            I am sleeping.
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function getVocabulary(topic){
+
+  const lower =
+    topic.toLowerCase();
+
+  if(lower.includes("airport") ||
+     lower.includes("trip") ||
+     lower.includes("travel")){
+
+    return [
+      "airport",
+      "ticket",
+      "passport",
+      "luggage",
+      "flight",
+      "travel",
+      "help",
+      "where",
+      "ticket counter",
+      "boarding"
+    ];
+
+  }
+
+  if(lower.includes("school")){
+
+    return [
+      "school",
+      "teacher",
+      "student",
+      "class",
+      "book",
+      "lesson",
+      "friend",
+      "learn",
+      "study",
+      "test"
+    ];
+
+  }
+
+  if(lower.includes("work")){
+
+    return [
+      "office",
+      "meeting",
+      "customer",
+      "team",
+      "manager",
+      "work",
+      "help",
+      "project",
+      "problem",
+      "solution"
+    ];
+
+  }
+
+  return [
+    "hello",
+    "friend",
+    "family",
+    "help",
+    "today",
+    "happy",
+    "learn",
+    "go",
+    "come",
+    "thank you"
+  ];
+
+}
+
+
+/* =========================================================
+   YOUTUBE PACK
+========================================================= */
+
+function renderYoutube(){
+
+  const box =
+    document.getElementById("youtubePack");
+
+  const p =
+    appData.currentProject;
+
+  if(!p){
+
+    box.innerHTML=emptyHTML(
+      "No YouTube package",
+      "Create a project first"
+    );
+
+    return;
+
+  }
+
+  const title =
+    p.title +
+    " | Easy English Story | " +
+    p.level;
+
+  const description =
+`Learn English through a simple animated story.
+
+In this ${p.level} English learning video, you will learn useful everyday vocabulary, simple sentences and natural expressions through an original animated story.
+
+Video Topic: ${p.title}
+English Level: ${p.level}
+Duration: ${formatDuration(p.duration)}
+
+Perfect for English learners who want to improve listening, vocabulary and everyday English.
+
+#LearnEnglish #EnglishStory #EnglishForBeginners #A1English #EnglishLearning`;
+
+  const tags =
+`learn English, English story, English listening,
+English for beginners, A1 English, A2 English,
+English conversation, animated English story,
+spoken English, English vocabulary`;
+
+  box.innerHTML=`
+
+    <div class="card" style="margin-bottom:13px">
+
+      <div class="section-head">
+        <h3>Suggested Title</h3>
+
+        <button
+          class="btn small"
+          onclick='copyText(${JSON.stringify(title)})'
+        >
+          Copy
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-text">
+${escapeHtml(title)}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-bottom:13px">
+
+      <div class="section-head">
+        <h3>Description</h3>
+
+        <button
+          class="btn small"
+          onclick='copyText(${JSON.stringify(description)})'
+        >
+          Copy
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-text">
+${escapeHtml(description)}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="section-head">
+        <h3>Tags</h3>
+
+        <button
+          class="btn small"
+          onclick='copyText(${JSON.stringify(tags)})'
+        >
+          Copy
+        </button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-text">
+${escapeHtml(tags)}
+        </div>
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   SHORTS
+========================================================= */
+
+function renderShorts(){
+
+  const box =
+    document.getElementById("shortsContent");
+
+  const p =
+    appData.currentProject;
+
+  if(!p || !p.scenes.length){
+
+    box.innerHTML=emptyHTML(
+      "Long video required",
+      "Create a project first"
+    );
+
+    return;
+
+  }
+
+  const shorts =
+    p.scenes.slice(0,5);
+
+  box.innerHTML =
+    shorts.map((s,i)=>`
+
+      <div class="card" style="margin-bottom:12px">
+
+        <div class="section-head">
+
+          <h3>
+            Short ${i+1}
+          </h3>
+
+          <span>
+            Scene ${s.number}
+          </span>
+
+        </div>
+
+        <div class="prompt-box">
+
+          <div class="prompt-title">
+            Hook
+          </div>
+
+          <div class="prompt-text">
+Learn this easy English sentence in 10 seconds!
+          </div>
+
+        </div>
+
+        <div style="margin-top:10px">
+
+          <button
+            class="btn small"
+            onclick='copyText(${JSON.stringify(s.narration)})'
+          >
+            Copy Short Script
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+function renderProjects(){
+
+  const box =
+    document.getElementById("projectList");
+
+  if(!appData.projects.length){
+
+    box.innerHTML=emptyHTML(
+      "No saved projects",
+      "Your projects will appear here"
+    );
+
+    return;
+
+  }
+
+  box.innerHTML =
+    appData.projects.map((p,index)=>`
+
+      <div class="card" style="margin-bottom:12px">
+
+        <div class="section-head">
+
+          <div>
+            <h3>${escapeHtml(p.title)}</h3>
+
+            <div style="
+              color:var(--muted);
+              font-size:11px;
+              margin-top:5px
+            ">
+              ${p.level} •
+              ${formatDuration(p.duration)} •
+              ${p.sceneCount} scenes
+            </div>
+          </div>
+
+          <div style="
+            display:flex;
+            gap:7px;
+            flex-wrap:wrap
+          ">
+
+            <button
+              class="btn small"
+              onclick="openProject(${index})"
+            >
+              Open
+            </button>
+
+            <button
+              class="btn danger small"
+              onclick="deleteProject(${index})"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="progress">
+
+          <div
+            class="progress-bar"
+            style="width:${projectProgress(p)}%"
+          ></div>
+
+        </div>
+
+        <div style="
+          color:var(--muted);
+          font-size:10px;
+          margin-top:6px
+        ">
+          Production ${projectProgress(p)}%
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function openProject(index){
+
+  const project =
+    appData.projects[index];
+
+  if(!project) return;
+
+  appData.currentProject =
+    JSON.parse(JSON.stringify(project));
+
+  saveData();
+
+  renderAll();
+
+  showView("scenes");
+
+  toast("Project opened");
+
+}
+
+
+function deleteProject(index){
+
+  if(!confirm("Delete this project?"))
+    return;
+
+  const deleted =
+    appData.projects[index];
+
+  appData.projects.splice(index,1);
+
+  if(
+    appData.currentProject &&
+    deleted &&
+    appData.currentProject.id===deleted.id
+  ){
+
+    appData.currentProject=null;
+
+  }
+
+  saveData();
+
+  renderAll();
+
+  toast("Project deleted");
+
+}
+
+
+function clearProjects(){
+
+  if(!confirm("Clear all projects?"))
+    return;
+
+  appData.projects=[];
+
+  appData.currentProject=null;
+
+  saveData();
+
+  renderAll();
+
+  toast("Projects cleared");
+
+}
+
+
+/* =========================================================
+   EXPORT / IMPORT
+========================================================= */
+
+function exportProject(){
+
+  if(!appData.currentProject){
+
+    toast("No current project");
+
+    return;
+
+  }
+
+  const packageData={
+
+    app:"AUNG AI STORY VIDEO PRO",
+
+    version:"V1",
+
+    exportedAt:
+      new Date().toISOString(),
+
+    project:
+      appData.currentProject,
+
+    universalCharacterLock:
+      appData.currentProject.characters,
+
+    worldLocationLock:
+      appData.currentProject.locations,
+
+    styleLock:{
+      style:appData.currentProject.style,
+      aspect:appData.currentProject.aspect
+    },
+
+    scenes:
+      appData.currentProject.scenes
+
+  };
+
+  const blob =
+    new Blob(
+      [JSON.stringify(packageData,null,2)],
+      {type:"application/json"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href=url;
+
+  a.download =
+    safeFileName(
+      appData.currentProject.title
+    )+
+    "-AUNG-AI-STORY-PROJECT.json";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  toast("Project exported");
+
+}
+
+
+function importProject(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file) return;
+
+  const reader =
+    new FileReader();
+
+  reader.onload=function(e){
+
+    try{
+
+      const data =
+        JSON.parse(e.target.result);
+
+      const project =
+        data.project;
+
+      if(!project){
+
+        throw new Error(
+          "Invalid project"
+        );
+
+      }
+
+      appData.currentProject =
+        project;
+
+      const existing =
+        appData.projects.findIndex(
+          p=>p.id===project.id
+        );
+
+      if(existing>=0){
+
+        appData.projects[existing]=project;
+
+      }else{
+
+        appData.projects.unshift(project);
+
+      }
+
+      saveData();
+
+      renderAll();
+
+      showView("scenes");
+
+      toast("Project imported");
+
+    }catch(err){
+
+      alert(
+        "Import failed. Please use a valid AUNG AI STORY project JSON."
+      );
+
+    }
+
+  };
+
+  reader.readAsText(file);
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function saveSettings(){
+
+  appData.settings.appName =
+    document.getElementById("appName")
+      .value.trim() ||
+    "AUNG AI STORY VIDEO PRO";
+
+  saveData();
+
+  toast("Settings saved");
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard(){
+
+  const p =
+    appData.currentProject;
+
+  document.getElementById("dashProject")
+    .textContent =
+    p ? shorten(p.title,22) : "—";
+
+  document.getElementById("dashDuration")
+    .textContent =
+    p ? formatDuration(p.duration) : "—";
+
+  document.getElementById("dashScenes")
+    .textContent =
+    p ? p.sceneCount : "0";
+
+  document.getElementById("dashProgress")
+    .textContent =
+    p ? projectProgress(p)+"%" : "0%";
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function projectProgress(p){
+
+  if(!p) return 0;
+
+  let score=0;
+
+  if(p.title) score+=10;
+
+  if(p.characters?.length) score+=10;
+
+  if(p.locations?.length) score+=10;
+
+  if(p.scenes?.length){
+
+    score+=
+      Math.min(
+        40,
+        Math.round(
+          (p.scenes.length /
+            p.sceneCount)*40
+        )
+      );
+
+  }
+
+  if(p.scenes?.length) score+=10;
+
+  if(p.scenes?.length) score+=10;
+
+  if(p.scenes?.length) score+=10;
+
+  return Math.min(100,score);
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
+
+function renderAll(){
+
+  renderDashboard();
+
+  renderIdeas();
+
+  renderCharacters();
+
+  renderLocations();
+
+  renderScenes();
+
+  renderImagePrompts();
+
+  renderVideoPrompts();
+
+  renderVoice();
+
+  generateSRT();
+
+  renderLesson();
+
+  renderYoutube();
+
+  renderShorts();
+
+  renderProjects();
+
+  if(
+    document.getElementById("appName")
+  ){
+
+    document.getElementById("appName")
+      .value =
+      appData.settings.appName;
+
+  }
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function formatDuration(seconds){
+
+  if(seconds<60){
+
+    return seconds+" sec";
+
+  }
+
+  const minutes =
+    Math.floor(seconds/60);
+
+  return minutes+" min";
+
+}
+
+
+function formatTime(seconds){
+
+  const m =
+    Math.floor(seconds/60);
+
+  const s =
+    seconds%60;
+
+  return (
+    String(m).padStart(2,"0")+
+    ":"+
+    String(s).padStart(2,"0")
+  );
+
+}
+
+
+function shorten(text,length){
+
+  if(!text) return "";
+
+  return text.length>length
+    ? text.slice(0,length)+"…"
+    : text;
+
+}
+
+
+function safeFileName(text){
+
+  return text
+    .replace(/[^\w\s-]/g,"")
+    .replace(/\s+/g,"-")
+    .slice(0,70);
+
+}
+
+
+function emptyHTML(title,text){
+
+  return `
+    <div class="empty">
+      <h3>${escapeHtml(title)}</h3>
+      <p>${escapeHtml(text)}</p>
+    </div>
+  `;
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+  return escapeHtml(value);
+
+}
+
+
+function copyText(text){
+
+  navigator.clipboard
+    .writeText(text)
+    .then(()=>{
+      toast("Copied to clipboard");
+    })
+    .catch(()=>{
+
+      const ta =
+        document.createElement("textarea");
+
+      ta.value=text;
+
+      document.body.appendChild(ta);
+
+      ta.select();
+
+      document.execCommand("copy");
+
+      ta.remove();
+
+      toast("Copied");
+
+    });
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+updateSceneCount();
+
+loadData();
+
+</script>
+
+</body>
+</html>
