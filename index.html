@@ -3,42 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#0b1020">
+
 <title>AUNG AI STORY VIDEO PRO</title>
 
 <style>
 *{
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
 }
 
 :root{
-  --bg:#080b14;
-  --panel:#101522;
-  --panel2:#151b2b;
-  --panel3:#1a2133;
-  --line:#273149;
+  --bg:#07090d;
+  --panel:#10141c;
+  --panel2:#151a23;
+  --line:#252d3a;
   --text:#f5f7fb;
-  --muted:#8f9bb2;
-  --accent:#7c5cff;
-  --accent2:#19c8a0;
-  --warning:#ffb648;
-  --danger:#ff5f6d;
-  --shadow:0 18px 50px rgba(0,0,0,.35);
+  --muted:#8d98aa;
+  --gold:#f5c451;
+  --blue:#5ba7ff;
+  --green:#48d597;
+  --red:#ff6675;
+  --purple:#9b7cff;
   --radius:18px;
 }
 
-html,body{
-  margin:0;
-  padding:0;
-  min-height:100%;
-  background:var(--bg);
+body{
+  background:
+    radial-gradient(circle at top right,rgba(91,167,255,.08),transparent 28%),
+    radial-gradient(circle at bottom left,rgba(155,124,255,.07),transparent 30%),
+    var(--bg);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-}
-
-body{
-  overflow-x:hidden;
+  min-height:100vh;
 }
 
 button,
@@ -54,106 +51,79 @@ button{
 
 .app{
   min-height:100vh;
+  display:flex;
 }
 
 /* SIDEBAR */
 
 .sidebar{
+  width:250px;
+  min-width:250px;
+  height:100vh;
   position:fixed;
   left:0;
   top:0;
-  bottom:0;
-  width:265px;
-  background:#0b0f1a;
+  background:rgba(10,13,19,.97);
   border-right:1px solid var(--line);
-  z-index:100;
+  padding:18px 14px;
+  z-index:1000;
   overflow-y:auto;
-  padding:18px 14px 24px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:6px 8px 18px;
+.logo{
+  padding:8px 10px 18px;
   border-bottom:1px solid var(--line);
   margin-bottom:12px;
 }
 
-.brand-logo{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#7c5cff,#20c9a1);
-  color:white;
+.logo h1{
+  font-size:17px;
   font-weight:900;
-  box-shadow:0 10px 25px rgba(124,92,255,.25);
+  letter-spacing:.5px;
 }
 
-.brand-title{
-  font-size:15px;
-  font-weight:900;
-  letter-spacing:.3px;
-}
-
-.brand-sub{
-  font-size:10px;
-  color:var(--muted);
-  margin-top:3px;
-}
-
-.nav-group{
-  margin:15px 0 8px;
-}
-
-.nav-label{
-  color:#64708a;
+.logo span{
+  display:block;
+  margin-top:5px;
+  color:var(--gold);
   font-size:10px;
   font-weight:800;
-  letter-spacing:1.2px;
-  padding:0 10px 7px;
-  text-transform:uppercase;
+  letter-spacing:1.4px;
 }
 
-.nav-btn{
-  width:100%;
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav button{
   border:0;
   background:transparent;
-  color:#aab4c8;
+  color:#aeb8c8;
+  padding:11px 12px;
+  border-radius:12px;
   text-align:left;
-  padding:11px 11px;
-  border-radius:11px;
-  margin:2px 0;
-  display:flex;
-  align-items:center;
-  gap:10px;
   font-size:13px;
-  transition:.18s;
+  transition:.2s;
 }
 
-.nav-btn:hover{
-  background:#151b2a;
-  color:white;
+.nav button:hover{
+  background:#171d28;
+  color:#fff;
 }
 
-.nav-btn.active{
-  background:linear-gradient(90deg,rgba(124,92,255,.20),rgba(124,92,255,.05));
-  color:white;
-  border-left:3px solid var(--accent);
-  padding-left:8px;
-}
-
-.nav-icon{
-  width:22px;
-  text-align:center;
+.nav button.active{
+  background:linear-gradient(90deg,#1c2431,#151b25);
+  color:#fff;
+  box-shadow:inset 3px 0 var(--gold);
 }
 
 /* MAIN */
 
 .main{
-  margin-left:265px;
+  width:100%;
+  margin-left:250px;
   min-height:100vh;
 }
 
@@ -161,58 +131,64 @@ button{
   height:68px;
   position:sticky;
   top:0;
-  z-index:50;
-  background:rgba(8,11,20,.88);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line);
+  z-index:900;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 24px;
+  background:rgba(7,9,13,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
 }
 
-.top-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.page-title{
-  font-size:18px;
+.top-title{
   font-weight:900;
+  font-size:15px;
 }
 
-.flow-badge{
-  display:inline-flex;
-  align-items:center;
+.top-badges{
+  display:flex;
   gap:6px;
-  border:1px solid rgba(25,200,160,.28);
-  color:#6ee9cc;
-  background:rgba(25,200,160,.08);
-  padding:6px 9px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.badge{
+  border:1px solid var(--line);
+  background:#10151e;
+  color:#aeb8c8;
   border-radius:999px;
+  padding:6px 9px;
   font-size:9px;
   font-weight:900;
-  letter-spacing:.7px;
+  letter-spacing:.5px;
+}
+
+.badge.gold{
+  color:var(--gold);
+  border-color:rgba(245,196,81,.35);
+}
+
+.badge.green{
+  color:var(--green);
+  border-color:rgba(72,213,151,.35);
 }
 
 .mobile-menu{
   display:none;
+  border:1px solid var(--line);
+  background:#121821;
+  color:#fff;
+  border-radius:10px;
   width:40px;
   height:40px;
-  border:1px solid var(--line);
-  background:var(--panel);
-  color:white;
-  border-radius:12px;
 }
 
 .content{
   padding:24px;
-  max-width:1600px;
+  max-width:1450px;
   margin:auto;
 }
-
-/* COMMON */
 
 .page{
   display:none;
@@ -222,32 +198,31 @@ button{
   display:block;
 }
 
-.hero{
-  background:
-    radial-gradient(circle at 85% 20%,rgba(124,92,255,.20),transparent 35%),
-    radial-gradient(circle at 20% 100%,rgba(25,200,160,.10),transparent 35%),
-    var(--panel);
+/* CARDS */
+
+.card{
+  background:linear-gradient(145deg,rgba(18,23,32,.98),rgba(12,16,23,.98));
   border:1px solid var(--line);
-  border-radius:24px;
-  padding:26px;
-  box-shadow:var(--shadow);
+  border-radius:var(--radius);
+  padding:18px;
+  margin-bottom:16px;
 }
 
-.hero h1{
-  margin:0 0 8px;
-  font-size:28px;
+.card-title{
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:5px;
 }
 
-.hero p{
+.card-sub{
   color:var(--muted);
-  line-height:1.6;
-  max-width:850px;
-  margin:0;
+  font-size:12px;
+  margin-bottom:16px;
 }
 
 .grid{
   display:grid;
-  gap:16px;
+  gap:14px;
 }
 
 .grid-2{
@@ -262,397 +237,356 @@ button{
   grid-template-columns:repeat(4,minmax(0,1fr));
 }
 
-.mt{
-  margin-top:18px;
+/* HERO */
+
+.hero{
+  background:
+    radial-gradient(circle at 85% 20%,rgba(91,167,255,.14),transparent 25%),
+    radial-gradient(circle at 10% 90%,rgba(155,124,255,.12),transparent 30%),
+    #10151e;
+  border:1px solid #283242;
+  border-radius:24px;
+  padding:28px;
+  margin-bottom:18px;
 }
 
-.card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:18px;
+.hero h2{
+  font-size:30px;
+  line-height:1.1;
+  font-weight:950;
 }
 
-.card h3{
-  margin:0 0 12px;
-  font-size:15px;
+.hero p{
+  color:#9ca7b8;
+  margin-top:10px;
+  max-width:780px;
+  font-size:13px;
+  line-height:1.6;
 }
 
-.muted{
-  color:var(--muted);
+.hero-lock{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:17px;
 }
 
-.small{
-  font-size:12px;
+.lock{
+  padding:7px 10px;
+  border-radius:999px;
+  background:#171e29;
+  border:1px solid #2b3545;
+  color:#d7deea;
+  font-size:10px;
+  font-weight:900;
 }
 
-.label{
-  display:block;
-  color:#aeb8ca;
-  font-size:11px;
-  font-weight:800;
-  margin-bottom:7px;
-  letter-spacing:.2px;
-}
+/* BUTTONS */
 
-.input,
-.textarea,
-.select{
-  width:100%;
-  background:#0b101b;
-  border:1px solid var(--line);
-  color:white;
-  border-radius:12px;
-  padding:11px 12px;
-  outline:none;
-}
-
-.input:focus,
-.textarea:focus,
-.select:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(124,92,255,.10);
-}
-
-.textarea{
-  min-height:120px;
-  resize:vertical;
-  line-height:1.5;
-}
-
-.btn-row{
+.actions{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  margin-top:12px;
+  margin-top:14px;
 }
 
 .btn{
   border:1px solid var(--line);
-  background:#161d2d;
-  color:white;
-  padding:10px 14px;
+  background:#161c26;
+  color:#fff;
   border-radius:11px;
+  padding:10px 13px;
   font-size:12px;
   font-weight:800;
+  transition:.2s;
 }
 
 .btn:hover{
-  border-color:#4b5875;
+  transform:translateY(-1px);
+  background:#1d2531;
 }
 
 .btn.primary{
-  border-color:transparent;
-  background:linear-gradient(135deg,#7c5cff,#5d42d9);
+  background:linear-gradient(135deg,#e7b83e,#f5c451);
+  color:#15120a;
+  border-color:#f5c451;
 }
 
-.btn.success{
-  border-color:transparent;
-  background:linear-gradient(135deg,#19c8a0,#0fa57f);
+.btn.blue{
+  background:#16283d;
+  color:#80bbff;
+  border-color:#294f78;
 }
 
-.btn.warning{
-  border-color:transparent;
-  background:linear-gradient(135deg,#ffb648,#df8d20);
-  color:#171008;
+.btn.green{
+  background:#112a21;
+  color:#63e1ab;
+  border-color:#245d49;
 }
 
-.btn.danger{
-  border-color:transparent;
-  background:#8e2632;
+.btn.red{
+  background:#2b151b;
+  color:#ff7c88;
+  border-color:#632b35;
 }
 
-.stat{
-  min-height:120px;
+.btn.purple{
+  background:#211a35;
+  color:#b79cff;
+  border-color:#49387a;
 }
 
-.stat-number{
-  font-size:30px;
-  font-weight:900;
-  margin-top:7px;
-}
+/* FORM */
 
-.stat-label{
+label{
+  display:block;
+  color:#aab4c4;
   font-size:11px;
-  color:var(--muted);
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  padding:5px 8px;
-  border-radius:999px;
-  font-size:10px;
   font-weight:800;
-  background:#182136;
-  color:#b8c4db;
-  border:1px solid var(--line);
-}
-
-.badge.green{
-  background:rgba(25,200,160,.10);
-  color:#62e4c6;
-  border-color:rgba(25,200,160,.25);
-}
-
-.badge.purple{
-  background:rgba(124,92,255,.10);
-  color:#b4a5ff;
-  border-color:rgba(124,92,255,.25);
-}
-
-.badge.orange{
-  background:rgba(255,182,72,.10);
-  color:#ffc96d;
-  border-color:rgba(255,182,72,.25);
-}
-
-/* CHARACTER CARDS */
-
-.character-card{
-  position:relative;
-  overflow:hidden;
-}
-
-.character-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:10px;
-}
-
-.character-name{
-  font-size:18px;
-  font-weight:900;
-}
-
-.character-role{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:3px;
-}
-
-.lock-box{
-  background:#0b101b;
-  border:1px solid #29334b;
-  border-radius:12px;
-  padding:12px;
-  margin-top:12px;
-}
-
-.lock-title{
-  color:#8e9ab0;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.8px;
-  margin-bottom:6px;
-}
-
-.lock-text{
-  font-size:11px;
-  line-height:1.6;
-  color:#d1d8e6;
-  white-space:pre-wrap;
-}
-
-/* SCENES */
-
-.scene-card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:17px;
-  margin-bottom:13px;
-}
-
-.scene-top{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-}
-
-.scene-number{
-  font-size:17px;
-  font-weight:900;
-}
-
-.scene-time{
-  font-size:11px;
-  color:#7edfc9;
-  margin-top:4px;
-}
-
-.scene-chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-  margin-top:10px;
-}
-
-.chip{
-  padding:5px 8px;
-  background:#192237;
-  border:1px solid #2a3650;
-  border-radius:999px;
-  font-size:10px;
-  color:#cbd5e6;
-}
-
-.scene-subtitle{
-  background:#080b12;
-  border:1px solid #29334a;
-  border-radius:12px;
-  padding:13px;
-  margin-top:12px;
-  text-align:center;
-  font-size:13px;
-  font-weight:800;
-  color:white;
-  text-shadow:1px 1px 0 #000;
-}
-
-.scene-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:12px;
-}
-
-/* PROMPT */
-
-.prompt-box{
-  position:relative;
-  margin-top:10px;
-}
-
-.prompt-output{
-  width:100%;
-  min-height:280px;
-  background:#070a11;
-  color:#dce4f2;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:14px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:11px;
-  line-height:1.55;
-  white-space:pre-wrap;
-  overflow:auto;
-}
-
-.prompt-section{
-  margin-bottom:18px;
-}
-
-.prompt-section-title{
-  color:#a99cff;
-  font-weight:900;
-  font-size:11px;
-  letter-spacing:.5px;
   margin-bottom:7px;
 }
 
-/* MODAL */
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(8px);
-  z-index:500;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:min(950px,100%);
-  max-height:92vh;
-  overflow-y:auto;
-  background:#0d1320;
-  border:1px solid var(--line);
-  border-radius:22px;
-  box-shadow:0 30px 100px rgba(0,0,0,.65);
-  padding:20px;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:16px;
-}
-
-.close{
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  border:1px solid var(--line);
-  background:#171e2d;
-  color:white;
-}
-
-/* CHECKBOX */
-
-.check-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px;
-}
-
-.check{
-  display:flex;
-  gap:8px;
-  align-items:flex-start;
-  background:#0a0f19;
-  border:1px solid var(--line);
+input,
+textarea,
+select{
+  width:100%;
+  background:#0b0f15;
+  color:#f5f7fb;
+  border:1px solid #293240;
   border-radius:11px;
-  padding:10px;
+  padding:11px 12px;
+  outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#527fb0;
+  box-shadow:0 0 0 3px rgba(91,167,255,.08);
+}
+
+textarea{
+  min-height:130px;
+  resize:vertical;
+  line-height:1.55;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+/* STATS */
+
+.stat{
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#10151d;
+}
+
+.stat .value{
+  font-size:25px;
+  font-weight:950;
+}
+
+.stat .label{
+  color:var(--muted);
+  margin-top:5px;
   font-size:11px;
 }
 
-.check input{
-  margin-top:2px;
+/* CHARACTER */
+
+.character{
+  position:relative;
+}
+
+.character-id{
+  color:var(--gold);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.character h3{
+  font-size:17px;
+  margin-top:5px;
+}
+
+.character p{
+  color:#9ca7b8;
+  font-size:12px;
+  line-height:1.55;
+  margin-top:8px;
+}
+
+.spec{
+  margin-top:12px;
+  border-top:1px solid var(--line);
+  padding-top:11px;
+}
+
+.spec div{
+  display:flex;
+  gap:7px;
+  margin-bottom:6px;
+  font-size:11px;
+}
+
+.spec b{
+  color:#d9e0ea;
+  min-width:78px;
+}
+
+.spec span{
+  color:#929eaf;
+}
+
+/* SCENE */
+
+.scene{
+  border:1px solid #28313f;
+  background:#0f141c;
+  border-radius:18px;
+  margin-bottom:14px;
+  overflow:hidden;
+}
+
+.scene-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 15px;
+  background:#131923;
+  border-bottom:1px solid var(--line);
+}
+
+.scene-no{
+  color:var(--gold);
+  font-size:13px;
+  font-weight:950;
+}
+
+.scene-time{
+  color:#8390a3;
+  font-size:11px;
+}
+
+.scene-body{
+  padding:15px;
+}
+
+.scene-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:12px;
+}
+
+.meta{
+  background:#151c26;
+  border:1px solid #293340;
+  border-radius:999px;
+  padding:5px 8px;
+  color:#aeb9c9;
+  font-size:9px;
+  font-weight:800;
+}
+
+.prompt-box{
+  margin-top:10px;
+}
+
+.prompt-box textarea{
+  min-height:210px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;
+}
+
+/* LOCK BOX */
+
+.lock-box{
+  border:1px solid #3b4252;
+  border-left:4px solid var(--gold);
+  background:#111722;
+  border-radius:13px;
+  padding:13px;
+  margin:12px 0;
+}
+
+.lock-box h4{
+  color:var(--gold);
+  font-size:11px;
+  margin-bottom:7px;
+  letter-spacing:.5px;
+}
+
+.lock-box p{
+  color:#aeb8c8;
+  font-size:11px;
+  line-height:1.6;
+}
+
+/* SUBTITLE */
+
+.subtitle-preview{
+  background:#05070a;
+  border:1px solid #29313e;
+  border-radius:15px;
+  min-height:150px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:20px;
+  text-align:center;
+}
+
+.subtitle-text{
+  font-size:20px;
+  font-weight:800;
+  color:white;
+  text-shadow:
+    2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    0 3px 8px #000;
+  line-height:1.35;
 }
 
 /* TOAST */
 
 .toast{
   position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:1000;
-  background:#161e2e;
-  border:1px solid #33405b;
-  color:white;
-  padding:12px 15px;
-  border-radius:12px;
-  box-shadow:var(--shadow);
-  transform:translateY(20px);
+  left:50%;
+  bottom:24px;
+  transform:translate(-50%,20px);
   opacity:0;
   pointer-events:none;
-  transition:.2s;
+  background:#f5f7fb;
+  color:#0b0e13;
+  padding:11px 15px;
+  border-radius:12px;
   font-size:12px;
+  font-weight:900;
+  z-index:5000;
+  transition:.25s;
 }
 
 .toast.show{
-  transform:translateY(0);
   opacity:1;
+  transform:translate(-50%,0);
 }
 
 /* MOBILE */
 
-@media(max-width:1000px){
+@media(max-width:900px){
+
   .sidebar{
-    transform:translateX(-100%);
+    transform:translateX(-105%);
     transition:.25s;
-    box-shadow:20px 0 60px rgba(0,0,0,.4);
+    box-shadow:20px 0 50px rgba(0,0,0,.45);
   }
 
   .sidebar.open{
@@ -668,47 +602,48 @@ button{
   }
 
   .topbar{
-    padding:0 14px;
+    padding:0 12px;
+  }
+
+  .top-title{
+    font-size:12px;
+  }
+
+  .top-badges{
+    display:none;
   }
 
   .content{
-    padding:15px;
+    padding:14px;
   }
 
-  .grid-4{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+  .hero{
+    padding:20px;
   }
-}
 
-@media(max-width:680px){
+  .hero h2{
+    font-size:23px;
+  }
+
   .grid-2,
   .grid-3,
   .grid-4{
     grid-template-columns:1fr;
   }
 
-  .hero{
-    padding:19px;
+  .scene-head{
+    align-items:flex-start;
+  }
+}
+
+@media(max-width:500px){
+
+  .actions .btn{
+    flex:1 1 100%;
   }
 
-  .hero h1{
-    font-size:23px;
-  }
-
-  .page-title{
-    font-size:15px;
-  }
-
-  .flow-badge{
-    display:none;
-  }
-
-  .check-grid{
-    grid-template-columns:1fr;
-  }
-
-  .top-left{
-    gap:8px;
+  .subtitle-text{
+    font-size:17px;
   }
 }
 </style>
@@ -720,101 +655,27 @@ button{
 
   <aside class="sidebar" id="sidebar">
 
-    <div class="brand">
-      <div class="brand-logo">AI</div>
-      <div>
-        <div class="brand-title">AUNG AI STORY</div>
-        <div class="brand-sub">VIDEO PRO • FLOW READY</div>
-      </div>
+    <div class="logo">
+      <h1>AUNG AI STORY VIDEO PRO</h1>
+      <span>3D ANIMATED ENGLISH VIDEO STUDIO</span>
     </div>
 
-    <div class="nav-group">
-      <div class="nav-label">Create</div>
+    <nav class="nav">
 
-      <button class="nav-btn active" data-page="dashboard">
-        <span class="nav-icon">⌂</span> Dashboard
-      </button>
+      <button class="nav-btn active" data-page="dashboard">⌂ Dashboard</button>
+      <button class="nav-btn" data-page="story">✦ AI Story</button>
+      <button class="nav-btn" data-page="characters">● Characters</button>
+      <button class="nav-btn" data-page="locations">⌖ Locations</button>
+      <button class="nav-btn" data-page="scenes">▣ Scene Studio</button>
+      <button class="nav-btn" data-page="imageprompts">◈ Image Prompts</button>
+      <button class="nav-btn" data-page="videoprompts">▶ Video Prompts</button>
+      <button class="nav-btn" data-page="subtitles">CC English Subtitles</button>
+      <button class="nav-btn" data-page="srt">SRT Generator</button>
+      <button class="nav-btn" data-page="characterlock">🔒 Character Lock</button>
+      <button class="nav-btn" data-page="youtube">▶ YouTube Pack</button>
+      <button class="nav-btn" data-page="backup">⇩ Backup / Export</button>
 
-      <button class="nav-btn" data-page="story">
-        <span class="nav-icon">✦</span> AI Story
-      </button>
-
-      <button class="nav-btn" data-page="ideas">
-        <span class="nav-icon">💡</span> Story Ideas
-      </button>
-
-      <button class="nav-btn" data-page="characters">
-        <span class="nav-icon">👤</span> Characters
-      </button>
-
-      <button class="nav-btn" data-page="locations">
-        <span class="nav-icon">⌖</span> Locations
-      </button>
-
-      <button class="nav-btn" data-page="scenes">
-        <span class="nav-icon">▣</span> Scene Studio
-      </button>
-    </div>
-
-    <div class="nav-group">
-      <div class="nav-label">Production</div>
-
-      <button class="nav-btn" data-page="image">
-        <span class="nav-icon">▧</span> Image Prompts
-      </button>
-
-      <button class="nav-btn" data-page="video">
-        <span class="nav-icon">▶</span> Video Prompts
-      </button>
-
-      <button class="nav-btn" data-page="text">
-        <span class="nav-icon">T</span> On-Screen Text
-      </button>
-
-      <button class="nav-btn" data-page="voice">
-        <span class="nav-icon">♫</span> Voice
-      </button>
-
-      <button class="nav-btn" data-page="srt">
-        <span class="nav-icon">CC</span> SRT / Subtitles
-      </button>
-    </div>
-
-    <div class="nav-group">
-      <div class="nav-label">Publishing</div>
-
-      <button class="nav-btn" data-page="lesson">
-        <span class="nav-icon">A1</span> English Lesson
-      </button>
-
-      <button class="nav-btn" data-page="thumbnail">
-        <span class="nav-icon">▤</span> Thumbnail
-      </button>
-
-      <button class="nav-btn" data-page="youtube">
-        <span class="nav-icon">YT</span> YouTube Pack
-      </button>
-
-      <button class="nav-btn" data-page="shorts">
-        <span class="nav-icon">◈</span> Shorts
-      </button>
-    </div>
-
-    <div class="nav-group">
-      <div class="nav-label">System</div>
-
-      <button class="nav-btn" data-page="projects">
-        <span class="nav-icon">▦</span> Projects
-      </button>
-
-      <button class="nav-btn" data-page="backup">
-        <span class="nav-icon">⇩</span> Backup / Import
-      </button>
-
-      <button class="nav-btn" data-page="settings">
-        <span class="nav-icon">⚙</span> Settings
-      </button>
-    </div>
+    </nav>
 
   </aside>
 
@@ -822,17 +683,16 @@ button{
 
     <header class="topbar">
 
-      <div class="top-left">
-        <button class="mobile-menu" id="mobileMenu">☰</button>
-        <div class="page-title" id="pageTitle">Dashboard</div>
+      <button class="mobile-menu" id="mobileMenu">☰</button>
+
+      <div class="top-title">
+        AUNG AI STORY VIDEO PRO
       </div>
 
-      <div class="flow-badge">
-        ● FLOW READY
-        •
-        CHARACTER LOCK
-        •
-        SUBTITLE LOCK
+      <div class="top-badges">
+        <span class="badge gold">3D LOCK</span>
+        <span class="badge">CHARACTER DNA</span>
+        <span class="badge green">ENGLISH CC</span>
       </div>
 
     </header>
@@ -844,599 +704,518 @@ button{
       <section class="page active" id="page-dashboard">
 
         <div class="hero">
-          <h1>AUNG AI STORY VIDEO PRO</h1>
+
+          <h2>AI English Story Video Studio</h2>
+
           <p>
-            Create consistent 3D animated English-learning stories with
-            account-independent Character DNA, Style Lock, Negative Lock,
-            exact subtitles and Flow-ready prompts
+            Create consistent 3D animated English-learning videos with a
+            permanent Character DNA Lock, visual style lock and dialogue-only
+            English subtitle system
           </p>
 
-          <div class="btn-row">
-            <button class="btn primary" data-action="new-story">
-              + Create New Story
+          <div class="hero-lock">
+            <span class="lock">3D RENDERED ANIMATION</span>
+            <span class="lock">PIXAR-INSPIRED QUALITY</span>
+            <span class="lock">CHARACTER DNA LOCK</span>
+            <span class="lock">NO SPEAKER NAMES</span>
+            <span class="lock">ENGLISH SUBTITLE ON</span>
+            <span class="lock">SRT READY</span>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="createStoryBtn">
+              ✦ Create 10-Scene Story
             </button>
 
-            <button class="btn success" data-action="copy-all">
-              Copy All Flow Prompts
+            <button class="btn blue" id="copyBibleBtn">
+              🔒 Copy Master Character Lock
             </button>
-          </div>
-        </div>
 
-        <div class="grid grid-4 mt">
-
-          <div class="card stat">
-            <div class="stat-label">CURRENT PROJECT</div>
-            <div class="stat-number" id="statProject">—</div>
-          </div>
-
-          <div class="card stat">
-            <div class="stat-label">SCENES</div>
-            <div class="stat-number" id="statScenes">0</div>
-          </div>
-
-          <div class="card stat">
-            <div class="stat-label">CHARACTERS</div>
-            <div class="stat-number" id="statCharacters">4</div>
-          </div>
-
-          <div class="card stat">
-            <div class="stat-label">SUBTITLE MODE</div>
-            <div class="stat-number" style="font-size:19px">
-              DIALOGUE ONLY
-            </div>
+            <button class="btn green" id="copyAllBtn">
+              ⧉ Copy All Scene Packages
+            </button>
           </div>
 
         </div>
 
-        <div class="grid grid-2 mt">
+        <div class="grid grid-4">
 
-          <div class="card">
-            <h3>🔒 Character Consistency</h3>
-
-            <p class="small muted">
-              Every Flow prompt contains the full character specification.
-              The prompt does not depend on the Google account, chat history,
-              previous generation or session memory
-            </p>
-
-            <div class="lock-box">
-              <div class="lock-title">MASTER IDENTITY RULE</div>
-              <div class="lock-text">
-Same face
-Same age
-Same hairstyle
-Same clothing
-Same shoes
-Same accessories
-Same body proportions
-Same skin tone
-Same character identity
-No redesign
-No replacement
-No random characters
-              </div>
-            </div>
+          <div class="stat">
+            <div class="value" id="statScenes">0</div>
+            <div class="label">Scenes</div>
           </div>
 
-          <div class="card">
-            <h3>🎬 Visual Style Lock</h3>
+          <div class="stat">
+            <div class="value" id="statCharacters">4</div>
+            <div class="label">Locked Characters</div>
+          </div>
 
-            <p class="small muted">
-              Every image and video prompt uses the same visual universe
+          <div class="stat">
+            <div class="value">3D</div>
+            <div class="label">Visual Style</div>
+          </div>
+
+          <div class="stat">
+            <div class="value">ON</div>
+            <div class="label">English Subtitle</div>
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-title">
+            ⚠️ Important Flow Workflow
+          </div>
+
+          <div class="card-sub">
+            Google Flow account ပြောင်းသုံးတဲ့အခါလည်း အောက်က Master Character Bible
+            ကို မပြောင်းပါနဲ့
+          </div>
+
+          <div class="lock-box">
+
+            <h4>CHARACTER CONSISTENCY RULE</h4>
+
+            <p>
+              Every scene contains the same Master Character DNA.
+              If Google Flow supports reference images, upload the exact same
+              character reference image for the same character in every scene.
+              Never regenerate a new character reference between scenes.
             </p>
 
-            <div class="lock-box">
-              <div class="lock-title">STYLE</div>
-              <div class="lock-text">
-3D rendered animated illustration
-Pixar-style cinematic family animation
-High-quality polished 3D characters
-Warm cinematic lighting
-Expressive natural faces
-Clean detailed environments
-One consistent animated movie universe
-              </div>
-            </div>
           </div>
 
         </div>
 
       </section>
+
 
       <!-- STORY -->
 
       <section class="page" id="page-story">
 
-        <div class="hero">
-          <h1>AI Story Generator</h1>
-          <p>
-            Build an original English-learning story and automatically
-            convert it into locked production scenes
-          </p>
-        </div>
+        <div class="card">
 
-        <div class="card mt">
+          <div class="card-title">✦ AI Story Generator</div>
+
+          <div class="card-sub">
+            English A1 story အတွက် topic နဲ့ setting ထည့်ပြီး scene package ထုတ်ပါ
+          </div>
 
           <div class="grid grid-2">
 
-            <div>
-              <label class="label">Story Topic</label>
-              <input class="input" id="storyTopic"
-                     placeholder="Example: Family Trip to the Airport">
+            <div class="field">
+              <label>STORY TITLE</label>
+              <input id="storyTitle" value="A Family Trip to the Airport">
             </div>
 
-            <div>
-              <label class="label">English Level</label>
-              <select class="select" id="storyLevel">
-                <option>A1</option>
-                <option selected>A2</option>
-                <option>B1</option>
-                <option>B2</option>
-                <option>C1</option>
-                <option>C2</option>
+            <div class="field">
+              <label>ENGLISH LEVEL</label>
+              <select id="englishLevel">
+                <option>A1 Beginner</option>
+                <option>A2 Elementary</option>
+                <option>B1 Intermediate</option>
               </select>
             </div>
 
-            <div>
-              <label class="label">Duration</label>
-              <select class="select" id="storyDuration">
-                <option value="60">1 Minute</option>
-                <option value="120" selected>2 Minutes</option>
-                <option value="180">3 Minutes</option>
-                <option value="300">5 Minutes</option>
-                <option value="600">10 Minutes</option>
-              </select>
+            <div class="field">
+              <label>TOPIC</label>
+              <input id="storyTopic" value="A family going to the airport">
             </div>
 
-            <div>
-              <label class="label">Category</label>
-              <select class="select" id="storyCategory">
-                <option>Family</option>
-                <option>Travel</option>
-                <option>Daily Life</option>
-                <option>School</option>
-                <option>Shopping</option>
-                <option>Restaurant</option>
-                <option>Work</option>
-                <option>Friendship</option>
+            <div class="field">
+              <label>SCENE DURATION</label>
+              <select id="sceneDuration">
+                <option value="8">8 seconds</option>
+                <option value="10">10 seconds</option>
+                <option value="12">12 seconds</option>
               </select>
             </div>
 
           </div>
 
-          <div class="btn-row">
+          <div class="field">
+            <label>STORY IDEA</label>
+            <textarea id="storyIdea">A family prepares for a trip, leaves home, arrives at the airport, checks in, finds the gate and gets ready to fly.</textarea>
+          </div>
 
-            <button class="btn primary" data-action="generate-story">
+          <div class="actions">
+
+            <button class="btn primary" id="generateStoryBtn">
               ✦ Generate Story
             </button>
 
-            <button class="btn" data-action="random-story">
-              🎲 Random Story
+            <button class="btn" id="clearStoryBtn">
+              Clear
             </button>
 
           </div>
 
         </div>
 
-        <div class="card mt">
-          <label class="label">Generated Story</label>
-          <textarea class="textarea" id="storyOutput"
-                    placeholder="Generated story will appear here"></textarea>
-        </div>
+        <div id="storyOutput"></div>
 
       </section>
 
-      <!-- IDEAS -->
-
-      <section class="page" id="page-ideas">
-
-        <div class="hero">
-          <h1>Story Ideas</h1>
-          <p>Original English-learning video concepts</p>
-        </div>
-
-        <div class="grid grid-3 mt" id="ideasGrid"></div>
-
-      </section>
 
       <!-- CHARACTERS -->
 
       <section class="page" id="page-characters">
 
-        <div class="hero">
-          <h1>Character DNA</h1>
-          <p>
-            These specifications are permanently embedded into every scene
-            prompt so Flow does not depend on account memory
-          </p>
+        <div class="card">
+
+          <div class="card-title">🔒 Master Character Bible</div>
+
+          <div class="card-sub">
+            ဒီ Character DNA ကို scene တိုင်းမှာ အလိုအလျောက်ထည့်ပေးထားပါတယ်
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="copyBibleBtn2">
+              Copy Character Bible
+            </button>
+          </div>
+
         </div>
 
-        <div class="grid grid-2 mt" id="charactersGrid"></div>
+        <div class="grid grid-2" id="characterGrid"></div>
 
       </section>
+
 
       <!-- LOCATIONS -->
 
       <section class="page" id="page-locations">
 
-        <div class="hero">
-          <h1>Location Lock</h1>
-          <p>
-            Repeated locations keep the same visual environment and continuity
-          </p>
+        <div class="card">
+
+          <div class="card-title">⌖ Location Bible</div>
+
+          <div class="card-sub">
+            Location တစ်ခုကို scene တိုင်းမှာ consistent ဖြစ်အောင်သတ်မှတ်ထားပါတယ်
+          </div>
+
         </div>
 
-        <div class="grid grid-3 mt" id="locationsGrid"></div>
+        <div class="grid grid-3" id="locationGrid"></div>
 
       </section>
+
 
       <!-- SCENES -->
 
       <section class="page" id="page-scenes">
 
-        <div class="hero">
+        <div class="card">
 
-          <h1>Scene Studio</h1>
+          <div class="card-title">▣ Scene Studio</div>
 
-          <p>
-            Every scene contains Character Lock + Style Lock + Negative Lock
-            + Subtitle Lock
-          </p>
+          <div class="card-sub">
+            Scene တစ်ခုချင်းစီမှာ Character Lock + Style Lock + Subtitle Lock ပါပါတယ်
+          </div>
 
-          <div class="btn-row">
+          <div class="actions">
 
-            <button class="btn primary" data-action="generate-scenes">
-              Generate Scenes
+            <button class="btn primary" id="generateStoryBtn2">
+              Generate 10 Scenes
             </button>
 
-            <button class="btn success" data-action="copy-all">
-              Copy All Scene Packages
+            <button class="btn blue" id="copyAllBtn2">
+              Copy All Packages
             </button>
 
-            <button class="btn" data-action="export-scenes">
-              Export TXT
+            <button class="btn green" id="downloadTxtBtn">
+              Download TXT
+            </button>
+
+            <button class="btn purple" id="downloadSrtBtn">
+              Download SRT
             </button>
 
           </div>
 
         </div>
 
-        <div class="mt" id="scenesList"></div>
+        <div id="sceneList"></div>
 
       </section>
 
-      <!-- IMAGE -->
 
-      <section class="page" id="page-image">
+      <!-- IMAGE PROMPTS -->
 
-        <div class="hero">
-          <h1>Image Prompts</h1>
-          <p>
-            Locked image prompts for consistent 3D rendered animated
-            illustrations
-          </p>
+      <section class="page" id="page-imageprompts">
+
+        <div class="card">
+
+          <div class="card-title">◈ Image Prompts</div>
+
+          <div class="card-sub">
+            Image generation အတွက် subtitle မပါဘဲ visual prompt သီးသန့်
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="copyImagePromptsBtn">
+              Copy All Image Prompts
+            </button>
+          </div>
+
         </div>
 
-        <div class="mt" id="imagePrompts"></div>
+        <div id="imagePromptList"></div>
 
       </section>
 
-      <!-- VIDEO -->
 
-      <section class="page" id="page-video">
+      <!-- VIDEO PROMPTS -->
 
-        <div class="hero">
-          <h1>Video Prompts</h1>
-          <p>
-            Complete Flow-ready prompts with Character DNA and subtitle
-            instructions embedded inside every scene
-          </p>
-        </div>
+      <section class="page" id="page-videoprompts">
 
-        <div class="mt" id="videoPrompts"></div>
+        <div class="card">
 
-      </section>
+          <div class="card-title">▶ Google Flow / Veo Video Prompts</div>
 
-      <!-- TEXT -->
+          <div class="card-sub">
+            Subtitle ကို video generation prompt ထဲမှာ mandatory lock လုပ်ထားပါတယ်
+          </div>
 
-      <section class="page" id="page-text">
-
-        <div class="hero">
-          <h1>On-Screen Text Lock</h1>
-          <p>
-            No character names, no floating labels, no unnecessary text
-          </p>
-        </div>
-
-        <div class="card mt">
           <div class="lock-box">
-            <div class="lock-title">STRICT ON-SCREEN TEXT RULE</div>
 
-            <div class="lock-text">
-ONLY display spoken dialogue as subtitles.
+            <h4>ENGLISH SUBTITLE MANDATORY</h4>
 
-DO NOT display:
-Emma:
-David:
-Sarah:
-Leo:
+            <p>
+              Spoken English dialogue must have matching English subtitle.
+              Do not show speaker names. Do not show character labels.
+              Do not add extra captions.
+            </p>
 
-DO NOT display character names above people.
-
-DO NOT display speaker labels.
-
-DO NOT add title cards.
-
-DO NOT add random text.
-
-DO NOT add labels.
-
-DO NOT add watermark.
-
-DO NOT add logo.
-
-DO NOT duplicate subtitles.
-
-Subtitles must be:
-Bold white text
-Thick black outline
-Bottom center
-Large readable size
-Synchronized exactly with speech
-Visible only while spoken
-            </div>
           </div>
+
+          <div class="actions">
+            <button class="btn primary" id="copyVideoPromptsBtn">
+              Copy All Video Prompts
+            </button>
+          </div>
+
+        </div>
+
+        <div id="videoPromptList"></div>
+
+      </section>
+
+
+      <!-- SUBTITLES -->
+
+      <section class="page" id="page-subtitles">
+
+        <div class="card">
+
+          <div class="card-title">CC English Subtitle System</div>
+
+          <div class="card-sub">
+            Emma English လို speaker name မပါဘဲ English dialogue ပဲပြမယ့် system
+          </div>
+
+          <div class="subtitle-preview">
+
+            <div class="subtitle-text" id="subtitlePreview">
+              Where are we going today?
+            </div>
+
+          </div>
+
+          <div class="field" style="margin-top:15px">
+
+            <label>SUBTITLE PREVIEW TEXT</label>
+
+            <textarea id="subtitleInput">Emma: Where are we going today?</textarea>
+
+          </div>
+
+          <div class="actions">
+
+            <button class="btn primary" id="cleanSubtitleBtn">
+              Remove Speaker Name
+            </button>
+
+            <button class="btn green" id="copySubtitleBtn">
+              Copy Clean Subtitle
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-title">Subtitle Rules</div>
+
+          <div class="grid grid-2">
+
+            <div class="lock-box">
+              <h4>VISIBLE</h4>
+              <p>
+                English dialogue only<br>
+                White text<br>
+                Black outline<br>
+                Bottom center<br>
+                Speech synchronized
+              </p>
+            </div>
+
+            <div class="lock-box">
+              <h4>FORBIDDEN</h4>
+              <p>
+                Emma:<br>
+                David:<br>
+                Sarah:<br>
+                Leo:<br>
+                Speaker labels<br>
+                Extra captions
+              </p>
+            </div>
+
+          </div>
+
         </div>
 
       </section>
 
-      <!-- VOICE -->
-
-      <section class="page" id="page-voice">
-
-        <div class="hero">
-          <h1>Voice Script</h1>
-          <p>
-            Speaker names are retained here for voice assignment only.
-            They are never displayed inside the generated video
-          </p>
-        </div>
-
-        <div class="card mt">
-          <textarea class="textarea" id="voiceOutput"
-                    style="min-height:450px"></textarea>
-        </div>
-
-      </section>
 
       <!-- SRT -->
 
       <section class="page" id="page-srt">
 
-        <div class="hero">
-          <h1>SRT / Subtitles</h1>
-          <p>
-            SRT contains dialogue only. Speaker names are automatically removed
-          </p>
+        <div class="card">
 
-          <div class="btn-row">
-            <button class="btn success" data-action="copy-srt">
+          <div class="card-title">SRT Generator</div>
+
+          <div class="card-sub">
+            Dialogue-only English subtitle file
+          </div>
+
+          <div class="actions">
+
+            <button class="btn primary" id="downloadSrtBtn2">
+              Download .SRT
+            </button>
+
+            <button class="btn green" id="copySrtBtn">
               Copy SRT
             </button>
 
-            <button class="btn" data-action="download-srt">
-              Download SRT
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <textarea id="srtOutput" style="min-height:500px;font-family:ui-monospace,monospace;font-size:11px"></textarea>
+
+        </div>
+
+      </section>
+
+
+      <!-- CHARACTER LOCK -->
+
+      <section class="page" id="page-characterlock">
+
+        <div class="card">
+
+          <div class="card-title">🔒 Character Consistency Lock</div>
+
+          <div class="card-sub">
+            Google Flow account ပြောင်းသုံးရင်လည်း copy/paste လုပ်သုံးနိုင်မယ့် Master Lock
+          </div>
+
+          <textarea id="masterBibleOutput" style="min-height:650px;font-family:ui-monospace,monospace;font-size:11px"></textarea>
+
+          <div class="actions">
+
+            <button class="btn primary" id="copyBibleBtn3">
+              Copy Master Bible
             </button>
-          </div>
-        </div>
 
-        <div class="card mt">
-          <textarea class="textarea" id="srtOutput"
-                    style="min-height:550px"></textarea>
-        </div>
-
-      </section>
-
-      <!-- LESSON -->
-
-      <section class="page" id="page-lesson">
-
-        <div class="hero">
-          <h1>English Lesson</h1>
-          <p>
-            Turn the story into a practical listening and vocabulary lesson
-          </p>
-        </div>
-
-        <div class="grid grid-2 mt">
-
-          <div class="card">
-            <h3>Key Vocabulary</h3>
-            <textarea class="textarea" id="lessonVocab"></textarea>
-          </div>
-
-          <div class="card">
-            <h3>Useful Sentences</h3>
-            <textarea class="textarea" id="lessonSentences"></textarea>
           </div>
 
         </div>
 
       </section>
 
-      <!-- THUMBNAIL -->
-
-      <section class="page" id="page-thumbnail">
-
-        <div class="hero">
-          <h1>Thumbnail Prompt</h1>
-          <p>Consistent characters and clean educational YouTube composition</p>
-        </div>
-
-        <div class="card mt">
-          <textarea class="textarea" id="thumbnailPrompt"
-                    style="min-height:300px"></textarea>
-
-          <div class="btn-row">
-            <button class="btn primary" data-action="copy-thumbnail">
-              Copy Prompt
-            </button>
-          </div>
-        </div>
-
-      </section>
 
       <!-- YOUTUBE -->
 
       <section class="page" id="page-youtube">
 
-        <div class="hero">
-          <h1>YouTube Pack</h1>
-          <p>Title, description, chapters and SEO keywords</p>
-        </div>
+        <div class="card">
 
-        <div class="card mt">
+          <div class="card-title">▶ YouTube Pack</div>
 
-          <label class="label">Title</label>
-          <input class="input" id="ytTitle">
+          <div class="card-sub">
+            English learning video အတွက် basic metadata
+          </div>
 
-          <br><br>
+          <div class="field">
+            <label>VIDEO TITLE</label>
+            <input id="ytTitle" value="A Family Trip to the Airport | Easy English Story for Beginners">
+          </div>
 
-          <label class="label">Description</label>
-          <textarea class="textarea" id="ytDescription"
-                    style="min-height:240px"></textarea>
+          <div class="field">
+            <label>DESCRIPTION</label>
+            <textarea id="ytDescription">Learn English with a simple animated family story. This A1 English story uses easy vocabulary, clear spoken English and English subtitles for beginners.</textarea>
+          </div>
 
-          <br>
+          <div class="field">
+            <label>KEYWORDS</label>
+            <textarea id="ytKeywords">learn English, English for beginners, A1 English, easy English story, English listening, English speaking, English subtitles, animated English story</textarea>
+          </div>
 
-          <label class="label">Keywords</label>
-          <textarea class="textarea" id="ytKeywords"></textarea>
-
-        </div>
-
-      </section>
-
-      <!-- SHORTS -->
-
-      <section class="page" id="page-shorts">
-
-        <div class="hero">
-          <h1>Shorts</h1>
-          <p>Extract short English-learning moments from the story</p>
-        </div>
-
-        <div class="card mt">
-          <textarea class="textarea" id="shortsOutput"
-                    style="min-height:350px"></textarea>
-
-          <div class="btn-row">
-            <button class="btn primary" data-action="copy-shorts">
-              Copy Shorts Prompt
+          <div class="actions">
+            <button class="btn primary" id="copyYoutubeBtn">
+              Copy YouTube Pack
             </button>
           </div>
+
         </div>
 
       </section>
 
-      <!-- PROJECTS -->
-
-      <section class="page" id="page-projects">
-
-        <div class="hero">
-          <h1>Projects</h1>
-          <p>Local project storage</p>
-        </div>
-
-        <div class="mt" id="projectsList"></div>
-
-      </section>
 
       <!-- BACKUP -->
 
       <section class="page" id="page-backup">
 
-        <div class="hero">
-          <h1>Backup / Import</h1>
-          <p>
-            Save your Character DNA and project data independently from Google
-            Flow account history
-          </p>
+        <div class="card">
 
-          <div class="btn-row">
-            <button class="btn success" data-action="backup">
-              Export JSON
+          <div class="card-title">⇩ Backup / Export</div>
+
+          <div class="card-sub">
+            Project data ကို JSON အနေနဲ့ backup လုပ်နိုင်ပါတယ်
+          </div>
+
+          <div class="actions">
+
+            <button class="btn primary" id="backupBtn">
+              Download Project JSON
             </button>
 
-            <button class="btn" data-action="import">
+            <button class="btn blue" id="importBtn">
               Import JSON
             </button>
 
-            <input type="file" id="importFile"
-                   accept="application/json"
-                   style="display:none">
-          </div>
-        </div>
+            <input
+              type="file"
+              id="importFile"
+              accept=".json"
+              style="display:none"
+            >
 
-        <div class="card mt">
-
-          <div class="lock-box">
-            <div class="lock-title">IMPORTANT</div>
-
-            <div class="lock-text">
-Google Flow account memory is NOT used as the character database.
-
-The application stores a MASTER CHARACTER DNA.
-
-Every generated scene copies that DNA into the prompt.
-
-Therefore switching accounts does not remove the character specification from the prompt.
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- SETTINGS -->
-
-      <section class="page" id="page-settings">
-
-        <div class="hero">
-          <h1>Settings</h1>
-          <p>Production defaults</p>
-        </div>
-
-        <div class="grid grid-2 mt">
-
-          <div class="card">
-
-            <label class="label">Visual Style</label>
-
-            <select class="select" id="visualStyle">
-              <option selected>3D rendered animated illustration — Pixar-style cinematic family animation</option>
-              <option>3D rendered animated educational film</option>
-            </select>
+            <button class="btn red" id="resetBtn">
+              Reset Project
+            </button>
 
           </div>
-
-          <div class="card">
-
-            <label class="label">Subtitle Position</label>
-
-            <select class="select" id="subtitlePosition">
-              <option selected>Bottom Center</option>
-              <option>Bottom Safe Area</option>
-            </select>
-
-          </div>
-
-        </div>
-
-        <div class="card mt">
-
-          <h3>Master Style Lock Preview</h3>
-
-          <textarea class="textarea" id="stylePreview"
-                    style="min-height:350px"></textarea>
 
         </div>
 
@@ -1448,848 +1227,649 @@ Therefore switching accounts does not remove the character specification from th
 
 </div>
 
-<!-- SCENE MODAL -->
-
-<div class="modal" id="sceneModal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <div>
-        <div style="font-size:18px;font-weight:900">
-          Edit Scene
-        </div>
-
-        <div class="small muted" id="modalSceneTitle"></div>
-      </div>
-
-      <button class="close" data-action="close-modal">×</button>
-
-    </div>
-
-    <div class="grid grid-2">
-
-      <div>
-        <label class="label">Start Time</label>
-        <input class="input" id="editStart">
-      </div>
-
-      <div>
-        <label class="label">End Time</label>
-        <input class="input" id="editEnd">
-      </div>
-
-    </div>
-
-    <div class="card mt">
-
-      <label class="label">Characters in this scene</label>
-
-      <div class="check-grid" id="characterChecks"></div>
-
-    </div>
-
-    <div class="grid grid-2 mt">
-
-      <div>
-        <label class="label">Location</label>
-        <select class="select" id="editLocation"></select>
-      </div>
-
-      <div>
-        <label class="label">Camera</label>
-        <input class="input" id="editCamera">
-      </div>
-
-    </div>
-
-    <div class="grid grid-2 mt">
-
-      <div>
-        <label class="label">Action</label>
-        <textarea class="textarea" id="editAction"></textarea>
-      </div>
-
-      <div>
-        <label class="label">Emotion</label>
-        <textarea class="textarea" id="editEmotion"></textarea>
-      </div>
-
-    </div>
-
-    <div class="card mt">
-
-      <label class="label">Voice / Dialogue</label>
-
-      <textarea class="textarea" id="editDialogue"
-                style="min-height:160px"></textarea>
-
-      <div class="small muted" style="margin-top:7px">
-        Speaker names are allowed here for voice assignment only.
-        They will automatically be removed from the visible subtitles
-      </div>
-
-    </div>
-
-    <div class="grid grid-2 mt">
-
-      <div>
-        <label class="label">SFX</label>
-        <textarea class="textarea" id="editSfx"></textarea>
-      </div>
-
-      <div>
-        <label class="label">Continuity</label>
-        <textarea class="textarea" id="editContinuity"></textarea>
-      </div>
-
-    </div>
-
-    <div class="btn-row">
-
-      <button class="btn primary" data-action="save-scene">
-        Save Scene
-      </button>
-
-      <button class="btn" data-action="close-modal">
-        Cancel
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
 <div class="toast" id="toast"></div>
 
+
 <script>
-"use strict";
 
 /* =========================================================
    AUNG AI STORY VIDEO PRO
-   CHARACTER DNA / STYLE LOCK ENGINE
-   ========================================================= */
+   VERSION 3.0
+   CHARACTER DNA + 3D STYLE + ENGLISH SUBTITLE LOCK
+========================================================= */
 
-const STORAGE_KEY = "AUNG_AI_STORY_VIDEO_PRO_V4";
-
-function uid(prefix){
-  return prefix + "_" + Date.now().toString(36) +
-         "_" + Math.random().toString(36).slice(2,8);
-}
-
-function pad2(n){
-  n = Number(n) || 0;
-  return n < 10 ? "0" + n : String(n);
-}
-
-function formatTime(seconds){
-  seconds = Math.max(0,Math.floor(Number(seconds)||0));
-
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-
-  return pad2(m) + ":" + pad2(s);
-}
-
-function escapeHtml(value){
-  return String(value == null ? "" : value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-/* =========================================================
-   MASTER CHARACTER DATABASE
-   THIS IS THE IMPORTANT ACCOUNT-INDEPENDENT PART
-   ========================================================= */
+const APP_KEY = "aung_ai_story_video_pro_v3";
 
 const DEFAULT_CHARACTERS = [
 
   {
-    id:"david",
+    id:"C1",
     name:"David",
     role:"Father",
-    age:"42",
-    gender:"Male",
-
-    appearance:
-      "42-year-old father, same consistent adult male face, same facial proportions, same skin tone, friendly mature appearance, short neat black hair with a few gray strands, natural eyebrows, warm brown eyes",
-
-    clothes:
-      "light blue button-up shirt, navy trousers, clean white sneakers",
-
-    accessories:
-      "silver wristwatch and black travel bag",
-
-    personality:
-      "warm, calm, responsible, caring, patient, friendly father",
-
-    voice:
-      "warm mature male English voice, calm clear pronunciation",
-
-    identity:
-      "DAVID_MASTER_IDENTITY_01"
+    age:"42-year-old adult male",
+    face:"friendly oval face, stable facial proportions, medium nose, dark brown eyes, clean-shaven face",
+    hair:"short neat black hair with a few natural gray strands",
+    skin:"warm medium-light natural skin tone",
+    body:"average adult male proportions, consistent height and body shape",
+    clothes:"light blue shirt, navy trousers, white sneakers, silver wristwatch",
+    accessory:"black travel bag",
+    voice:"warm mature male English voice",
+    personality:"calm, friendly, patient father"
   },
 
   {
-    id:"sarah",
+    id:"C2",
     name:"Sarah",
     role:"Mother",
-    age:"39",
-    gender:"Female",
-
-    appearance:
-      "39-year-old mother, same consistent adult female face, same facial proportions, same skin tone, kind expressive eyes, shoulder-length dark brown hair, natural eyebrows",
-
-    clothes:
-      "pink cardigan, white blouse, beige trousers, clean white sneakers",
-
-    accessories:
-      "beige handbag",
-
-    personality:
-      "kind, caring, organized, cheerful, patient mother",
-
-    voice:
-      "warm mature female English voice, clear friendly pronunciation",
-
-    identity:
-      "SARAH_MASTER_IDENTITY_01"
+    age:"39-year-old adult female",
+    face:"kind oval face, stable facial proportions, dark brown eyes, soft friendly expression",
+    hair:"shoulder-length dark brown hair",
+    skin:"warm natural skin tone",
+    body:"average adult female proportions, consistent height and body shape",
+    clothes:"pink cardigan, white blouse, beige trousers, white sneakers",
+    accessory:"beige handbag",
+    voice:"warm mature female English voice",
+    personality:"kind, organized, caring mother"
   },
 
   {
-    id:"emma",
+    id:"C3",
     name:"Emma",
-    role:"Daughter",
-    age:"12",
-    gender:"Female",
-
-    appearance:
-      "12-year-old girl, same consistent child face, same facial proportions, same skin tone, bright friendly eyes, long dark brown hair tied into the exact same ponytail",
-
-    clothes:
-      "yellow hoodie, blue jeans, clean white sneakers",
-
-    accessories:
-      "pink backpack",
-
-    personality:
-      "curious, cheerful, polite, energetic, friendly",
-
-    voice:
-      "young cheerful girl English voice, clear natural pronunciation",
-
-    identity:
-      "EMMA_MASTER_IDENTITY_01"
+    role:"Girl",
+    age:"12-year-old girl",
+    face:"cheerful youthful face, stable facial proportions, dark brown eyes",
+    hair:"long dark brown ponytail",
+    skin:"natural warm skin tone",
+    body:"consistent 12-year-old child proportions",
+    clothes:"yellow hoodie, blue jeans, white sneakers",
+    accessory:"pink backpack",
+    voice:"young cheerful English girl voice",
+    personality:"curious, cheerful, energetic"
   },
 
   {
-    id:"leo",
+    id:"C4",
     name:"Leo",
-    role:"Son",
-    age:"9",
-    gender:"Male",
-
-    appearance:
-      "9-year-old boy, same consistent child face, same facial proportions, same skin tone, bright friendly eyes, short slightly messy black hair",
-
-    clothes:
-      "green T-shirt, blue shorts, clean white sneakers",
-
-    accessories:
-      "blue backpack",
-
-    personality:
-      "playful, curious, energetic, friendly, polite",
-
-    voice:
-      "young cheerful boy English voice, clear natural pronunciation",
-
-    identity:
-      "LEO_MASTER_IDENTITY_01"
+    role:"Boy",
+    age:"9-year-old boy",
+    face:"cheerful child face, stable facial proportions, dark brown eyes",
+    hair:"short slightly messy black hair",
+    skin:"natural warm skin tone",
+    body:"consistent 9-year-old child proportions",
+    clothes:"green T-shirt, blue shorts, white sneakers",
+    accessory:"blue backpack",
+    voice:"young cheerful English boy voice",
+    personality:"playful, curious, energetic"
   }
 
 ];
 
-/* =========================================================
-   LOCATIONS
-   ========================================================= */
-
-const DEFAULT_LOCATIONS = [
+const LOCATIONS = [
 
   {
-    id:"airport",
-    name:"Modern International Airport",
-    description:
-      "bright modern international airport terminal with large glass windows, clean floors, information screens, check-in counters and realistic but stylized family-friendly details",
-    lighting:
-      "soft warm cinematic morning lighting",
-    time:
-      "morning",
-    weather:
-      "clear"
-  },
-
-  {
-    id:"home",
+    id:"L1",
     name:"Modern Family Home",
-    description:
-      "comfortable modern family home with clean living room, warm furniture, kitchen area and natural daylight",
-    lighting:
-      "warm natural daylight",
-    time:
-      "morning",
-    weather:
-      "clear"
+    description:"bright modern family living room and entrance area, clean contemporary interior, warm natural daylight"
   },
 
   {
-    id:"school",
-    name:"Modern School",
-    description:
-      "bright modern school environment with clean classrooms, colorful but tasteful educational details and friendly family-learning atmosphere",
-    lighting:
-      "soft daylight",
-    time:
-      "daytime",
-    weather:
-      "clear"
+    id:"L2",
+    name:"Family Car",
+    description:"clean modern family car interior and exterior, realistic proportions, bright daytime lighting"
+  },
+
+  {
+    id:"L3",
+    name:"Modern International Airport",
+    description:"large clean international airport terminal, glass architecture, check-in counters, departure signs, bright modern lighting"
+  },
+
+  {
+    id:"L4",
+    name:"Airport Security Area",
+    description:"clean modern airport security checkpoint, organized lanes, bright neutral lighting"
+  },
+
+  {
+    id:"L5",
+    name:"Airport Gate",
+    description:"modern airport boarding gate, large windows, comfortable seats, airplane visible outside"
   }
 
 ];
+
+let state = {
+  version:"3.0",
+  storyTitle:"A Family Trip to the Airport",
+  topic:"A family going to the airport",
+  level:"A1 Beginner",
+  duration:8,
+  idea:"A family prepares for a trip, leaves home, arrives at the airport, checks in, finds the gate and gets ready to fly.",
+  scenes:[]
+};
+
 
 /* =========================================================
    STYLE LOCK
-   ========================================================= */
+========================================================= */
 
-const STYLE_LOCK = `
-GLOBAL VISUAL STYLE LOCK — MANDATORY
+function globalStyleLock(){
 
-Create the entire video as ONE CONSISTENT HIGH-QUALITY 3D ANIMATED WORLD.
+  return `
+GLOBAL VISUAL STYLE LOCK — NEVER CHANGE
 
-PRIMARY VISUAL STYLE:
-3D rendered animated illustration.
-Pixar-style cinematic family animation.
-Polished high-quality 3D character rendering.
-Stylized family-friendly animated film appearance.
-Warm cinematic lighting.
-Soft global illumination.
-Clean attractive character design.
-Natural expressive facial animation.
-Smooth believable body movement.
-Detailed but uncluttered environments.
-Beautiful cinematic composition.
-Consistent 3D materials and rendering quality.
-Consistent character proportions.
-Consistent lighting language.
-Consistent color language.
-Consistent animation quality.
+HIGH-END 3D RENDERED ANIMATED ILLUSTRATION.
+PIXAR-INSPIRED FAMILY-FILM QUALITY.
+ORIGINAL CHARACTERS AND ORIGINAL ASSETS ONLY.
+Stylized cinematic 3D animation with polished family-friendly quality.
 
-THE ENTIRE VIDEO MUST LOOK LIKE IT WAS CREATED FROM THE SAME SINGLE ANIMATED MOVIE.
+CONSISTENCY:
+Use exactly the same visual universe in every scene.
+Use the same 3D rendering language, same lighting philosophy,
+same character proportions, same facial proportions,
+same material quality, same color treatment and same cinematic quality.
 
-CRITICAL:
-DO NOT SWITCH VISUAL STYLE BETWEEN SCENES.
+DO NOT SWITCH STYLE.
 
-Every scene must remain:
-3D rendered animated illustration.
-Pixar-style cinematic family animation.
-High-quality polished 3D rendering.
+FORBIDDEN VISUAL STYLES:
+photorealistic human
+live action
+realistic photography
+2D illustration
+flat cartoon
+anime
+manga
+comic book
+watercolor
+sketch
+claymation
+low-poly
+video game character
+uncanny realistic human
+style mixing
+3D-to-realistic switching
 
-DO NOT switch to realistic human photography.
-DO NOT switch to live-action.
-DO NOT switch to photorealistic humans.
-DO NOT switch to 2D cartoon.
-DO NOT switch to anime.
-DO NOT switch to manga.
-DO NOT switch to flat illustration.
-DO NOT switch to watercolor.
-DO NOT switch to clay animation.
-DO NOT switch to comic-book art.
-DO NOT switch to another rendering style.
+CHARACTER RENDERING:
+high-quality stylized 3D animated characters,
+expressive but natural facial animation,
+soft cinematic lighting,
+clean polished materials,
+family-friendly appearance,
+consistent body proportions.
 
-The same characters must exist inside the same animated universe in every scene.
-`;
-
-/* =========================================================
-   NEGATIVE STYLE LOCK
-   ========================================================= */
-
-const NEGATIVE_LOCK = `
-NEGATIVE STYLE LOCK — STRICT — MUST FOLLOW
-
-NO photorealistic humans.
-NO live-action people.
-NO realistic photography.
-NO photographic human faces.
-NO realistic human rendering.
-NO 2D cartoon.
-NO anime.
-NO manga.
-NO flat illustration.
-NO watercolor.
-NO claymation.
-NO stop-motion style.
-NO changing art style.
-NO changing render engine appearance.
-NO different character design.
-NO character redesign.
-NO face morphing.
-NO face replacement.
-NO face variation.
-NO age change.
-NO de-aging.
-NO aging.
-NO hairstyle change.
-NO hair color change.
-NO clothing change.
-NO shoe change.
-NO accessory change.
-NO skin tone change.
-NO body proportion change.
-NO random new characters.
-NO duplicate characters.
-NO extra family members.
-NO random background people becoming main characters.
-NO floating character names.
-NO speaker name labels above people.
-NO character labels.
-NO "Emma:" on screen.
-NO "David:" on screen.
-NO "Sarah:" on screen.
-NO "Leo:" on screen.
-NO speaker labels.
-NO random text.
-NO random captions.
-NO title text.
-NO logo.
-NO watermark.
-NO brand watermark.
-NO UI elements.
-NO duplicate subtitles.
-NO top subtitles.
-NO subtitles outside the video frame.
-`;
-
-/* =========================================================
-   SUBTITLE LOCK
-   ========================================================= */
-
-const SUBTITLE_BASE_LOCK = `
-SUBTITLE LOCK — MANDATORY
-
-Spoken dialogue subtitles MUST appear INSIDE THE GENERATED VIDEO.
-
-Display ONLY the exact spoken dialogue text.
-
-DO NOT display speaker names.
-
-DO NOT display:
-Emma:
-David:
-Sarah:
-Leo:
-
-DO NOT display any character name.
-
-DO NOT display speaker labels.
-
-DO NOT put names above characters.
-
-DO NOT put labels beside characters.
-
-DO NOT add subtitles that are not spoken.
-
-DO NOT paraphrase the dialogue.
-
-DO NOT translate the dialogue.
-
-DO NOT shorten the dialogue.
-
-DO NOT change the dialogue.
-
-EXACT SUBTITLE TEXT MUST MATCH THE SPOKEN DIALOGUE.
-
-Subtitle appearance:
-bold white text,
-thick black outline,
-strong black shadow,
-bottom center,
-large and clearly readable,
-safe margin from the bottom edge.
-
-Synchronize the subtitle exactly with the spoken dialogue.
-
-Show each subtitle only while that exact line is spoken.
-
-NO duplicate subtitles.
-
-NO top captions.
-
-NO extra text.
-
-NO watermark.
-
-NO logo.
-
-If there is no spoken dialogue in a scene:
-DO NOT display subtitles or captions.
+CAMERA:
+cinematic animated-film camera,
+natural depth of field,
+smooth controlled movement,
+no random camera style changes.
 
 IMPORTANT:
-The subtitles must be rendered INSIDE THE GENERATED VIDEO.
-They must not be treated as external metadata.
+The characters must look like the SAME characters from previous scenes.
+Never redesign, recast, age, de-age, morph or replace them.
 `;
+}
+
 
 /* =========================================================
-   CHARACTER LOCK BUILDER
-   ========================================================= */
+   NEGATIVE LOCK
+========================================================= */
 
-function characterLockFor(characterIds){
+function negativeLock(){
 
-  const selected = DEFAULT_CHARACTERS.filter(function(c){
-    return characterIds.indexOf(c.id) !== -1;
-  });
+  return `
+STRICT NEGATIVE LOCK
 
-  let out = `
-CHARACTER CONSISTENCY LOCK — MANDATORY
+DO NOT:
+change character identity
+change face
+change hairstyle
+change hair length
+change skin tone
+change age
+change body proportions
+change clothing
+change shoes
+change accessories
+change character height
+create a new face
+create a different actor
+create a realistic human
+create a different animation style
+mix 2D and 3D
+add text
+add character names
+add speaker names
+add labels
+add name tags
+add speech bubbles
+add random captions
+add watermark
+add logo
+add title card
+add subtitles inside the IMAGE
 
-The following character identities are the MASTER CHARACTER DNA.
-
-This specification is authoritative and must override any visual variation.
-
-The same characters must look exactly like the same people in every scene.
-
-CHARACTER IDENTITY MUST NOT DEPEND ON:
-Google account,
-Flow account,
-previous chat,
-previous generation,
-session memory,
-conversation memory,
-or model memory.
-
-The full identity specification below is included deliberately so the character remains consistent even when the Google Flow account is changed.
-
+The identifiers C1, C2, C3 and C4 are PROMPT-ONLY identifiers.
+They must NEVER appear visually.
 `;
+}
 
-  selected.forEach(function(c){
 
-    out += `
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CHARACTER MASTER DNA
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* =========================================================
+   CHARACTER LOCK
+========================================================= */
 
-Character Name: ${c.name}
-Character ID: ${c.identity}
-Role: ${c.role}
-Age: ${c.age}
-Gender: ${c.gender}
+function characterLock(selectedIds){
 
-FACE / APPEARANCE:
-${c.appearance}
+  const selected = DEFAULT_CHARACTERS.filter(c =>
+    selectedIds.includes(c.id)
+  );
+
+  return `
+MASTER CHARACTER DNA LOCK
+
+IMPORTANT:
+These are permanent character identities.
+Do NOT reinterpret or redesign them.
+
+${selected.map(c => `
+CHARACTER ID: ${c.id}
+PROMPT-ONLY NAME: ${c.name}
+ROLE: ${c.role}
+
+AGE:
+${c.age}
+
+FACE:
+${c.face}
+
+HAIR:
+${c.hair}
+
+SKIN:
+${c.skin}
+
+BODY:
+${c.body}
 
 CLOTHING:
 ${c.clothes}
 
-ACCESSORIES:
-${c.accessories}
+ACCESSORY:
+${c.accessory}
+
+VOICE:
+${c.voice}
 
 PERSONALITY:
 ${c.personality}
 
-VOICE IDENTITY:
-${c.voice}
+IDENTITY RULE:
+This exact character identity must remain unchanged across every scene.
+Use the same face geometry, hair, clothing, body proportions and accessories.
 
-MANDATORY IDENTITY RULE:
-This exact character identity must be preserved.
+REFERENCE IMAGE RULE:
+If a reference image is available for ${c.id},
+use the EXACT SAME reference image for ${c.id} in every scene.
+Never upload or select a different reference image for this character.
 
-Keep exactly the same:
-face,
-facial proportions,
-eyes,
-eyebrows,
-nose,
-mouth,
-skin tone,
-age,
-body proportions,
-height relationship,
-hair style,
-hair length,
-hair color,
-clothing,
-clothing colors,
-shoes,
-accessories,
-overall character design.
-
-DO NOT redesign this character.
-DO NOT replace this character.
-DO NOT reinterpret this character.
-DO NOT age this character.
-DO NOT de-age this character.
-DO NOT change the hairstyle.
-DO NOT change the clothes.
-DO NOT change the shoes.
-DO NOT change accessories.
-DO NOT change skin tone.
-DO NOT change body proportions.
-
-The character must look like the SAME PERSON from the previous scene.
+IMPORTANT:
+The name "${c.name}" is for production metadata only.
+NEVER display the name visually.
+`).join("\n")}
 `;
-
-  });
-
-  out += `
-CHARACTER CONTINUITY RULE:
-All selected characters must maintain the exact same visual identity throughout the entire project.
-
-Do not create alternative versions of the characters.
-
-Do not create a new face for the same character.
-
-Do not introduce a duplicate version of any character.
-
-Do not display character names on screen.
-`;
-
-  return out;
 }
 
+
 /* =========================================================
-   LOCATION LOCK
-   ========================================================= */
+   SUBTITLE LOCK
+========================================================= */
 
-function locationLock(locationId){
+function subtitleLock(dialogue){
 
-  const l = DEFAULT_LOCATIONS.find(function(x){
-    return x.id === locationId;
-  }) || DEFAULT_LOCATIONS[0];
+  const clean = cleanSubtitle(dialogue);
+
+  if(!clean.trim()){
+
+    return `
+SUBTITLE STATUS:
+NO SPOKEN DIALOGUE IN THIS SCENE.
+Do not generate subtitles or captions.
+`;
+
+  }
 
   return `
-LOCATION CONSISTENCY LOCK — MANDATORY
+MANDATORY ENGLISH SUBTITLE LOCK
 
-LOCATION:
-${l.name}
+SPOKEN LANGUAGE:
+English
 
-ENVIRONMENT:
-${l.description}
+SUBTITLE:
+ON
 
-LIGHTING:
-${l.lighting}
+EXACT SPOKEN DIALOGUE:
+"${clean}"
 
-TIME:
-${l.time}
+DISPLAY RULE:
+Display the exact English dialogue above as the subtitle.
 
-WEATHER:
-${l.weather}
+IMPORTANT:
+Display ONLY the spoken English sentence.
+Do NOT display speaker names.
 
-Keep this environment visually consistent whenever this location returns.
+NEVER SHOW:
+Emma:
+David:
+Sarah:
+Leo:
+C1:
+C2:
+C3:
+C4:
 
-Do not redesign the location between scenes.
-Do not randomly change architecture.
-Do not change the time of day unless explicitly requested.
-Do not introduce unrelated environments.
+Do not display any speaker label.
+Do not display character names.
+Do not display role names.
+Do not add extra words.
+Do not paraphrase.
+Do not translate.
+Do not add Burmese text.
+Do not add duplicate subtitles.
+
+SUBTITLE STYLE:
+white bold English text,
+thick black outline,
+soft black shadow,
+large readable font,
+bottom-center position,
+inside safe area,
+high contrast,
+family-friendly YouTube English-learning subtitle style.
+
+TIMING:
+Subtitle appears exactly when the character speaks.
+Subtitle disappears when the spoken sentence ends.
+
+NO TOP CAPTIONS.
+NO SPEAKER LABELS.
+NO EXTRA TEXT.
 `;
 }
 
+
 /* =========================================================
-   SUBTITLE CLEANER
-   ========================================================= */
+   CLEAN SUBTITLE
+========================================================= */
 
 function cleanSubtitle(text){
 
-  if(!text){
-    return "";
-  }
+  if(!text) return "";
 
-  const lines = String(text)
+  let value = String(text)
     .replace(/\r/g,"")
-    .split("\n");
+    .trim();
 
-  const result = [];
+  const lines = value
+    .split("\n")
+    .map(line => line.trim())
+    .filter(Boolean);
 
-  lines.forEach(function(line){
+  const names = DEFAULT_CHARACTERS.map(c => c.name);
 
-    let x = line.trim();
+  const cleaned = lines.map(line => {
 
-    if(!x){
-      return;
-    }
+    let result = line;
 
-    x = x.replace(
-      /^\s*(Emma|David|Sarah|Leo)\s*:\s*/i,
-      ""
-    );
+    names.forEach(name => {
 
-    x = x.replace(
-      /^\s*[A-Za-z][A-Za-z0-9 _-]{0,25}\s*:\s*/,
-      ""
-    );
+      const regex1 = new RegExp("^" + escapeRegExp(name) + "\\s*:\\s*","i");
+      const regex2 = new RegExp("^" + escapeRegExp(name) + "\\s*-\\s*","i");
+      const regex3 = new RegExp("^\\[" + escapeRegExp(name) + "\\]\\s*","i");
 
-    if(x){
-      result.push(x);
-    }
+      result = result
+        .replace(regex1,"")
+        .replace(regex2,"")
+        .replace(regex3,"");
+
+    });
+
+    result = result
+      .replace(/^C[1-4]\s*:\s*/i,"")
+      .replace(/^C[1-4]\s*-\s*/i,"");
+
+    return result.trim();
 
   });
 
-  return result.join("\n");
+  return cleaned.join("\n");
 }
+
+
+function escapeRegExp(string){
+
+  return string.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
+}
+
 
 /* =========================================================
-   SPEAKER SCRIPT
-   ========================================================= */
+   TIME
+========================================================= */
 
-function speakerScript(scene){
+function formatTime(seconds){
 
-  return scene.dialogue || "";
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+
+  return String(min).padStart(2,"0") + ":" +
+         String(sec).padStart(2,"0");
+
 }
+
+
+function srtTime(seconds){
+
+  const hours = Math.floor(seconds / 3600);
+
+  const minutes = Math.floor((seconds % 3600) / 60);
+
+  const secs = Math.floor(seconds % 60);
+
+  const ms = Math.round((seconds % 1) * 1000);
+
+  return (
+    String(hours).padStart(2,"0") + ":" +
+    String(minutes).padStart(2,"0") + ":" +
+    String(secs).padStart(2,"0") + "," +
+    String(ms).padStart(3,"0")
+  );
+
+}
+
 
 /* =========================================================
-   EXACT SUBTITLE BLOCK
-   ========================================================= */
+   DEFAULT STORY
+========================================================= */
 
-function subtitleBlock(scene){
+function createDefaultScenes(){
 
-  const subtitle = cleanSubtitle(scene.dialogue);
+  const d = Number(state.duration) || 8;
 
-  if(!subtitle){
+  const sceneData = [
 
-    return `
-SPOKEN DIALOGUE:
-None.
+    {
+      chars:["C1","C2","C3","C4"],
+      location:"L1",
+      action:"The family gets ready for their trip. David checks the travel bags while Sarah makes sure everyone is ready.",
+      emotion:"happy and excited",
+      camera:"wide establishing shot, then gentle medium shot",
+      dialogue:[
+        "David: Is everyone ready?",
+        "Sarah: Yes, we are ready to go.",
+        "Emma: I am very excited!",
+        "Leo: Me too!"
+      ]
+    },
 
-SUBTITLE:
-None.
+    {
+      chars:["C1","C3"],
+      location:"L1",
+      action:"David checks Emma's backpack while Emma smiles and gets ready to leave.",
+      emotion:"warm and cheerful",
+      camera:"medium two-shot with gentle push-in",
+      dialogue:[
+        "David: Emma, do you have your backpack?",
+        "Emma: Yes, Dad. I have it."
+      ]
+    },
 
-Do not display any captions or subtitles.
-`;
+    {
+      chars:["C2","C4"],
+      location:"L1",
+      action:"Sarah checks Leo's bag while Leo proudly shows that everything is packed.",
+      emotion:"playful and caring",
+      camera:"medium shot at child eye level",
+      dialogue:[
+        "Sarah: Leo, are you ready?",
+        "Leo: Yes, Mom. I am ready!"
+      ]
+    },
 
-  }
+    {
+      chars:["C1","C2","C3","C4"],
+      location:"L2",
+      action:"The family gets into the car and starts their journey to the airport.",
+      emotion:"happy and energetic",
+      camera:"exterior establishing shot followed by interior family shot",
+      dialogue:[
+        "David: Let's go to the airport.",
+        "Emma: This is going to be fun!"
+      ]
+    },
 
-  return `
-SPOKEN DIALOGUE:
-${scene.dialogue}
+    {
+      chars:["C1","C2","C3","C4"],
+      location:"L3",
+      action:"The family arrives at the modern international airport and walks into the terminal with their bags.",
+      emotion:"excited",
+      camera:"wide cinematic airport establishing shot",
+      dialogue:[
+        "Sarah: We are at the airport.",
+        "Leo: Wow! It is very big."
+      ]
+    },
 
-EXACT SUBTITLE TEXT — DISPLAY ONLY THIS:
-${subtitle}
+    {
+      chars:["C1","C2"],
+      location:"L3",
+      action:"David and Sarah stand at the check-in area while the children wait nearby.",
+      emotion:"calm and organized",
+      camera:"medium shot with slow cinematic pan",
+      dialogue:[
+        "David: Where is the check-in counter?",
+        "Sarah: It is over there."
+      ]
+    },
 
-${SUBTITLE_BASE_LOCK}
-`;
+    {
+      chars:["C3","C4"],
+      location:"L4",
+      action:"Emma and Leo walk through the airport security area with their family.",
+      emotion:"curious and slightly nervous",
+      camera:"tracking shot at child eye level",
+      dialogue:[
+        "Emma: What do we do now?",
+        "Leo: We go through security."
+      ]
+    },
+
+    {
+      chars:["C1","C2","C3","C4"],
+      location:"L5",
+      action:"The family reaches the boarding gate and sits together while waiting for the flight.",
+      emotion:"relaxed and happy",
+      camera:"wide gate shot followed by family medium shot",
+      dialogue:[
+        "David: We are at the gate now.",
+        "Sarah: Great. We can relax."
+      ]
+    },
+
+    {
+      chars:["C1","C3","C4"],
+      location:"L5",
+      action:"Emma and Leo look through the large airport window and see the airplane outside.",
+      emotion:"wonder and excitement",
+      camera:"over-the-shoulder shot toward the airplane",
+      dialogue:[
+        "Emma: Look! There is our airplane.",
+        "Leo: It is so big!"
+      ]
+    },
+
+    {
+      chars:["C1","C2","C3","C4"],
+      location:"L5",
+      action:"The family smiles together as they prepare to board their flight.",
+      emotion:"warm, happy and excited",
+      camera:"cinematic family group shot with gentle push-in",
+      dialogue:[
+        "David: Are you ready to fly?",
+        "Everyone: Yes, we are!"
+      ]
+    }
+
+  ];
+
+  state.scenes = sceneData.map((s,index)=>{
+
+    const start = index * d;
+    const end = start + d;
+
+    return {
+      id:index + 1,
+      start,
+      end,
+      duration:d,
+      chars:s.chars,
+      location:s.location,
+      action:s.action,
+      emotion:s.emotion,
+      camera:s.camera,
+      dialogue:s.dialogue.join("\n")
+    };
+
+  });
+
+  saveState();
 
 }
+
 
 /* =========================================================
    IMAGE PROMPT
-   ========================================================= */
+========================================================= */
 
 function buildImagePrompt(scene){
 
-  const characters = characterLockFor(scene.characterIds);
-
-  const location = locationLock(scene.locationId);
+  const location = LOCATIONS.find(l => l.id === scene.location);
 
   return `
-AUNG AI STORY VIDEO PRO — IMAGE GENERATION PROMPT
+SCENE ${scene.id} — IMAGE GENERATION PROMPT
 
-SCENE ${scene.index}
+${globalStyleLock()}
 
-${STYLE_LOCK}
+${characterLock(scene.chars)}
 
-${characters}
+LOCATION LOCK
 
-${location}
+LOCATION:
+${location.name}
+
+LOCATION DESCRIPTION:
+${location.description}
 
 SCENE ACTION:
-${scene.action}
-
-SCENE EMOTION:
-${scene.emotion}
-
-CAMERA:
-${scene.camera}
-
-CONTINUITY:
-${scene.continuity}
-
-IMAGE COMPOSITION:
-
-Create a cinematic frame suitable for an English-learning animated story.
-
-Show ONLY the selected characters listed in the Character Master DNA.
-
-The characters must retain exactly the same face, age, hairstyle, clothing, shoes, accessories and proportions.
-
-Use polished 3D rendered animated illustration quality.
-
-Pixar-style cinematic family animation.
-
-Warm friendly family atmosphere.
-
-Natural facial expressions.
-
-Natural body posture.
-
-Clean detailed environment.
-
-No text in the image.
-
-No character names.
-
-No speaker labels.
-
-No captions.
-
-No logo.
-
-No watermark.
-
-${NEGATIVE_LOCK}
-`;
-}
-
-/* =========================================================
-   VIDEO PROMPT
-   ========================================================= */
-
-function buildVideoPrompt(scene){
-
-  const characters = characterLockFor(scene.characterIds);
-
-  const location = locationLock(scene.locationId);
-
-  return `
-AUNG AI STORY VIDEO PRO — GOOGLE FLOW VIDEO PROMPT
-
-SCENE ${scene.index}
-TIME: ${scene.start} → ${scene.end}
-DURATION: ${scene.duration} seconds
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-MASTER VISUAL STYLE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-${STYLE_LOCK}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-MASTER CHARACTER DNA
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-${characters}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-LOCATION LOCK
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-${location}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SCENE ACTION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 ${scene.action}
 
 EMOTION:
@@ -2298,93 +1878,64 @@ ${scene.emotion}
 CAMERA:
 ${scene.camera}
 
-SOUND EFFECTS:
-${scene.sfx}
+COMPOSITION:
+Create a clean cinematic 16:9 composition.
+Keep every selected character clearly visible.
+Maintain exact character identity and wardrobe continuity.
+Use natural interaction between the characters.
+Use polished high-end 3D animated-film rendering.
 
-CONTINUITY:
-${scene.continuity}
+IMAGE TEXT RULE:
+ABSOLUTELY NO TEXT IN THE IMAGE.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SPOKEN DIALOGUE + SUBTITLE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NO:
+character names
+speaker names
+labels
+signs containing readable text
+speech bubbles
+captions
+subtitles
+watermarks
+logos
+titles
 
-${subtitleBlock(scene)}
+The image must be visually clean and text-free.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-STRICT VISUAL NEGATIVE LOCK
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-${NEGATIVE_LOCK}
-
-FINAL GENERATION RULE:
-
-Generate this scene as if it belongs to exactly the SAME 3D animated movie as every other scene.
-
-Use the exact MASTER CHARACTER DNA above.
-
-Never rely on account memory.
-
-Never rely on previous generation memory.
-
-Never create a new version of the character.
-
-Never change the visual style.
-
-Never display speaker names.
-
-Only the exact dialogue text may appear as subtitles.
-
-The final video must remain:
-3D rendered animated illustration,
-Pixar-style cinematic family animation,
-consistent character identity,
-consistent wardrobe,
-consistent face,
-consistent environment,
-consistent animation quality.
-
-No style switching.
-No character switching.
-No name labels.
-No extra text.
-No watermark.
-No logo.
+${negativeLock()}
 `;
 }
 
-/* =========================================================
-   SCENE PACKAGE
-   ========================================================= */
 
-function buildScenePackage(scene){
+/* =========================================================
+   VIDEO PROMPT
+========================================================= */
+
+function buildVideoPrompt(scene){
+
+  const location = LOCATIONS.find(l => l.id === scene.location);
+
+  const dialogue = cleanSubtitle(scene.dialogue);
 
   return `
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SCENE ${scene.index}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCENE ${scene.id} — GOOGLE FLOW / VEO VIDEO PROMPT
 
-TIME:
-${scene.start} → ${scene.end}
+VIDEO FORMAT:
+16:9 landscape
+English learning animated video
+Duration: ${scene.duration} seconds
 
-DURATION:
-${scene.duration} seconds
+${globalStyleLock()}
 
-CHARACTERS:
-${scene.characterIds.map(function(id){
-  const c = DEFAULT_CHARACTERS.find(function(x){
-    return x.id === id;
-  });
-  return c ? c.name : id;
-}).join(", ")}
+${characterLock(scene.chars)}
+
+LOCATION LOCK
 
 LOCATION:
-${scene.locationId}
+${location.name}
 
-VOICE SCRIPT:
-${speakerScript(scene)}
-
-VISIBLE SUBTITLE:
-${cleanSubtitle(scene.dialogue) || "NONE"}
+LOCATION DESCRIPTION:
+${location.description}
 
 ACTION:
 ${scene.action}
@@ -2395,594 +1946,387 @@ ${scene.emotion}
 CAMERA:
 ${scene.camera}
 
-SFX:
-${scene.sfx}
+ANIMATION:
+Natural family-friendly body movement.
+Natural eye contact.
+Natural facial expressions.
+Accurate lip movement matching the spoken English.
+Smooth cinematic animation.
+No sudden character redesign.
+No face morphing.
+No costume changes.
 
-CONTINUITY:
-${scene.continuity}
+VOICE:
+Use clear natural English pronunciation suitable for A1 English learners.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-IMAGE PROMPT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${subtitleLock(scene.dialogue)}
 
-${buildImagePrompt(scene)}
+CRITICAL FINAL CHECK:
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-VIDEO / FLOW PROMPT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The video must NOT show:
+speaker names
+character names
+Emma:
+David:
+Sarah:
+Leo:
+C1:
+C2:
+C3:
+C4:
+role labels
+name tags
+extra captions
+random text
+Burmese subtitles
+duplicate subtitles
+watermarks
+logos
 
-${buildVideoPrompt(scene)}
+Only the exact spoken English dialogue may appear as subtitle.
+
+${negativeLock()}
 `;
 }
 
-/* =========================================================
-   DEFAULT SCENES
-   ========================================================= */
-
-function createDefaultScenes(){
-
-  const raw = [
-
-    {
-      characterIds:["david","sarah","emma","leo"],
-      locationId:"home",
-      dialogue:
-        "Emma: Are we going to the airport today?\nDavid: Yes, we are leaving after breakfast.",
-      action:
-        "The family prepares their travel bags in the living room. Emma looks excited while David checks the bags.",
-      emotion:
-        "excited, warm, happy family atmosphere",
-      camera:
-        "medium-wide cinematic shot, gentle slow push-in",
-      sfx:
-        "soft room ambience, light bag movement",
-      continuity:
-        "Opening scene. Establish the exact family character identities and wardrobe."
-    },
-
-    {
-      characterIds:["david","sarah"],
-      locationId:"home",
-      dialogue:
-        "Sarah: Did you pack the passports?\nDavid: Yes, they are safely in my travel bag.",
-      action:
-        "Sarah checks the travel documents while David opens the black travel bag and confirms the passports are inside.",
-      emotion:
-        "calm, organized, caring",
-      camera:
-        "medium shot with gentle over-the-shoulder movement",
-      sfx:
-        "soft paper movement, quiet home ambience",
-      continuity:
-        "Keep David and Sarah exactly identical to Scene 1."
-    },
-
-    {
-      characterIds:["emma","leo"],
-      locationId:"home",
-      dialogue:
-        "Leo: I am ready!\nEmma: Me too. I cannot wait to travel.",
-      action:
-        "Leo lifts his blue backpack happily while Emma adjusts her pink backpack and smiles.",
-      emotion:
-        "cheerful, energetic, excited",
-      camera:
-        "child-height medium shot, gentle camera movement",
-      sfx:
-        "light footsteps, backpack movement",
-      continuity:
-        "Keep Emma and Leo's exact faces, hair, clothing and backpacks."
-    },
-
-    {
-      characterIds:["david","emma","leo"],
-      locationId:"home",
-      dialogue:
-        "David: Everyone is ready. Let's go!\nEmma: Great!",
-      action:
-        "David stands near the door while Emma and Leo move toward him with their backpacks.",
-      emotion:
-        "happy, energetic family moment",
-      camera:
-        "wide shot followed by gentle tracking movement",
-      sfx:
-        "door movement, light footsteps",
-      continuity:
-        "Maintain exact character identity and wardrobe from previous scenes."
-    },
-
-    {
-      characterIds:["david","sarah","emma","leo"],
-      locationId:"airport",
-      dialogue:
-        "Sarah: The airport is very busy today.\nEmma: Look at all the airplanes!",
-      action:
-        "The family enters the bright airport terminal and looks around with interest.",
-      emotion:
-        "curious, excited, warm",
-      camera:
-        "wide cinematic establishing shot followed by medium family shot",
-      sfx:
-        "soft airport ambience, distant announcements",
-      continuity:
-        "Transition from home to airport while preserving all four character identities."
-    },
-
-    {
-      characterIds:["david","emma"],
-      locationId:"airport",
-      dialogue:
-        "David: We need to check in first.\nEmma: Where is the check-in counter?",
-      action:
-        "David points toward the check-in counters while Emma looks in the same direction.",
-      emotion:
-        "helpful, curious",
-      camera:
-        "medium two-shot, subtle pan toward the counter",
-      sfx:
-        "airport ambience, rolling suitcase sound",
-      continuity:
-        "David and Emma must remain exactly identical to previous scenes."
-    },
-
-    {
-      characterIds:["sarah","leo"],
-      locationId:"airport",
-      dialogue:
-        "Leo: Can I carry my backpack?\nSarah: Of course. You can carry it yourself.",
-      action:
-        "Leo proudly holds his blue backpack while Sarah smiles and encourages him.",
-      emotion:
-        "proud, caring, cheerful",
-      camera:
-        "medium close-up, gentle cinematic movement",
-      sfx:
-        "airport ambience",
-      continuity:
-        "Keep Sarah and Leo's exact character DNA and wardrobe."
-    },
-
-    {
-      characterIds:["david","sarah","emma","leo"],
-      locationId:"airport",
-      dialogue:
-        "David: Our flight is ready.\nSarah: Let's go to the gate.",
-      action:
-        "The family walks together through the terminal toward the departure gate.",
-      emotion:
-        "happy, confident, excited",
-      camera:
-        "smooth tracking shot from front three-quarter angle",
-      sfx:
-        "footsteps, airport ambience",
-      continuity:
-        "All four characters remain visually identical to every previous scene."
-    },
-
-    {
-      characterIds:["emma","leo"],
-      locationId:"airport",
-      dialogue:
-        "Emma: This is going to be a wonderful trip.\nLeo: Yes! I am excited!",
-      action:
-        "Emma and Leo walk beside each other and smile as they approach the gate.",
-      emotion:
-        "joyful, excited",
-      camera:
-        "child-height tracking shot",
-      sfx:
-        "soft footsteps, airport ambience",
-      continuity:
-        "Maintain exact Emma and Leo identity, clothing and backpacks."
-    },
-
-    {
-      characterIds:["david","sarah"],
-      locationId:"airport",
-      dialogue:
-        "Sarah: Are you excited?\nDavid: Yes. It is going to be a great family trip.",
-      action:
-        "David and Sarah walk together and exchange a warm smile.",
-      emotion:
-        "warm, loving, optimistic",
-      camera:
-        "medium two-shot with soft cinematic push-in",
-      sfx:
-        "quiet airport ambience",
-      continuity:
-        "Final scene. Preserve the exact David and Sarah character designs."
-    }
-
-  ];
-
-  let current = 0;
-
-  return raw.map(function(item,index){
-
-    const duration = 8;
-
-    const startSeconds = current;
-    const endSeconds = current + duration;
-
-    current = endSeconds;
-
-    return {
-      id:uid("scene"),
-      index:index + 1,
-      start:formatTime(startSeconds),
-      end:formatTime(endSeconds),
-      duration:duration,
-      characterIds:item.characterIds,
-      locationId:item.locationId,
-      dialogue:item.dialogue,
-      action:item.action,
-      emotion:item.emotion,
-      camera:item.camera,
-      sfx:item.sfx,
-      continuity:item.continuity
-    };
-
-  });
-}
 
 /* =========================================================
-   STATE
-   ========================================================= */
+   SCENE PACKAGE
+========================================================= */
 
-let state = {
-  characters:JSON.parse(JSON.stringify(DEFAULT_CHARACTERS)),
-  locations:JSON.parse(JSON.stringify(DEFAULT_LOCATIONS)),
-  ideas:[],
-  projects:[],
-  currentProjectId:null,
-  settings:{
-    visualStyle:"3D rendered animated illustration — Pixar-style cinematic family animation",
-    subtitlePosition:"Bottom Center"
-  }
-};
+function buildScenePackage(scene){
 
-let editingSceneId = null;
+  return `
+========================================================
+SCENE ${scene.id}
+TIME: ${formatTime(scene.start)} - ${formatTime(scene.end)}
+DURATION: ${scene.duration}s
+========================================================
+
+CHARACTERS:
+${scene.chars.map(id => {
+
+  const c = DEFAULT_CHARACTERS.find(x => x.id === id);
+
+  return `${id} — ${c.name}`;
+
+}).join("\n")}
+
+LOCATION:
+${LOCATIONS.find(l => l.id === scene.location).name}
+
+ACTION:
+${scene.action}
+
+EMOTION:
+${scene.emotion}
+
+DIALOGUE SCRIPT:
+${scene.dialogue}
+
+CLEAN ENGLISH SUBTITLE:
+${cleanSubtitle(scene.dialogue)}
+
+--------------------------------------------------------
+IMAGE PROMPT
+--------------------------------------------------------
+
+${buildImagePrompt(scene)}
+
+--------------------------------------------------------
+VIDEO PROMPT
+--------------------------------------------------------
+
+${buildVideoPrompt(scene)}
+
+`;
+}
+
 
 /* =========================================================
-   STORAGE
-   ========================================================= */
+   MASTER BIBLE
+========================================================= */
 
-function saveState(){
+function buildMasterBible(){
 
-  try{
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(state)
-    );
-  }catch(e){
-    console.warn("Storage error",e);
-  }
+  return `
+AUNG AI STORY VIDEO PRO
+MASTER CHARACTER BIBLE
+VERSION 3.0
 
+CHARACTER BIBLE ID:
+AUNG-CHARACTER-BIBLE-001
+
+STYLE BIBLE ID:
+AUNG-3D-STYLE-BIBLE-001
+
+========================================================
+PERMANENT VISUAL STYLE
+========================================================
+
+HIGH-END 3D RENDERED ANIMATED ILLUSTRATION.
+PIXAR-INSPIRED FAMILY-FILM QUALITY.
+ORIGINAL CHARACTERS AND ORIGINAL ASSETS.
+
+All scenes must exist inside the same visual universe.
+
+Never switch to:
+photorealistic human
+live action
+2D
+anime
+manga
+flat illustration
+clay
+low-poly
+realistic photography
+
+========================================================
+CHARACTER CONSISTENCY
+========================================================
+
+The characters below are permanent identities.
+
+Never:
+change face
+change hairstyle
+change clothing
+change age
+change body
+change skin tone
+change accessories
+change height
+create a new actor
+create a new identity
+morph faces
+redesign characters
+
+If a reference image is available:
+USE THE EXACT SAME REFERENCE IMAGE FOR THAT CHARACTER
+IN EVERY SINGLE SCENE.
+
+Do not use a different reference image.
+
+========================================================
+CHARACTERS
+========================================================
+
+${DEFAULT_CHARACTERS.map(c => `
+
+${c.id}
+NAME: ${c.name}
+ROLE: ${c.role}
+AGE: ${c.age}
+
+FACE:
+${c.face}
+
+HAIR:
+${c.hair}
+
+SKIN:
+${c.skin}
+
+BODY:
+${c.body}
+
+CLOTHING:
+${c.clothes}
+
+ACCESSORY:
+${c.accessory}
+
+VOICE:
+${c.voice}
+
+PERSONALITY:
+${c.personality}
+
+`).join("\n")}
+
+========================================================
+SUBTITLE MASTER LOCK
+========================================================
+
+English subtitles are ON.
+
+Every spoken English dialogue must have matching English subtitle.
+
+Subtitle:
+WHITE
+BOLD
+BLACK OUTLINE
+BOTTOM CENTER
+LARGE
+READABLE
+SPEECH SYNCHRONIZED
+
+Never show:
+speaker names
+character names
+role names
+Emma:
+David:
+Sarah:
+Leo:
+C1:
+C2:
+C3:
+C4:
+
+Never add Burmese subtitles.
+
+Only spoken English dialogue is allowed.
+
+========================================================
+TEXT RULE
+========================================================
+
+IMAGE:
+NO TEXT.
+
+VIDEO:
+ONLY EXACT SPOKEN ENGLISH SUBTITLE.
+
+No logos.
+No watermarks.
+No titles.
+No labels.
+No name tags.
+No speech bubbles.
+
+========================================================
+ACCOUNT SWITCH RULE
+========================================================
+
+If the Google Flow account changes:
+
+Paste this SAME MASTER CHARACTER BIBLE
+into the new account workflow.
+
+Use the SAME character reference image for each character.
+
+Do NOT create new character reference images.
+
+Keep the same:
+face
+hair
+clothes
+body
+accessories
+age
+voice identity
+visual style.
+
+========================================================
+END MASTER CHARACTER BIBLE
+========================================================
+`;
 }
 
-function loadState(){
-
-  try{
-
-    const raw = localStorage.getItem(STORAGE_KEY);
-
-    if(raw){
-
-      const saved = JSON.parse(raw);
-
-      state = Object.assign(
-        state,
-        saved
-      );
-
-      if(!state.characters || !state.characters.length){
-        state.characters =
-          JSON.parse(JSON.stringify(DEFAULT_CHARACTERS));
-      }
-
-      if(!state.locations || !state.locations.length){
-        state.locations =
-          JSON.parse(JSON.stringify(DEFAULT_LOCATIONS));
-      }
-
-    }
-
-  }catch(e){
-
-    console.warn("Load state error",e);
-
-  }
-
-}
-
-/* =========================================================
-   CURRENT PROJECT
-   ========================================================= */
-
-function getCurrentProject(){
-
-  if(!state.currentProjectId){
-    return null;
-  }
-
-  return state.projects.find(function(p){
-    return p.id === state.currentProjectId;
-  }) || null;
-}
-
-function ensureProject(){
-
-  let project = getCurrentProject();
-
-  if(!project){
-
-    project = {
-      id:uid("project"),
-      title:"Family Trip to the Airport",
-      level:"A2",
-      duration:80,
-      category:"Travel",
-      story:
-        "A family prepares for a trip to the airport. They check their bags, travel together and learn useful English expressions for airport situations.",
-      scenes:createDefaultScenes(),
-      createdAt:new Date().toISOString(),
-      updatedAt:new Date().toISOString()
-    };
-
-    state.projects.unshift(project);
-    state.currentProjectId=project.id;
-
-    saveState();
-
-  }
-
-  return project;
-}
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-const pageNames = {
-  dashboard:"Dashboard",
-  story:"AI Story",
-  ideas:"Story Ideas",
-  characters:"Characters",
-  locations:"Locations",
-  scenes:"Scene Studio",
-  image:"Image Prompts",
-  video:"Video Prompts",
-  text:"On-Screen Text",
-  voice:"Voice",
-  srt:"SRT / Subtitles",
-  lesson:"English Lesson",
-  thumbnail:"Thumbnail",
-  youtube:"YouTube Pack",
-  shorts:"Shorts",
-  projects:"Projects",
-  backup:"Backup / Import",
-  settings:"Settings"
-};
-
-function showPage(name){
-
-  document.querySelectorAll(".page").forEach(function(page){
-    page.classList.remove("active");
-  });
-
-  const target = document.getElementById("page-" + name);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".nav-btn").forEach(function(btn){
-    btn.classList.toggle(
-      "active",
-      btn.getAttribute("data-page") === name
-    );
-  });
-
-  document.getElementById("pageTitle").textContent =
-    pageNames[name] || "Dashboard";
-
-  renderPage(name);
-
-  document.getElementById("sidebar").classList.remove("open");
-}
-
-/* =========================================================
-   RENDER DASHBOARD
-   ========================================================= */
-
-function renderDashboard(){
-
-  const project = getCurrentProject();
-
-  document.getElementById("statProject").textContent =
-    project ? project.title : "—";
-
-  document.getElementById("statScenes").textContent =
-    project && project.scenes ? project.scenes.length : 0;
-
-  document.getElementById("statCharacters").textContent =
-    state.characters.length;
-
-}
 
 /* =========================================================
    RENDER CHARACTERS
-   ========================================================= */
+========================================================= */
 
 function renderCharacters(){
 
-  const grid = document.getElementById("charactersGrid");
+  const grid = document.getElementById("characterGrid");
 
-  grid.innerHTML = state.characters.map(function(c){
+  grid.innerHTML = DEFAULT_CHARACTERS.map(c => `
 
-    return `
-      <div class="card character-card">
+    <div class="card character">
 
-        <div class="character-head">
+      <div class="character-id">
+        ${c.id} • LOCKED IDENTITY
+      </div>
 
-          <div>
-            <div class="character-name">
-              ${escapeHtml(c.name)}
-            </div>
+      <h3>${escapeHTML(c.name)}</h3>
 
-            <div class="character-role">
-              ${escapeHtml(c.role)} • ${escapeHtml(c.age)} years
-            </div>
-          </div>
+      <p>${escapeHTML(c.personality)}</p>
 
-          <span class="badge purple">
-            LOCKED
-          </span>
+      <div class="spec">
 
+        <div>
+          <b>Age</b>
+          <span>${escapeHTML(c.age)}</span>
         </div>
 
-        <div class="lock-box">
+        <div>
+          <b>Face</b>
+          <span>${escapeHTML(c.face)}</span>
+        </div>
 
-          <div class="lock-title">
-            MASTER CHARACTER DNA
-          </div>
+        <div>
+          <b>Hair</b>
+          <span>${escapeHTML(c.hair)}</span>
+        </div>
 
-          <div class="lock-text">
-ID: ${escapeHtml(c.identity)}
+        <div>
+          <b>Clothes</b>
+          <span>${escapeHTML(c.clothes)}</span>
+        </div>
 
-FACE:
-${escapeHtml(c.appearance)}
-
-CLOTHING:
-${escapeHtml(c.clothes)}
-
-ACCESSORIES:
-${escapeHtml(c.accessories)}
-
-PERSONALITY:
-${escapeHtml(c.personality)}
-
-VOICE:
-${escapeHtml(c.voice)}
-          </div>
-
+        <div>
+          <b>Accessory</b>
+          <span>${escapeHTML(c.accessory)}</span>
         </div>
 
       </div>
-    `;
 
-  }).join("");
+    </div>
+
+  `).join("");
 
 }
+
 
 /* =========================================================
    RENDER LOCATIONS
-   ========================================================= */
+========================================================= */
 
 function renderLocations(){
 
-  document.getElementById("locationsGrid").innerHTML =
-    state.locations.map(function(l){
+  const grid = document.getElementById("locationGrid");
 
-      return `
-        <div class="card">
+  grid.innerHTML = LOCATIONS.map(l => `
 
-          <div style="display:flex;justify-content:space-between">
-            <h3>${escapeHtml(l.name)}</h3>
-            <span class="badge green">LOCKED</span>
-          </div>
+    <div class="card">
 
-          <div class="small muted">
-            ${escapeHtml(l.description)}
-          </div>
+      <div class="character-id">
+        ${l.id}
+      </div>
 
-          <div class="lock-box">
+      <div class="card-title">
+        ${escapeHTML(l.name)}
+      </div>
 
-            <div class="lock-title">
-              LOCATION DNA
-            </div>
+      <p style="color:#909cad;font-size:12px;line-height:1.6">
+        ${escapeHTML(l.description)}
+      </p>
 
-            <div class="lock-text">
-Lighting: ${escapeHtml(l.lighting)}
-Time: ${escapeHtml(l.time)}
-Weather: ${escapeHtml(l.weather)}
-            </div>
+    </div>
 
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
+  `).join("");
 
 }
 
-/* =========================================================
-   RENDER IDEAS
-   ========================================================= */
-
-function renderIdeas(){
-
-  const ideas = [
-
-    ["Family Trip to the Airport","Travel","A2"],
-    ["A Busy Morning at Home","Daily Life","A1"],
-    ["Emma's First Day at School","School","A1"],
-    ["Ordering Breakfast Together","Restaurant","A2"],
-    ["A Family Shopping Trip","Shopping","A2"],
-    ["Finding the Right Train","Travel","A2"],
-    ["A Weekend Family Picnic","Family","A1"],
-    ["A Simple Conversation at Work","Work","B1"],
-    ["Meeting a New Friend","Friendship","A1"]
-
-  ];
-
-  document.getElementById("ideasGrid").innerHTML =
-    ideas.map(function(x){
-
-      return `
-        <div class="card">
-
-          <div style="display:flex;justify-content:space-between">
-            <h3>${escapeHtml(x[0])}</h3>
-            <span class="badge purple">${x[2]}</span>
-          </div>
-
-          <div class="small muted">
-            ${escapeHtml(x[1])}
-          </div>
-
-          <div class="btn-row">
-            <button class="btn"
-              data-action="use-idea"
-              data-topic="${escapeHtml(x[0])}">
-              Use Idea
-            </button>
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
-
-}
 
 /* =========================================================
    RENDER SCENES
-   ========================================================= */
+========================================================= */
 
 function renderScenes(){
 
-  const project = ensureProject();
+  const container = document.getElementById("sceneList");
 
-  const list = document.getElementById("scenesList");
+  if(!state.scenes.length){
 
-  if(!project.scenes || !project.scenes.length){
-
-    list.innerHTML = `
+    container.innerHTML = `
       <div class="card">
-        <div class="muted">
-          No scenes yet. Click Generate Scenes.
+        <div class="card-title">No scenes yet</div>
+        <div class="card-sub">
+          Generate the story to create your scenes
         </div>
       </div>
     `;
@@ -2990,1180 +2334,572 @@ function renderScenes(){
     return;
   }
 
-  list.innerHTML = project.scenes.map(function(scene){
+  container.innerHTML = state.scenes.map(scene => {
 
-    const names = scene.characterIds.map(function(id){
-
-      const c = state.characters.find(function(x){
-        return x.id === id;
-      });
-
-      return c ? c.name : id;
-
-    });
-
-    const subtitle = cleanSubtitle(scene.dialogue);
+    const location = LOCATIONS.find(l => l.id === scene.location);
 
     return `
-      <div class="scene-card">
 
-        <div class="scene-top">
+      <div class="scene">
+
+        <div class="scene-head">
 
           <div>
-            <div class="scene-number">
-              Scene ${scene.index}
+            <div class="scene-no">
+              SCENE ${scene.id}
             </div>
 
             <div class="scene-time">
-              ${escapeHtml(scene.start)}
-              →
-              ${escapeHtml(scene.end)}
-              • ${scene.duration}s
-            </div>
-
-            <div class="scene-chips">
-
-              ${names.map(function(name){
-                return `
-                  <span class="chip">
-                    ${escapeHtml(name)}
-                  </span>
-                `;
-              }).join("")}
-
-              <span class="chip">
-                ${escapeHtml(scene.locationId)}
-              </span>
-
-              <span class="chip">
-                🔒 DNA
-              </span>
-
+              ${formatTime(scene.start)} — ${formatTime(scene.end)}
             </div>
           </div>
 
-          <span class="badge green">
-            3D LOCKED
-          </span>
-
-        </div>
-
-        <div class="scene-subtitle">
-          ${subtitle ?
-            escapeHtml(subtitle).replace(/\n/g,"<br>") :
-            "NO SPOKEN SUBTITLE"
-          }
-        </div>
-
-        <div class="scene-actions">
-
-          <button class="btn"
-            data-action="edit-scene"
-            data-id="${scene.id}">
-            Edit Scene
-          </button>
-
-          <button class="btn"
-            data-action="copy-scene"
-            data-id="${scene.id}">
-            Copy Scene Package
-          </button>
-
-          <button class="btn primary"
-            data-action="copy-video"
-            data-id="${scene.id}">
-            Copy Flow Prompt
-          </button>
-
-          <button class="btn"
-            data-action="copy-image"
-            data-id="${scene.id}">
-            Copy Image Prompt
+          <button
+            class="btn blue"
+            data-copy-scene="${scene.id}">
+            Copy Scene
           </button>
 
         </div>
 
-      </div>
-    `;
+        <div class="scene-body">
 
-  }).join("");
+          <div class="scene-meta">
 
-}
+            ${scene.chars.map(id => {
 
-/* =========================================================
-   RENDER IMAGE PROMPTS
-   ========================================================= */
+              const c = DEFAULT_CHARACTERS.find(x => x.id === id);
 
-function renderImagePrompts(){
+              return `
+                <span class="meta">
+                  ${id} • ${c.name}
+                </span>
+              `;
 
-  const project = ensureProject();
+            }).join("")}
 
-  document.getElementById("imagePrompts").innerHTML =
-    project.scenes.map(function(scene){
-
-      return `
-        <div class="card mt">
-
-          <div style="display:flex;justify-content:space-between">
-            <h3>Scene ${scene.index}</h3>
-            <span class="badge purple">
-              CHARACTER DNA INCLUDED
+            <span class="meta">
+              ${location.name}
             </span>
+
+            <span class="meta">
+              ENGLISH CC ON
+            </span>
+
+            <span class="meta">
+              3D LOCK
+            </span>
+
+          </div>
+
+          <div class="grid grid-2">
+
+            <div>
+
+              <div class="card-sub">
+                ACTION
+              </div>
+
+              <p style="font-size:12px;line-height:1.6;color:#b0bac9">
+                ${escapeHTML(scene.action)}
+              </p>
+
+            </div>
+
+            <div>
+
+              <div class="card-sub">
+                CLEAN ENGLISH SUBTITLE
+              </div>
+
+              <p style="font-size:13px;line-height:1.6;color:#fff;font-weight:700">
+                ${escapeHTML(cleanSubtitle(scene.dialogue)).replace(/\n/g,"<br>")}
+              </p>
+
+            </div>
+
           </div>
 
           <div class="prompt-box">
 
-            <textarea class="prompt-output" readonly>${escapeHtml(
-              buildImagePrompt(scene)
-            )}</textarea>
+            <label>IMAGE PROMPT</label>
 
-          </div>
+            <textarea readonly>${escapeHTML(buildImagePrompt(scene))}</textarea>
 
-          <div class="btn-row">
+            <div class="actions">
 
-            <button class="btn primary"
-              data-action="copy-image"
-              data-id="${scene.id}">
-              Copy Image Prompt
-            </button>
+              <button
+                class="btn"
+                data-copy-image="${scene.id}">
+                Copy Image Prompt
+              </button>
 
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
-
-}
-
-/* =========================================================
-   RENDER VIDEO PROMPTS
-   ========================================================= */
-
-function renderVideoPrompts(){
-
-  const project = ensureProject();
-
-  document.getElementById("videoPrompts").innerHTML =
-    project.scenes.map(function(scene){
-
-      return `
-        <div class="card mt">
-
-          <div style="display:flex;justify-content:space-between">
-            <h3>Scene ${scene.index}</h3>
-            <span class="badge green">
-              FLOW READY
-            </span>
-          </div>
-
-          <textarea class="prompt-output" readonly>${escapeHtml(
-            buildVideoPrompt(scene)
-          )}</textarea>
-
-          <div class="btn-row">
-
-            <button class="btn primary"
-              data-action="copy-video"
-              data-id="${scene.id}">
-              Copy Flow Prompt
-            </button>
-
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
-
-}
-
-/* =========================================================
-   RENDER VOICE
-   ========================================================= */
-
-function renderVoice(){
-
-  const project = ensureProject();
-
-  const output = project.scenes.map(function(scene){
-
-    return (
-      "SCENE " + scene.index +
-      " [" + scene.start + " → " + scene.end + "]\n" +
-      (scene.dialogue || "No dialogue") +
-      "\n"
-    );
-
-  }).join("\n");
-
-  document.getElementById("voiceOutput").value = output;
-
-}
-
-/* =========================================================
-   SRT
-   ========================================================= */
-
-function srtTime(time){
-
-  const parts = String(time).split(":");
-
-  const m = Number(parts[0]) || 0;
-  const s = Number(parts[1]) || 0;
-
-  return (
-    "00:" +
-    pad2(m) +
-    ":" +
-    pad2(s) +
-    ",000"
-  );
-}
-
-function buildSRT(){
-
-  const project = ensureProject();
-
-  let counter = 1;
-  let output = "";
-
-  project.scenes.forEach(function(scene){
-
-    const subtitle = cleanSubtitle(scene.dialogue);
-
-    if(!subtitle){
-      return;
-    }
-
-    output +=
-      counter + "\n" +
-      srtTime(scene.start) +
-      " --> " +
-      srtTime(scene.end) +
-      "\n" +
-      subtitle +
-      "\n\n";
-
-    counter++;
-
-  });
-
-  return output.trim();
-
-}
-
-function renderSRT(){
-
-  document.getElementById("srtOutput").value =
-    buildSRT();
-
-}
-
-/* =========================================================
-   LESSON
-   ========================================================= */
-
-function renderLesson(){
-
-  const project = ensureProject();
-
-  const lines = [];
-
-  project.scenes.forEach(function(scene){
-
-    const subtitle = cleanSubtitle(scene.dialogue);
-
-    if(subtitle){
-
-      subtitle.split("\n").forEach(function(line){
-        lines.push(line);
-      });
-
-    }
-
-  });
-
-  const unique = [];
-
-  lines.forEach(function(line){
-
-    if(unique.indexOf(line) === -1){
-      unique.push(line);
-    }
-
-  });
-
-  document.getElementById("lessonVocab").value =
-    unique.map(function(x){
-      return "• " + x;
-    }).join("\n");
-
-  document.getElementById("lessonSentences").value =
-    unique.join("\n");
-
-}
-
-/* =========================================================
-   THUMBNAIL
-   ========================================================= */
-
-function renderThumbnail(){
-
-  const project = ensureProject();
-
-  const prompt = `
-YOUTUBE THUMBNAIL — 16:9
-
-Create a polished 3D rendered animated illustration.
-
-Pixar-style cinematic family animation.
-
-Use the EXACT MASTER CHARACTER DNA from this project.
-
-Main story:
-${project.title}
-
-Show the family in a warm cinematic scene connected to the story.
-
-IMPORTANT CHARACTER LOCK:
-Use the exact same faces, ages, hairstyles, clothing, shoes, accessories and proportions from the MASTER CHARACTER DNA.
-
-Do not redesign the characters.
-
-Do not create realistic humans.
-
-Do not create 2D cartoon characters.
-
-Do not add character names.
-
-Do not add random text.
-
-Do not add watermark.
-
-Do not add logo.
-
-High-quality 3D rendered animated family-film look.
-Clean composition.
-Strong facial expressions.
-Bright readable YouTube thumbnail composition.
-`;
-
-  document.getElementById("thumbnailPrompt").value =
-    prompt;
-
-}
-
-/* =========================================================
-   YOUTUBE
-   ========================================================= */
-
-function renderYouTube(){
-
-  const project = ensureProject();
-
-  document.getElementById("ytTitle").value =
-    project.title +
-    " | Easy English Listening Practice (" +
-    project.level +
-    " Level)";
-
-  document.getElementById("ytDescription").value =
-`Improve your English listening with this original animated story.
-
-Level: ${project.level}
-
-Story:
-${project.story}
-
-This video uses clear everyday English, natural dialogue and visual storytelling.
-
-Listen to each sentence and repeat after the characters.
-
-Topics:
-English listening
-English speaking practice
-Easy English
-English conversation
-Daily English
-English learning
-Animated English story`;
-
-  document.getElementById("ytKeywords").value =
-    "easy English, English listening practice, English speaking practice, A2 English, English conversation, daily English, English story, animated English story, English for beginners";
-
-}
-
-/* =========================================================
-   SHORTS
-   ========================================================= */
-
-function renderShorts(){
-
-  const project = ensureProject();
-
-  const scenes = project.scenes.slice(0,3);
-
-  let text =
-`SHORTS PROMPT
-
-Create a short vertical English-learning clip from this story.
-
-Visual style:
-3D rendered animated illustration.
-Pixar-style cinematic family animation.
-Use the exact MASTER CHARACTER DNA.
-Do not change character faces, clothing, hairstyle or age.
-No realistic humans.
-No 2D.
-No anime.
-
-Subtitle:
-Display dialogue only.
-No speaker names.
-No character labels.
-Bold white text.
-Thick black outline.
-Bottom center.
-Synchronize exactly with speech.
-
-`;
-
-  scenes.forEach(function(scene){
-
-    text +=
-      "\nSCENE " + scene.index + "\n" +
-      cleanSubtitle(scene.dialogue) +
-      "\n";
-
-  });
-
-  document.getElementById("shortsOutput").value =
-    text;
-
-}
-
-/* =========================================================
-   PROJECTS
-   ========================================================= */
-
-function renderProjects(){
-
-  const list = document.getElementById("projectsList");
-
-  if(!state.projects.length){
-
-    list.innerHTML = `
-      <div class="card">
-        <div class="muted">
-          No projects yet
-        </div>
-      </div>
-    `;
-
-    return;
-  }
-
-  list.innerHTML = state.projects.map(function(project){
-
-    const active =
-      project.id === state.currentProjectId;
-
-    return `
-      <div class="card mt">
-
-        <div style="display:flex;justify-content:space-between;gap:10px">
-
-          <div>
-            <h3>
-              ${escapeHtml(project.title)}
-            </h3>
-
-            <div class="small muted">
-              ${project.level}
-              •
-              ${project.scenes.length} scenes
-              •
-              ${project.category}
             </div>
+
           </div>
 
-          ${active ?
-            '<span class="badge green">CURRENT</span>' :
-            ''
-          }
+          <div class="prompt-box">
 
-        </div>
+            <label>VIDEO PROMPT</label>
 
-        <div class="btn-row">
+            <textarea readonly>${escapeHTML(buildVideoPrompt(scene))}</textarea>
 
-          <button class="btn primary"
-            data-action="open-project"
-            data-id="${project.id}">
-            Open
-          </button>
+            <div class="actions">
 
-          <button class="btn danger"
-            data-action="delete-project"
-            data-id="${project.id}">
-            Delete
-          </button>
+              <button
+                class="btn primary"
+                data-copy-video="${scene.id}">
+                Copy Video Prompt
+              </button>
+
+            </div>
+
+          </div>
 
         </div>
 
       </div>
+
     `;
 
   }).join("");
 
 }
 
-/* =========================================================
-   SETTINGS
-   ========================================================= */
-
-function renderSettings(){
-
-  document.getElementById("visualStyle").value =
-    state.settings.visualStyle;
-
-  document.getElementById("subtitlePosition").value =
-    state.settings.subtitlePosition;
-
-  document.getElementById("stylePreview").value =
-    STYLE_LOCK +
-    "\n\n" +
-    NEGATIVE_LOCK;
-
-}
 
 /* =========================================================
-   PAGE RENDER
-   ========================================================= */
+   RENDER IMAGE PROMPTS
+========================================================= */
 
-function renderPage(name){
+function renderImagePrompts(){
 
-  if(name === "dashboard"){
-    renderDashboard();
-  }
+  const container = document.getElementById("imagePromptList");
 
-  if(name === "ideas"){
-    renderIdeas();
-  }
+  if(!state.scenes.length){
 
-  if(name === "characters"){
-    renderCharacters();
-  }
-
-  if(name === "locations"){
-    renderLocations();
-  }
-
-  if(name === "scenes"){
-    renderScenes();
-  }
-
-  if(name === "image"){
-    renderImagePrompts();
-  }
-
-  if(name === "video"){
-    renderVideoPrompts();
-  }
-
-  if(name === "voice"){
-    renderVoice();
-  }
-
-  if(name === "srt"){
-    renderSRT();
-  }
-
-  if(name === "lesson"){
-    renderLesson();
-  }
-
-  if(name === "thumbnail"){
-    renderThumbnail();
-  }
-
-  if(name === "youtube"){
-    renderYouTube();
-  }
-
-  if(name === "shorts"){
-    renderShorts();
-  }
-
-  if(name === "projects"){
-    renderProjects();
-  }
-
-  if(name === "settings"){
-    renderSettings();
-  }
-
-}
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-let toastTimer = null;
-
-function toast(message){
-
-  const el = document.getElementById("toast");
-
-  el.textContent = message;
-  el.classList.add("show");
-
-  clearTimeout(toastTimer);
-
-  toastTimer = setTimeout(function(){
-    el.classList.remove("show");
-  },2200);
-
-}
-
-/* =========================================================
-   CLIPBOARD
-   ========================================================= */
-
-function copyText(text){
-
-  if(navigator.clipboard &&
-     typeof navigator.clipboard.writeText === "function"){
-
-    navigator.clipboard.writeText(text)
-      .then(function(){
-        toast("Copied");
-      })
-      .catch(function(){
-        fallbackCopy(text);
-      });
+    container.innerHTML = `
+      <div class="card">
+        Generate scenes first
+      </div>
+    `;
 
     return;
   }
 
-  fallbackCopy(text);
+  container.innerHTML = state.scenes.map(scene => `
+
+    <div class="card">
+
+      <div class="card-title">
+        Scene ${scene.id} Image Prompt
+      </div>
+
+      <textarea readonly>${escapeHTML(buildImagePrompt(scene))}</textarea>
+
+      <div class="actions">
+
+        <button
+          class="btn blue"
+          data-copy-image="${scene.id}">
+          Copy
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
 }
 
-function fallbackCopy(text){
-
-  const area = document.createElement("textarea");
-
-  area.value = text;
-  area.style.position = "fixed";
-  area.style.left = "-9999px";
-
-  document.body.appendChild(area);
-
-  area.focus();
-  area.select();
-
-  try{
-    document.execCommand("copy");
-    toast("Copied");
-  }catch(e){
-    toast("Copy failed");
-  }
-
-  document.body.removeChild(area);
-
-}
 
 /* =========================================================
-   SCENE MODAL
-   ========================================================= */
+   RENDER VIDEO PROMPTS
+========================================================= */
 
-function openSceneModal(sceneId){
+function renderVideoPrompts(){
 
-  const project = ensureProject();
+  const container = document.getElementById("videoPromptList");
 
-  const scene = project.scenes.find(function(s){
-    return s.id === sceneId;
-  });
+  if(!state.scenes.length){
 
-  if(!scene){
+    container.innerHTML = `
+      <div class="card">
+        Generate scenes first
+      </div>
+    `;
+
     return;
   }
 
-  editingSceneId = sceneId;
+  container.innerHTML = state.scenes.map(scene => `
 
-  document.getElementById("modalSceneTitle").textContent =
-    "Scene " + scene.index;
+    <div class="card">
 
-  document.getElementById("editStart").value =
-    scene.start;
+      <div class="card-title">
+        Scene ${scene.id} Video Prompt
+      </div>
 
-  document.getElementById("editEnd").value =
-    scene.end;
+      <div class="lock-box">
 
-  document.getElementById("editCamera").value =
-    scene.camera;
+        <h4>ENGLISH SUBTITLE — MANDATORY</h4>
 
-  document.getElementById("editAction").value =
-    scene.action;
+        <p>
+          ${escapeHTML(cleanSubtitle(scene.dialogue)).replace(/\n/g,"<br>")}
+        </p>
 
-  document.getElementById("editEmotion").value =
-    scene.emotion;
+      </div>
 
-  document.getElementById("editDialogue").value =
-    scene.dialogue;
+      <textarea readonly>${escapeHTML(buildVideoPrompt(scene))}</textarea>
 
-  document.getElementById("editSfx").value =
-    scene.sfx;
+      <div class="actions">
 
-  document.getElementById("editContinuity").value =
-    scene.continuity;
+        <button
+          class="btn primary"
+          data-copy-video="${scene.id}">
+          Copy Video Prompt
+        </button>
 
-  document.getElementById("editLocation").innerHTML =
-    state.locations.map(function(l){
+      </div>
 
-      return `
-        <option value="${l.id}"
-          ${l.id === scene.locationId ? "selected" : ""}>
-          ${escapeHtml(l.name)}
-        </option>
-      `;
+    </div>
 
-    }).join("");
-
-  document.getElementById("characterChecks").innerHTML =
-    state.characters.map(function(c){
-
-      return `
-        <label class="check">
-
-          <input
-            type="checkbox"
-            value="${c.id}"
-            ${scene.characterIds.indexOf(c.id) !== -1 ? "checked" : ""}
-          >
-
-          <span>
-            <strong>${escapeHtml(c.name)}</strong>
-            <br>
-            <span class="muted">
-              ${escapeHtml(c.role)}
-            </span>
-          </span>
-
-        </label>
-      `;
-
-    }).join("");
-
-  document.getElementById("sceneModal").classList.add("show");
+  `).join("");
 
 }
 
+
 /* =========================================================
-   SAVE SCENE
-   ========================================================= */
+   RENDER SRT
+========================================================= */
 
-function saveScene(){
+function buildSRT(){
 
-  if(!editingSceneId){
-    return;
-  }
+  return state.scenes
+    .map((scene,index)=>{
 
-  const project = ensureProject();
+      const subtitle = cleanSubtitle(scene.dialogue);
 
-  const scene = project.scenes.find(function(s){
-    return s.id === editingSceneId;
-  });
+      if(!subtitle.trim()) return "";
 
-  if(!scene){
-    return;
-  }
+      return `${index + 1}
+${srtTime(scene.start)} --> ${srtTime(scene.end)}
+${subtitle}
+`;
 
-  scene.start =
-    document.getElementById("editStart").value;
-
-  scene.end =
-    document.getElementById("editEnd").value;
-
-  scene.camera =
-    document.getElementById("editCamera").value;
-
-  scene.action =
-    document.getElementById("editAction").value;
-
-  scene.emotion =
-    document.getElementById("editEmotion").value;
-
-  scene.dialogue =
-    document.getElementById("editDialogue").value;
-
-  scene.sfx =
-    document.getElementById("editSfx").value;
-
-  scene.continuity =
-    document.getElementById("editContinuity").value;
-
-  scene.locationId =
-    document.getElementById("editLocation").value;
-
-  scene.characterIds =
-    Array.from(
-      document.querySelectorAll(
-        "#characterChecks input[type=checkbox]:checked"
-      )
-    ).map(function(input){
-      return input.value;
-    });
-
-  if(!scene.characterIds.length){
-
-    scene.characterIds = ["david"];
-
-  }
-
-  const startParts = scene.start.split(":");
-  const endParts = scene.end.split(":");
-
-  const startSeconds =
-    (Number(startParts[0])||0)*60 +
-    (Number(startParts[1])||0);
-
-  const endSeconds =
-    (Number(endParts[0])||0)*60 +
-    (Number(endParts[1])||0);
-
-  scene.duration =
-    Math.max(1,endSeconds-startSeconds);
-
-  project.updatedAt =
-    new Date().toISOString();
-
-  saveState();
-
-  closeModal();
-
-  renderScenes();
-
-  toast("Scene saved with Character DNA lock");
+    })
+    .filter(Boolean)
+    .join("\n");
 
 }
 
-/* =========================================================
-   CLOSE MODAL
-   ========================================================= */
 
-function closeModal(){
+function renderSRT(){
 
-  document.getElementById("sceneModal")
-    .classList.remove("show");
-
-  editingSceneId = null;
+  document.getElementById("srtOutput").value = buildSRT();
 
 }
 
+
 /* =========================================================
-   GENERATE STORY
-   ========================================================= */
+   RENDER BIBLE
+========================================================= */
+
+function renderBible(){
+
+  document.getElementById("masterBibleOutput").value =
+    buildMasterBible();
+
+}
+
+
+/* =========================================================
+   STORY OUTPUT
+========================================================= */
+
+function renderStoryOutput(){
+
+  const output = document.getElementById("storyOutput");
+
+  output.innerHTML = `
+
+    <div class="card">
+
+      <div class="card-title">
+        ${escapeHTML(state.storyTitle)}
+      </div>
+
+      <div class="card-sub">
+        ${escapeHTML(state.level)} •
+        ${state.scenes.length} scenes •
+        ${state.scenes.length * state.duration} seconds
+      </div>
+
+      <div class="lock-box">
+
+        <h4>VISUAL LOCK</h4>
+
+        <p>
+          3D rendered animated illustration •
+          Pixar-inspired family-film quality •
+          Character DNA locked •
+          English subtitles ON •
+          No speaker names
+        </p>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   GENERATE
+========================================================= */
 
 function generateStory(){
 
-  const topic =
-    document.getElementById("storyTopic").value.trim() ||
-    "Family Trip to the Airport";
+  state.storyTitle =
+    document.getElementById("storyTitle").value.trim() ||
+    "A Family Trip to the Airport";
 
-  const level =
-    document.getElementById("storyLevel").value;
+  state.topic =
+    document.getElementById("storyTopic").value.trim();
 
-  const category =
-    document.getElementById("storyCategory").value;
+  state.level =
+    document.getElementById("englishLevel").value;
 
-  const duration =
-    Number(document.getElementById("storyDuration").value);
+  state.duration =
+    Number(document.getElementById("sceneDuration").value) || 8;
 
-  const story =
-`This is an original ${level} English-learning story about ${topic}.
+  state.idea =
+    document.getElementById("storyIdea").value.trim();
 
-David, Sarah, Emma and Leo prepare for a family experience.
+  createDefaultScenes();
 
-The story uses simple everyday English, natural conversations and clear visual actions.
+  renderAll();
 
-The family faces small practical situations, communicates clearly and learns useful English expressions.
+  showToast("10 scenes generated with Character Lock + English Subtitle Lock");
 
-The story is designed for listening practice and speaking repetition.
+}
 
-Category: ${category}
-Target duration: ${duration} seconds`;
 
-  document.getElementById("storyOutput").value =
-    story;
+/* =========================================================
+   COPY
+========================================================= */
 
-  let project = getCurrentProject();
+async function copyText(text){
 
-  if(!project){
+  try{
 
-    project = {
-      id:uid("project"),
-      title:topic,
-      level:level,
-      duration:duration,
-      category:category,
-      story:story,
-      scenes:createDefaultScenes(),
-      createdAt:new Date().toISOString(),
-      updatedAt:new Date().toISOString()
-    };
+    await navigator.clipboard.writeText(text);
 
-    state.projects.unshift(project);
-    state.currentProjectId=project.id;
+    showToast("Copied");
 
-  }else{
+  }catch(e){
 
-    project.title=topic;
-    project.level=level;
-    project.duration=duration;
-    project.category=category;
-    project.story=story;
-    project.updatedAt=new Date().toISOString();
+    const ta = document.createElement("textarea");
+
+    ta.value = text;
+
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+
+    document.body.appendChild(ta);
+
+    ta.focus();
+    ta.select();
+
+    try{
+      document.execCommand("copy");
+      showToast("Copied");
+    }catch(err){
+      showToast("Copy failed");
+    }
+
+    document.body.removeChild(ta);
 
   }
 
-  saveState();
-
-  renderDashboard();
-
-  toast("Story generated");
-
 }
 
-/* =========================================================
-   RANDOM STORY
-   ========================================================= */
 
-function randomStory(){
+function copyAllScenes(){
 
-  const ideas = [
-    "Family Trip to the Airport",
-    "A Busy Morning at Home",
-    "Emma's First Day at School",
-    "Ordering Breakfast Together",
-    "A Family Shopping Trip",
-    "A Weekend Family Picnic",
-    "Finding the Right Train",
-    "A New Friend at School"
-  ];
+  if(!state.scenes.length){
+    showToast("Generate scenes first");
+    return;
+  }
 
-  const topic =
-    ideas[Math.floor(Math.random()*ideas.length)];
-
-  document.getElementById("storyTopic").value =
-    topic;
-
-  generateStory();
-
-}
-
-/* =========================================================
-   GENERATE SCENES
-   ========================================================= */
-
-function generateScenes(){
-
-  const project = ensureProject();
-
-  project.scenes = createDefaultScenes();
-
-  project.updatedAt =
-    new Date().toISOString();
-
-  saveState();
-
-  renderScenes();
-
-  renderDashboard();
-
-  toast("10 locked scenes generated");
-
-}
-
-/* =========================================================
-   COPY ALL
-   ========================================================= */
-
-function copyAll(){
-
-  const project = ensureProject();
-
-  const text =
-    project.scenes.map(function(scene){
-      return buildScenePackage(scene);
-    }).join("\n\n");
+  const text = state.scenes
+    .map(buildScenePackage)
+    .join("\n");
 
   copyText(text);
 
 }
 
-/* =========================================================
-   COPY SCENE
-   ========================================================= */
 
-function copyScene(sceneId){
+function copyImagePrompts(){
 
-  const project = ensureProject();
-
-  const scene = project.scenes.find(function(s){
-    return s.id === sceneId;
-  });
-
-  if(scene){
-    copyText(buildScenePackage(scene));
+  if(!state.scenes.length){
+    showToast("Generate scenes first");
+    return;
   }
+
+  const text = state.scenes
+    .map(scene =>
+      `SCENE ${scene.id}\n\n${buildImagePrompt(scene)}`
+    )
+    .join("\n\n");
+
+  copyText(text);
 
 }
 
-/* =========================================================
-   COPY VIDEO
-   ========================================================= */
 
-function copyVideo(sceneId){
+function copyVideoPrompts(){
 
-  const project = ensureProject();
-
-  const scene = project.scenes.find(function(s){
-    return s.id === sceneId;
-  });
-
-  if(scene){
-    copyText(buildVideoPrompt(scene));
+  if(!state.scenes.length){
+    showToast("Generate scenes first");
+    return;
   }
+
+  const text = state.scenes
+    .map(scene =>
+      `SCENE ${scene.id}\n\n${buildVideoPrompt(scene)}`
+    )
+    .join("\n\n");
+
+  copyText(text);
 
 }
 
-/* =========================================================
-   COPY IMAGE
-   ========================================================= */
-
-function copyImage(sceneId){
-
-  const project = ensureProject();
-
-  const scene = project.scenes.find(function(s){
-    return s.id === sceneId;
-  });
-
-  if(scene){
-    copyText(buildImagePrompt(scene));
-  }
-
-}
 
 /* =========================================================
-   EXPORT TXT
-   ========================================================= */
+   DOWNLOAD
+========================================================= */
 
-function downloadFile(filename,text,type){
+function downloadFile(filename,content,type){
 
-  const blob = new Blob(
-    [text],
-    {type:type || "text/plain;charset=utf-8"}
-  );
+  const blob = new Blob([content],{type});
 
-  const url =
-    URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob);
 
-  const a =
-    document.createElement("a");
+  const a = document.createElement("a");
 
-  a.href=url;
-  a.download=filename;
+  a.href = url;
+  a.download = filename;
 
   document.body.appendChild(a);
 
   a.click();
 
-  document.body.removeChild(a);
+  a.remove();
 
-  setTimeout(function(){
-    URL.revokeObjectURL(url);
-  },1000);
+  URL.revokeObjectURL(url);
 
 }
 
-function exportScenes(){
 
-  const project = ensureProject();
+function downloadTXT(){
 
-  const text =
-    project.scenes.map(function(scene){
-      return buildScenePackage(scene);
-    }).join("\n\n");
+  if(!state.scenes.length){
+
+    showToast("Generate scenes first");
+    return;
+
+  }
+
+  const text = state.scenes
+    .map(buildScenePackage)
+    .join("\n");
 
   downloadFile(
-    "AUNG_AI_STORY_SCENES.txt",
-    text
+    "aung-ai-story-video-prompts.txt",
+    text,
+    "text/plain;charset=utf-8"
   );
 
-  toast("TXT exported");
+  showToast("TXT downloaded");
 
 }
+
+
+function downloadSRT(){
+
+  if(!state.scenes.length){
+
+    showToast("Generate scenes first");
+    return;
+
+  }
+
+  downloadFile(
+    "aung-ai-story-english-subtitles.srt",
+    buildSRT(),
+    "application/x-subrip;charset=utf-8"
+  );
+
+  showToast("SRT downloaded");
+
+}
+
 
 /* =========================================================
    BACKUP
-   ========================================================= */
+========================================================= */
 
-function backup(){
+function backupProject(){
 
-  const json =
-    JSON.stringify(state,null,2);
+  const data = JSON.stringify(state,null,2);
 
   downloadFile(
-    "AUNG_AI_STORY_VIDEO_PRO_BACKUP.json",
-    json,
-    "application/json"
+    "aung-ai-story-project.json",
+    data,
+    "application/json;charset=utf-8"
   );
 
-  toast("Backup exported");
+  showToast("Project backup downloaded");
 
 }
 
-/* =========================================================
-   IMPORT
-   ========================================================= */
 
-function importBackup(file){
+function importProject(file){
 
   const reader = new FileReader();
 
-  reader.onload = function(){
+  reader.onload = function(e){
 
     try{
 
-      const imported =
-        JSON.parse(reader.result);
+      const data = JSON.parse(e.target.result);
 
-      if(!imported.characters ||
-         !imported.projects){
+      if(!data || !Array.isArray(data.scenes)){
 
-        throw new Error("Invalid backup");
+        throw new Error("Invalid project");
 
       }
 
-      state = imported;
+      state = {
+        ...state,
+        ...data
+      };
 
       saveState();
 
-      ensureProject();
+      loadInputs();
 
-      renderDashboard();
+      renderAll();
 
-      renderCharacters();
+      showToast("Project imported");
 
-      renderLocations();
+    }catch(err){
 
-      toast("Backup imported");
-
-    }catch(e){
-
-      toast("Invalid backup file");
+      showToast("Invalid JSON project");
 
     }
 
@@ -4173,352 +2909,71 @@ function importBackup(file){
 
 }
 
+
 /* =========================================================
-   NEW PROJECT
-   ========================================================= */
+   LOCAL STORAGE
+========================================================= */
 
-function newProject(){
+function saveState(){
 
-  const topic =
-    document.getElementById("storyTopic").value.trim() ||
-    "New English Learning Story";
-
-  const project = {
-
-    id:uid("project"),
-
-    title:topic,
-
-    level:"A2",
-
-    duration:80,
-
-    category:"Family",
-
-    story:"",
-
-    scenes:createDefaultScenes(),
-
-    createdAt:new Date().toISOString(),
-
-    updatedAt:new Date().toISOString()
-
-  };
-
-  state.projects.unshift(project);
-
-  state.currentProjectId =
-    project.id;
-
-  saveState();
-
-  renderDashboard();
-
-  toast("New project created");
+  localStorage.setItem(
+    APP_KEY,
+    JSON.stringify(state)
+  );
 
 }
 
-/* =========================================================
-   OPEN PROJECT
-   ========================================================= */
 
-function openProject(id){
+function loadState(){
 
-  const project =
-    state.projects.find(function(p){
-      return p.id === id;
-    });
+  try{
 
-  if(!project){
-    return;
-  }
+    const saved =
+      localStorage.getItem(APP_KEY);
 
-  state.currentProjectId=id;
+    if(saved){
 
-  saveState();
+      state = {
+        ...state,
+        ...JSON.parse(saved)
+      };
 
-  renderDashboard();
-
-  showPage("dashboard");
-
-  toast("Project opened");
-
-}
-
-/* =========================================================
-   DELETE PROJECT
-   ========================================================= */
-
-function deleteProject(id){
-
-  state.projects =
-    state.projects.filter(function(p){
-      return p.id !== id;
-    });
-
-  if(state.currentProjectId === id){
-
-    state.currentProjectId =
-      state.projects.length ?
-      state.projects[0].id :
-      null;
-
-  }
-
-  saveState();
-
-  renderProjects();
-
-  renderDashboard();
-
-  toast("Project deleted");
-
-}
-
-/* =========================================================
-   USE IDEA
-   ========================================================= */
-
-function useIdea(topic){
-
-  document.getElementById("storyTopic").value =
-    topic;
-
-  showPage("story");
-
-  generateStory();
-
-}
-
-/* =========================================================
-   EVENT DELEGATION
-   ========================================================= */
-
-document.addEventListener("click",function(event){
-
-  const nav =
-    event.target.closest("[data-page]");
-
-  if(nav){
-
-    showPage(
-      nav.getAttribute("data-page")
-    );
-
-    return;
-  }
-
-  const action =
-    event.target.closest("[data-action]");
-
-  if(!action){
-    return;
-  }
-
-  const type =
-    action.getAttribute("data-action");
-
-  const id =
-    action.getAttribute("data-id");
-
-  if(type === "new-story"){
-    showPage("story");
-    return;
-  }
-
-  if(type === "generate-story"){
-    generateStory();
-    return;
-  }
-
-  if(type === "random-story"){
-    randomStory();
-    return;
-  }
-
-  if(type === "generate-scenes"){
-    generateScenes();
-    return;
-  }
-
-  if(type === "copy-all"){
-    copyAll();
-    return;
-  }
-
-  if(type === "export-scenes"){
-    exportScenes();
-    return;
-  }
-
-  if(type === "edit-scene"){
-    openSceneModal(id);
-    return;
-  }
-
-  if(type === "copy-scene"){
-    copyScene(id);
-    return;
-  }
-
-  if(type === "copy-video"){
-    copyVideo(id);
-    return;
-  }
-
-  if(type === "copy-image"){
-    copyImage(id);
-    return;
-  }
-
-  if(type === "close-modal"){
-    closeModal();
-    return;
-  }
-
-  if(type === "save-scene"){
-    saveScene();
-    return;
-  }
-
-  if(type === "copy-srt"){
-    copyText(buildSRT());
-    return;
-  }
-
-  if(type === "download-srt"){
-
-    downloadFile(
-      "AUNG_AI_STORY_SUBTITLES.srt",
-      buildSRT()
-    );
-
-    return;
-  }
-
-  if(type === "copy-thumbnail"){
-
-    copyText(
-      document.getElementById("thumbnailPrompt").value
-    );
-
-    return;
-  }
-
-  if(type === "copy-shorts"){
-
-    copyText(
-      document.getElementById("shortsOutput").value
-    );
-
-    return;
-  }
-
-  if(type === "backup"){
-    backup();
-    return;
-  }
-
-  if(type === "import"){
-
-    document.getElementById("importFile").click();
-
-    return;
-  }
-
-  if(type === "use-idea"){
-
-    useIdea(
-      action.getAttribute("data-topic")
-    );
-
-    return;
-  }
-
-  if(type === "open-project"){
-
-    openProject(id);
-
-    return;
-  }
-
-  if(type === "delete-project"){
-
-    deleteProject(id);
-
-    return;
-  }
-
-});
-
-/* =========================================================
-   MOBILE MENU
-   ========================================================= */
-
-document.getElementById("mobileMenu")
-  .addEventListener("click",function(){
-
-    document.getElementById("sidebar")
-      .classList.toggle("open");
-
-  });
-
-/* =========================================================
-   IMPORT FILE
-   ========================================================= */
-
-document.getElementById("importFile")
-  .addEventListener("change",function(event){
-
-    const file =
-      event.target.files &&
-      event.target.files[0];
-
-    if(file){
-      importBackup(file);
     }
 
-    event.target.value="";
+  }catch(e){
 
-  });
+    console.log("Load state error",e);
+
+  }
+
+}
+
+
+function loadInputs(){
+
+  document.getElementById("storyTitle").value =
+    state.storyTitle || "";
+
+  document.getElementById("storyTopic").value =
+    state.topic || "";
+
+  document.getElementById("englishLevel").value =
+    state.level || "A1 Beginner";
+
+  document.getElementById("sceneDuration").value =
+    String(state.duration || 8);
+
+  document.getElementById("storyIdea").value =
+    state.idea || "";
+
+}
+
 
 /* =========================================================
-   SETTINGS EVENTS
-   ========================================================= */
+   RENDER ALL
+========================================================= */
 
-document.getElementById("visualStyle")
-  .addEventListener("change",function(){
-
-    state.settings.visualStyle =
-      this.value;
-
-    saveState();
-
-  });
-
-document.getElementById("subtitlePosition")
-  .addEventListener("change",function(){
-
-    state.settings.subtitlePosition =
-      this.value;
-
-    saveState();
-
-  });
-
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
-
-function init(){
-
-  loadState();
-
-  ensureProject();
-
-  renderDashboard();
-
-  renderIdeas();
+function renderAll(){
 
   renderCharacters();
 
@@ -4530,25 +2985,447 @@ function init(){
 
   renderVideoPrompts();
 
-  renderVoice();
-
   renderSRT();
 
-  renderLesson();
+  renderBible();
 
-  renderThumbnail();
+  renderStoryOutput();
 
-  renderYouTube();
-
-  renderShorts();
-
-  renderProjects();
-
-  renderSettings();
+  document.getElementById("statScenes").textContent =
+    state.scenes.length;
 
 }
 
-init();
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function openPage(page){
+
+  document.querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+  const target =
+    document.getElementById("page-" + page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn => {
+
+      btn.classList.toggle(
+        "active",
+        btn.dataset.page === page
+      );
+
+    });
+
+  document.getElementById("sidebar")
+    .classList.remove("open");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },2200);
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+document.addEventListener("click",function(e){
+
+  const nav = e.target.closest(".nav-btn");
+
+  if(nav){
+
+    openPage(nav.dataset.page);
+    return;
+
+  }
+
+
+  if(e.target.id === "mobileMenu"){
+
+    document
+      .getElementById("sidebar")
+      .classList.toggle("open");
+
+    return;
+
+  }
+
+
+  if(
+    e.target.id === "createStoryBtn" ||
+    e.target.id === "generateStoryBtn" ||
+    e.target.id === "generateStoryBtn2"
+  ){
+
+    generateStory();
+    return;
+
+  }
+
+
+  if(
+    e.target.id === "copyBibleBtn" ||
+    e.target.id === "copyBibleBtn2" ||
+    e.target.id === "copyBibleBtn3"
+  ){
+
+    copyText(buildMasterBible());
+    return;
+
+  }
+
+
+  if(
+    e.target.id === "copyAllBtn" ||
+    e.target.id === "copyAllBtn2"
+  ){
+
+    copyAllScenes();
+    return;
+
+  }
+
+
+  if(e.target.id === "copyImagePromptsBtn"){
+
+    copyImagePrompts();
+    return;
+
+  }
+
+
+  if(e.target.id === "copyVideoPromptsBtn"){
+
+    copyVideoPrompts();
+    return;
+
+  }
+
+
+  if(e.target.id === "downloadTxtBtn"){
+
+    downloadTXT();
+    return;
+
+  }
+
+
+  if(
+    e.target.id === "downloadSrtBtn" ||
+    e.target.id === "downloadSrtBtn2"
+  ){
+
+    downloadSRT();
+    return;
+
+  }
+
+
+  if(e.target.id === "copySrtBtn"){
+
+    copyText(buildSRT());
+    return;
+
+  }
+
+
+  if(e.target.id === "cleanSubtitleBtn"){
+
+    const input =
+      document.getElementById("subtitleInput");
+
+    const clean =
+      cleanSubtitle(input.value);
+
+    input.value = clean;
+
+    document.getElementById("subtitlePreview")
+      .textContent = clean || "English subtitle preview";
+
+    showToast("Speaker name removed");
+
+    return;
+
+  }
+
+
+  if(e.target.id === "copySubtitleBtn"){
+
+    copyText(
+      cleanSubtitle(
+        document.getElementById("subtitleInput").value
+      )
+    );
+
+    return;
+
+  }
+
+
+  if(e.target.id === "copyYoutubeBtn"){
+
+    const text =
+`TITLE
+${document.getElementById("ytTitle").value}
+
+DESCRIPTION
+${document.getElementById("ytDescription").value}
+
+KEYWORDS
+${document.getElementById("ytKeywords").value}`;
+
+    copyText(text);
+
+    return;
+
+  }
+
+
+  if(e.target.id === "backupBtn"){
+
+    backupProject();
+    return;
+
+  }
+
+
+  if(e.target.id === "importBtn"){
+
+    document.getElementById("importFile").click();
+    return;
+
+  }
+
+
+  if(e.target.id === "resetBtn"){
+
+    const ok =
+      confirm("Reset this project?");
+
+    if(!ok) return;
+
+    localStorage.removeItem(APP_KEY);
+
+    state = {
+      version:"3.0",
+      storyTitle:"A Family Trip to the Airport",
+      topic:"A family going to the airport",
+      level:"A1 Beginner",
+      duration:8,
+      idea:"A family prepares for a trip, leaves home, arrives at the airport, checks in, finds the gate and gets ready to fly.",
+      scenes:[]
+    };
+
+    loadInputs();
+    renderAll();
+
+    showToast("Project reset");
+
+    return;
+
+  }
+
+
+  const copyScene =
+    e.target.closest("[data-copy-scene]");
+
+  if(copyScene){
+
+    const id =
+      Number(copyScene.dataset.copyScene);
+
+    const scene =
+      state.scenes.find(s => s.id === id);
+
+    if(scene){
+
+      copyText(buildScenePackage(scene));
+
+    }
+
+    return;
+
+  }
+
+
+  const copyImage =
+    e.target.closest("[data-copy-image]");
+
+  if(copyImage){
+
+    const id =
+      Number(copyImage.dataset.copyImage);
+
+    const scene =
+      state.scenes.find(s => s.id === id);
+
+    if(scene){
+
+      copyText(buildImagePrompt(scene));
+
+    }
+
+    return;
+
+  }
+
+
+  const copyVideo =
+    e.target.closest("[data-copy-video]");
+
+  if(copyVideo){
+
+    const id =
+      Number(copyVideo.dataset.copyVideo);
+
+    const scene =
+      state.scenes.find(s => s.id === id);
+
+    if(scene){
+
+      copyText(buildVideoPrompt(scene));
+
+    }
+
+    return;
+
+  }
+
+});
+
+
+/* =========================================================
+   INPUT EVENTS
+========================================================= */
+
+document
+  .getElementById("subtitleInput")
+  .addEventListener("input",function(){
+
+    const clean =
+      cleanSubtitle(this.value);
+
+    document.getElementById("subtitlePreview")
+      .textContent =
+      clean || "English subtitle preview";
+
+  });
+
+
+document
+  .getElementById("importFile")
+  .addEventListener("change",function(){
+
+    if(this.files && this.files[0]){
+
+      importProject(this.files[0]);
+
+    }
+
+    this.value = "";
+
+  });
+
+
+[
+  "storyTitle",
+  "storyTopic",
+  "englishLevel",
+  "sceneDuration",
+  "storyIdea"
+].forEach(id => {
+
+  document
+    .getElementById(id)
+    .addEventListener("change",function(){
+
+      state.storyTitle =
+        document.getElementById("storyTitle").value;
+
+      state.topic =
+        document.getElementById("storyTopic").value;
+
+      state.level =
+        document.getElementById("englishLevel").value;
+
+      state.duration =
+        Number(document.getElementById("sceneDuration").value);
+
+      state.idea =
+        document.getElementById("storyIdea").value;
+
+      saveState();
+
+    });
+
+});
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+loadState();
+
+loadInputs();
+
+if(!state.scenes || !Array.isArray(state.scenes)){
+  state.scenes = [];
+}
+
+renderAll();
 
 </script>
 
