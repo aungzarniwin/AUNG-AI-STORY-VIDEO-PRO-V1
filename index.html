@@ -2,46 +2,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#0b1020">
-<title>AUNG AI STORY VIDEO PRO</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>AUNG AI STORY VIDEO PRO V4.1</title>
 
 <style>
 :root{
   --bg:#070b16;
-  --panel:#0f172a;
-  --panel2:#111c32;
-  --line:#22304a;
+  --panel:#0d1322;
+  --panel2:#111a2c;
+  --line:#202b42;
   --text:#f5f7fb;
-  --muted:#94a3b8;
-  --accent:#7c5cff;
-  --accent2:#00d4ff;
-  --green:#22c55e;
-  --yellow:#f59e0b;
-  --red:#ef4444;
-  --shadow:0 18px 50px rgba(0,0,0,.35);
+  --muted:#8e9ab0;
+  --primary:#7c5cff;
+  --primary2:#9a82ff;
+  --green:#18c98b;
+  --yellow:#f5bd45;
+  --red:#ff5d6c;
+  --blue:#3da5ff;
+  --radius:16px;
 }
 
 *{
   box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
   margin:0;
   padding:0;
+  width:100%;
+  min-height:100%;
   background:var(--bg);
   color:var(--text);
   font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
-body{
-  min-height:100vh;
-}
-
-button,
-select,
-input,
-textarea{
+button,input,textarea,select{
   font:inherit;
 }
 
@@ -54,509 +51,571 @@ button{
   display:flex;
 }
 
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
 
 .sidebar{
   width:250px;
+  min-width:250px;
+  height:100vh;
   position:fixed;
-  inset:0 auto 0 0;
-  background:#090e1c;
+  left:0;
+  top:0;
+  z-index:100;
+  background:#090e1a;
   border-right:1px solid var(--line);
-  padding:20px 14px;
-  z-index:50;
+  padding:18px 14px;
   overflow-y:auto;
 }
 
-.brand{
-  padding:10px 12px 22px;
+.logo{
+  padding:8px 10px 20px;
 }
 
-.brand-title{
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:.5px;
+.logo-main{
+  font-size:18px;
+  font-weight:950;
+  letter-spacing:.3px;
 }
 
-.brand-title span{
-  color:var(--accent2);
-}
-
-.brand-sub{
+.logo-sub{
   color:var(--muted);
   font-size:11px;
   margin-top:4px;
 }
 
 .nav{
-  display:grid;
-  gap:7px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
 }
 
 .nav button{
-  width:100%;
   border:1px solid transparent;
   background:transparent;
-  color:#b8c3d6;
+  color:#aeb8ca;
+  width:100%;
   text-align:left;
   padding:12px 13px;
-  border-radius:12px;
-  font-weight:700;
+  border-radius:11px;
+  font-weight:750;
   transition:.2s;
 }
 
 .nav button:hover{
-  background:#111a2d;
+  background:#11192a;
   color:#fff;
 }
 
 .nav button.active{
-  background:linear-gradient(135deg,#1a1740,#12263b);
+  background:linear-gradient(135deg,#261e58,#171c38);
+  border-color:#44388a;
   color:#fff;
-  border-color:#33436a;
 }
 
-.side-status{
+.side-bottom{
   margin-top:20px;
-  padding:14px;
-  background:#0e1729;
+  padding:12px;
   border:1px solid var(--line);
   border-radius:14px;
+  background:#0c1220;
 }
 
-.status-title{
-  font-size:11px;
+.side-small{
   color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-.status-value{
-  font-size:18px;
-  font-weight:900;
-  margin-top:4px;
-}
-
-.status-small{
   font-size:11px;
-  color:var(--muted);
-  margin-top:3px;
+  line-height:1.5;
 }
 
-/* MAIN */
+/* ================= MAIN ================= */
 
 .main{
-  width:calc(100% - 250px);
   margin-left:250px;
-  min-height:100vh;
+  width:calc(100% - 250px);
+  min-width:0;
 }
+
+/* ================= TOPBAR FIX ================= */
 
 .topbar{
   position:sticky;
   top:0;
-  z-index:30;
-  height:68px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:0 24px;
-  background:rgba(7,11,22,.9);
-  backdrop-filter:blur(18px);
+  z-index:80;
+  min-height:72px;
+  width:100%;
+  padding:10px 22px;
+  background:rgba(7,11,22,.96);
   border-bottom:1px solid var(--line);
+  backdrop-filter:blur(18px);
 }
 
-.top-title{
+.topbar-inner{
+  min-height:50px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:14px;
+}
+
+.top-left{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+.brand-block{
+  min-width:0;
+}
+
+.brand{
   font-size:18px;
-  font-weight:900;
+  font-weight:950;
+  line-height:1.15;
+  color:#fff;
+  white-space:normal;
+}
+
+.page-name{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
 }
 
 .top-actions{
   display:flex;
+  align-items:center;
+  justify-content:flex-end;
   gap:8px;
-  flex-wrap:wrap;
+  flex-shrink:0;
 }
-
-.content{
-  padding:24px;
-  max-width:1500px;
-  margin:auto;
-}
-
-/* BUTTONS */
 
 .btn{
   border:1px solid var(--line);
-  background:#111a2c;
-  color:#fff;
+  background:#101829;
+  color:#eaf0fb;
   border-radius:10px;
-  padding:10px 14px;
+  padding:10px 13px;
   font-weight:800;
-  transition:.2s;
+  font-size:13px;
+  transition:.18s;
 }
 
 .btn:hover{
   transform:translateY(-1px);
-  border-color:#405273;
+  border-color:#3b4b6d;
 }
 
 .btn.primary{
-  border-color:#6d58ed;
-  background:linear-gradient(135deg,#7657ff,#4d39c9);
-}
-
-.btn.cyan{
-  border-color:#0ca9c7;
-  background:linear-gradient(135deg,#00a8ca,#1263d8);
+  background:linear-gradient(135deg,var(--primary),#5d46df);
+  border-color:#816dff;
+  color:white;
 }
 
 .btn.green{
-  border-color:#178b4a;
-  background:#123c29;
+  background:#103b30;
+  border-color:#176d55;
 }
 
 .btn.danger{
-  border-color:#7f2930;
-  background:#35151a;
+  background:#35151c;
+  border-color:#672633;
 }
 
 .btn.small{
-  padding:7px 10px;
+  padding:9px 11px;
   font-size:12px;
 }
 
-/* CARDS */
+.content{
+  width:100%;
+  max-width:1450px;
+  margin:auto;
+  padding:24px;
+}
+
+/* ================= COMMON ================= */
+
+.page-head{
+  margin-bottom:20px;
+}
+
+.page-head h1{
+  margin:0;
+  font-size:27px;
+  font-weight:950;
+}
+
+.page-head p{
+  margin:7px 0 0;
+  color:var(--muted);
+}
 
 .grid{
   display:grid;
-  gap:16px;
-}
-
-.grid4{
   grid-template-columns:repeat(4,minmax(0,1fr));
-}
-
-.grid3{
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
 }
 
 .grid2{
+  display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
 }
 
 .card{
-  background:linear-gradient(180deg,#10192c,#0d1525);
+  background:linear-gradient(180deg,#0e1525,#0b1120);
   border:1px solid var(--line);
-  border-radius:16px;
+  border-radius:var(--radius);
   padding:18px;
-  box-shadow:var(--shadow);
+  min-width:0;
 }
 
-.card-title{
-  font-size:14px;
-  font-weight:900;
-  margin-bottom:12px;
+.card h2,
+.card h3{
+  margin:0 0 12px;
 }
 
-.kpi{
-  font-size:28px;
-  font-weight:950;
-  margin-top:5px;
+.card h2{
+  font-size:18px;
 }
 
-.kpi-label{
+.card h3{
+  font-size:15px;
+}
+
+.stat{
+  padding:17px;
+}
+
+.stat-label{
   color:var(--muted);
   font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.8px;
-}
-
-.hero{
-  background:
-    radial-gradient(circle at 80% 20%,rgba(0,212,255,.13),transparent 35%),
-    radial-gradient(circle at 20% 0%,rgba(124,92,255,.18),transparent 40%),
-    linear-gradient(135deg,#10192c,#0c1425);
-  border:1px solid #273657;
-  border-radius:20px;
-  padding:24px;
-  margin-bottom:18px;
-}
-
-.hero h1{
-  margin:0;
-  font-size:30px;
-}
-
-.hero p{
-  color:#aab7ca;
-  max-width:900px;
-  line-height:1.6;
-}
-
-.badges{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:14px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  padding:6px 10px;
-  border-radius:999px;
-  background:#101c31;
-  border:1px solid #263653;
-  color:#b9c8dc;
-  font-size:11px;
   font-weight:800;
+  text-transform:uppercase;
 }
 
-.badge.accent{
-  background:#241c51;
-  color:#dcd5ff;
-  border-color:#5547a4;
+.stat-value{
+  margin-top:7px;
+  font-size:25px;
+  font-weight:950;
 }
 
-.badge.green{
-  background:#0d3324;
-  color:#8af0b6;
-  border-color:#196443;
+.stat-sub{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
 }
 
-/* FORM */
+.label{
+  display:block;
+  color:#b8c2d4;
+  font-size:12px;
+  font-weight:800;
+  margin:0 0 7px;
+}
+
+.input,
+textarea,
+select{
+  width:100%;
+  border:1px solid var(--line);
+  outline:none;
+  background:#080e1b;
+  color:#fff;
+  border-radius:10px;
+  padding:11px 12px;
+}
+
+textarea{
+  resize:vertical;
+  min-height:110px;
+}
+
+.input:focus,
+textarea:focus,
+select:focus{
+  border-color:#6253d8;
+}
 
 .field{
   margin-bottom:14px;
 }
 
-.field label{
-  display:block;
-  font-size:11px;
-  font-weight:900;
-  color:#aebbd0;
-  margin-bottom:7px;
-  text-transform:uppercase;
-  letter-spacing:.5px;
-}
-
-input,
-select,
-textarea{
-  width:100%;
-  color:#fff;
-  background:#0a1222;
-  border:1px solid #263653;
-  border-radius:10px;
-  padding:11px 12px;
-  outline:none;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:#6254d9;
-  box-shadow:0 0 0 3px rgba(98,84,217,.12);
-}
-
-textarea{
-  min-height:130px;
-  resize:vertical;
-  line-height:1.5;
-}
-
-.form-actions{
+.row{
   display:flex;
+  align-items:center;
   gap:9px;
   flex-wrap:wrap;
 }
 
-/* SCENES */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid var(--line);
+  background:#0d1627;
+  color:#c5cede;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:10px;
+  font-weight:850;
+}
+
+.badge.purple{
+  color:#c8beff;
+  border-color:#493d9a;
+}
+
+.badge.green{
+  color:#73e5ba;
+  border-color:#205f4d;
+}
+
+.badge.blue{
+  color:#7cc5ff;
+  border-color:#285b86;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.empty{
+  padding:35px 15px;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* ================= DASHBOARD ================= */
+
+.hero{
+  padding:24px;
+  border:1px solid #30275f;
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(124,92,255,.22),transparent 32%),
+    linear-gradient(135deg,#10162c,#0b1120);
+}
+
+.hero h1{
+  margin:0;
+  font-size:32px;
+}
+
+.hero p{
+  color:#aab5c9;
+  line-height:1.6;
+  max-width:760px;
+}
+
+.topic-box{
+  margin-top:17px;
+  padding:16px;
+  border:1px solid #292f4a;
+  border-radius:14px;
+  background:#080e1a;
+}
+
+.topic-text{
+  font-size:19px;
+  font-weight:900;
+  line-height:1.4;
+}
+
+/* ================= SCENES ================= */
 
 .scene{
   border:1px solid var(--line);
-  border-radius:16px;
-  background:#0d1628;
+  border-radius:15px;
+  background:#0c1321;
   overflow:hidden;
-  margin-bottom:14px;
+  margin-bottom:13px;
 }
 
 .scene-head{
-  padding:13px 15px;
-  background:#111c31;
+  padding:12px 14px;
   border-bottom:1px solid var(--line);
   display:flex;
-  align-items:center;
   justify-content:space-between;
   gap:10px;
+  align-items:center;
 }
 
 .scene-number{
   font-weight:950;
 }
 
-.scene-time{
-  color:#8fa2bd;
-  font-size:12px;
-}
-
 .scene-body{
-  padding:15px;
+  padding:14px;
 }
 
-.scene-meta{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-bottom:12px;
-}
-
-.scene-cols{
+.scene-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:14px;
+  gap:12px;
 }
 
-.meta-box{
-  padding:11px;
-  background:#091121;
-  border:1px solid #1e2b44;
+.prompt{
+  background:#070c17;
+  border:1px solid #1d2940;
   border-radius:10px;
-}
-
-.meta-box strong{
-  display:block;
-  font-size:10px;
-  color:#8092ad;
-  text-transform:uppercase;
-  margin-bottom:5px;
-}
-
-.meta-box span{
+  padding:12px;
   font-size:12px;
-  line-height:1.5;
+  line-height:1.65;
+  white-space:pre-wrap;
+  color:#cbd4e4;
 }
 
-.dialogue{
-  background:#101b30;
-  border:1px solid #283a5c;
-  border-radius:11px;
-  padding:13px;
-  margin-top:12px;
-}
-
-.dialogue-title{
+.prompt-title{
+  color:#8d9db7;
   font-size:10px;
-  color:#8ea1bd;
-  text-transform:uppercase;
   font-weight:900;
+  text-transform:uppercase;
   margin-bottom:7px;
 }
 
-.dialogue-text{
-  font-size:15px;
-  line-height:1.55;
+.copy-row{
+  margin-top:8px;
+  display:flex;
+  justify-content:flex-end;
 }
 
-/* PROMPTS */
-
-.prompt-box{
-  position:relative;
-  margin-bottom:14px;
-}
-
-.prompt-box textarea{
-  min-height:220px;
-  padding-right:75px;
-  font-size:12px;
-}
-
-.copy-btn{
-  position:absolute;
-  top:8px;
-  right:8px;
-}
-
-/* CHARACTER */
-
-.character{
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:16px;
-  background:#0d1628;
-}
-
-.character-id{
-  font-size:10px;
-  color:#6f85a5;
-  font-weight:900;
-}
-
-.character-name{
-  font-size:20px;
-  font-weight:950;
-  margin:4px 0 9px;
-}
-
-.character-desc{
-  color:#a8b5c8;
-  font-size:12px;
-  line-height:1.6;
-}
-
-/* EMPTY */
-
-.empty{
-  text-align:center;
-  padding:55px 20px;
-  color:#7f91aa;
-}
-
-/* TABLE */
+/* ================= TABLE ================= */
 
 .table-wrap{
+  width:100%;
   overflow-x:auto;
 }
 
 table{
   width:100%;
+  min-width:650px;
   border-collapse:collapse;
-  min-width:700px;
 }
 
-th,
-td{
-  padding:10px;
-  border-bottom:1px solid #1e2b43;
+th,td{
+  padding:11px;
+  border-bottom:1px solid var(--line);
   text-align:left;
   font-size:12px;
 }
 
 th{
-  color:#8ea0ba;
+  color:#9eabc0;
   font-size:10px;
   text-transform:uppercase;
 }
 
-/* MOBILE */
+/* ================= CHARACTER ================= */
 
-.mobile-menu{
+.character-card{
+  display:flex;
+  gap:13px;
+  align-items:flex-start;
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  min-width:52px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#2c225f,#182a45);
+  display:grid;
+  place-items:center;
+  font-weight:950;
+  font-size:18px;
+}
+
+.character-name{
+  font-size:16px;
+  font-weight:950;
+}
+
+.character-role{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
+}
+
+.character-desc{
+  margin-top:9px;
+  color:#b8c3d5;
+  font-size:12px;
+  line-height:1.6;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:rgba(0,0,0,.72);
   display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
 }
 
-@media(max-width:1000px){
-  .grid4{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .grid3{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
+.modal.show{
+  display:flex;
 }
 
-@media(max-width:760px){
+.modal-box{
+  width:min(700px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#0d1423;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  z-index:1000;
+  background:#121b2d;
+  border:1px solid #344461;
+  color:#fff;
+  padding:11px 16px;
+  border-radius:11px;
+  font-size:12px;
+  font-weight:800;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
   .sidebar{
-    transform:translateX(-100%);
+    transform:translateX(-105%);
     transition:.25s;
+    box-shadow:20px 0 50px rgba(0,0,0,.35);
   }
 
   .sidebar.open{
@@ -564,20 +623,88 @@ th{
   }
 
   .main{
-    width:100%;
     margin-left:0;
+    width:100%;
   }
 
   .mobile-menu{
     display:block;
+    padding:9px 11px;
+    flex-shrink:0;
   }
 
   .topbar{
-    padding:0 12px;
+    padding:10px 12px;
+  }
+
+  .topbar-inner{
+    grid-template-columns:1fr;
+    gap:9px;
+  }
+
+  .top-left{
+    width:100%;
+  }
+
+  .brand{
+    font-size:16px;
+  }
+
+  .top-actions{
+    width:100%;
+    justify-content:flex-start;
+    overflow:visible;
+  }
+
+  .top-actions .btn{
+    flex:1;
+    min-width:0;
+    white-space:nowrap;
   }
 
   .content{
-    padding:14px;
+    padding:15px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .grid2{
+    grid-template-columns:1fr;
+  }
+
+  .scene-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:520px){
+
+  .brand{
+    font-size:15px;
+    line-height:1.25;
+  }
+
+  .page-name{
+    font-size:10px;
+  }
+
+  .content{
+    padding:12px;
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+  }
+
+  .stat{
+    padding:13px;
+  }
+
+  .stat-value{
+    font-size:21px;
   }
 
   .hero{
@@ -585,44 +712,32 @@ th{
   }
 
   .hero h1{
-    font-size:23px;
+    font-size:25px;
   }
 
-  .grid4,
-  .grid3,
-  .grid2,
-  .scene-cols{
-    grid-template-columns:1fr;
+  .topic-text{
+    font-size:16px;
   }
 
-  .top-title{
-    font-size:14px;
+  .top-actions{
+    gap:6px;
   }
 
-  .top-actions .btn:not(.mobile-menu){
-    padding:8px 9px;
+  .top-actions .btn{
+    padding:10px 7px;
     font-size:11px;
   }
 }
 
-/* PRINT */
+@media(max-width:360px){
 
-@media print{
-  .sidebar,
-  .topbar,
-  .form-actions,
-  .copy-btn{
-    display:none!important;
+  .brand{
+    font-size:14px;
   }
 
-  .main{
-    margin:0;
-    width:100%;
-  }
-
-  body{
-    background:#fff;
-    color:#000;
+  .top-actions .btn{
+    font-size:10px;
+    padding:9px 5px;
   }
 }
 </style>
@@ -632,139 +747,205 @@ th{
 
 <div class="app">
 
-  <aside class="sidebar" id="sidebar">
+<!-- ================= SIDEBAR ================= -->
 
-    <div class="brand">
-      <div class="brand-title">AUNG <span>AI STORY</span></div>
-      <div class="brand-sub">VIDEO PRO • INTERNATIONAL</div>
+<aside class="sidebar" id="sidebar">
+
+  <div class="logo">
+    <div class="logo-main">AUNG AI STORY VIDEO PRO</div>
+    <div class="logo-sub">International AI Video Studio V4.1</div>
+  </div>
+
+  <nav class="nav">
+
+    <button class="active" data-page="dashboard">
+      🏠 Dashboard
+    </button>
+
+    <button data-page="story">
+      ✍️ Story Generator
+    </button>
+
+    <button data-page="characters">
+      👨‍👩‍👧 Characters
+    </button>
+
+    <button data-page="locations">
+      🌎 Locations
+    </button>
+
+    <button data-page="scenes">
+      🎬 Scenes
+    </button>
+
+    <button data-page="images">
+      🖼️ Image Prompts
+    </button>
+
+    <button data-page="videos">
+      🎥 Google Flow / Veo
+    </button>
+
+    <button data-page="subtitles">
+      💬 Subtitles / SRT
+    </button>
+
+    <button data-page="youtube">
+      ▶️ YouTube Pack
+    </button>
+
+    <button data-page="backup">
+      💾 Backup
+    </button>
+
+  </nav>
+
+  <div class="side-bottom">
+    <div class="side-small">
+      <b>STYLE LOCK</b><br>
+      3D Rendered Animated Illustration<br>
+      Pixar-inspired family-film quality<br><br>
+
+      <b>CHARACTER LOCK</b><br>
+      Master Character DNA embedded in every scene
     </div>
+  </div>
 
-    <div class="nav">
+</aside>
 
-      <button data-page="dashboard" class="active">
-        🏠 Dashboard
-      </button>
+<!-- ================= MAIN ================= -->
 
-      <button data-page="story">
-        ✨ Story Generator
-      </button>
+<main class="main">
 
-      <button data-page="characters">
-        👥 Characters
-      </button>
+  <!-- TOPBAR -->
+  <header class="topbar">
 
-      <button data-page="locations">
-        🌎 Locations
-      </button>
+    <div class="topbar-inner">
 
-      <button data-page="scenes">
-        🎬 Scene Planner
-      </button>
+      <div class="top-left">
 
-      <button data-page="images">
-        🖼 Image Prompts
-      </button>
+        <button
+          class="btn mobile-menu"
+          onclick="toggleSidebar()"
+          aria-label="Menu"
+        >☰</button>
 
-      <button data-page="videos">
-        🎥 Video Prompts
-      </button>
+        <div class="brand-block">
 
-      <button data-page="subtitles">
-        💬 Subtitles / SRT
-      </button>
+          <!-- IMPORTANT: NEVER HIDDEN -->
+          <div class="brand">
+            AUNG AI STORY VIDEO PRO
+          </div>
 
-      <button data-page="youtube">
-        ▶ YouTube Pack
-      </button>
+          <div class="page-name" id="pageName">
+            Dashboard
+          </div>
 
-      <button data-page="backup">
-        💾 Backup
-      </button>
-
-    </div>
-
-    <div class="side-status">
-      <div class="status-title">Project Status</div>
-      <div class="status-value" id="sideSceneCount">0 Scenes</div>
-      <div class="status-small" id="sideDuration">100 sec target</div>
-    </div>
-
-  </aside>
-
-  <main class="main">
-
-    <header class="topbar">
-
-      <div style="display:flex;align-items:center;gap:10px">
-        <button class="btn mobile-menu" onclick="toggleSidebar()">☰</button>
-        <div class="top-title" id="topTitle">
-          AUNG AI STORY VIDEO PRO
         </div>
+
       </div>
 
+      <!-- IMPORTANT: ALWAYS VISIBLE -->
       <div class="top-actions">
-        <button class="btn small" onclick="randomStory()">🎲 Random Story</button>
-        <button class="btn small primary" onclick="generateStory()">⚡ Generate</button>
+
+        <button
+          class="btn small"
+          onclick="randomStory()"
+        >
+          🎲 Random Story
+        </button>
+
+        <button
+          class="btn small primary"
+          onclick="generateStory()"
+        >
+          ⚡ Generate
+        </button>
+
       </div>
 
-    </header>
+    </div>
 
-    <section class="content" id="appContent"></section>
+  </header>
 
-  </main>
+  <section class="content" id="appContent"></section>
+
+</main>
 
 </div>
 
+<div class="toast" id="toast"></div>
+
+<!-- ================= JAVASCRIPT ================= -->
+
 <script>
+
 "use strict";
 
 /* =========================================================
-   APP CONFIG
+   APP STATE
 ========================================================= */
 
-const APP_KEY = "aung_ai_story_video_pro_v4";
+const APP_KEY = "aung_ai_story_video_pro_v4_1";
 
 const STYLE_LOCK = `
-3D rendered animated illustration, premium cinematic family-animation quality,
-Pixar-inspired visual language, polished international animated movie look,
-soft realistic global illumination, detailed expressive faces, clean stylized
-3D materials, beautiful cinematic lighting, natural proportions, appealing
-family-friendly character design, high-end animated film rendering,
-consistent character identity, consistent facial proportions, consistent age,
-consistent hairstyle, consistent clothing, consistent body proportions,
-NOT photorealistic, NOT live action, NOT realistic human photography,
-NOT anime, NOT 2D cartoon, NOT low-poly, NOT claymation
+MANDATORY VISUAL STYLE:
+3D rendered animated illustration,
+high-end family animated feature quality,
+Pixar-inspired visual language,
+cinematic composition,
+soft realistic global illumination,
+beautiful polished materials,
+expressive but natural faces,
+stylized realistic human proportions,
+consistent character proportions,
+consistent clothing,
+consistent hairstyle,
+consistent skin tone,
+consistent facial structure,
+cinematic depth of field,
+warm professional lighting,
+clean family-friendly international animation,
+NO live action,
+NO photorealistic human,
+NO anime,
+NO 2D cartoon,
+NO clay style,
+NO low-poly,
+NO random art style,
+NO style switching.
 `;
 
 const CHARACTER_RULE = `
 CHARACTER CONSISTENCY LOCK:
-Use the exact character identity specifications from the MASTER CHARACTER
-DNA below. Do not redesign, reinterpret, age, de-age, replace, restyle,
-re-face, recolor, or regenerate the characters as different people.
-The same character must have the same face shape, eyes, nose, mouth,
-hair, hairstyle, age, skin tone, body proportions, clothing and accessories
-in every scene.
-`;
-
-const SUBTITLE_RULE = `
-SUBTITLE LOCK:
-If a character speaks, display only the exact spoken English sentence as
-a clean cinematic subtitle at the bottom center of the frame.
-NEVER display speaker names.
-NEVER display labels such as Emma:, David:, Sarah:, Leo:, C1:, C2:, C3:, C4:.
-NEVER display dialogue labels.
-Subtitles must be natural English and easy to read.
+Use the exact MASTER CHARACTER DNA supplied below.
+Do not redesign faces.
+Do not change age.
+Do not change hairstyle.
+Do not change skin tone.
+Do not change clothing.
+Do not change body proportions.
+Do not change eye color.
+Do not change character identity.
+The same character must look like the same person in every scene.
+Treat character IDs as immutable.
 `;
 
 const TEXT_RULE = `
-NO TEXT inside generated environment or artwork.
-No signs, captions, logos, watermarks, posters, labels, UI text or random letters.
-The only allowed text is the spoken English subtitle.
+IMAGE RULE:
+Do not place any text, captions, labels, names, logos,
+watermarks or written words inside generated images.
 `;
 
-/* =========================================================
-   CHARACTERS
-========================================================= */
+const SUBTITLE_RULE = `
+SUBTITLE RULE:
+Spoken dialogue must appear as clean English subtitles.
+Do NOT display speaker names.
+Never show "Emma:", "David:", "Sarah:", "Leo:"
+or any speaker label on screen.
+Only display the actual spoken sentence.
+Use clean white English subtitles with subtle dark outline.
+`;
 
 const characters = [
 
@@ -774,9 +955,7 @@ const characters = [
  role:"Father",
  voice:"Warm mature male English voice",
  description:
- "42-year-old adult male, friendly oval face, stable facial proportions, medium nose, dark brown eyes, clean-shaven, short neat black hair with a few natural gray strands, warm medium-light natural skin tone, average adult male proportions. Always wears a light blue shirt, navy trousers, white sneakers and silver wristwatch. Carries a black travel bag. Calm, friendly, patient father.",
- dna:
- "C1 DAVID — 42-year-old father, friendly oval face, dark brown eyes, medium nose, clean-shaven, short neat black hair with subtle gray strands, warm medium-light skin tone, average adult male proportions, light blue shirt, navy trousers, white sneakers, silver wristwatch, black travel bag."
+ "42-year-old adult male, friendly oval face, stable facial proportions, medium nose, dark brown eyes, clean-shaven, short neat black hair with a few natural gray strands, warm medium-light natural skin tone, average adult male proportions, light blue shirt, navy trousers, white sneakers, silver wristwatch, black travel bag, calm friendly patient personality."
 },
 
 {
@@ -785,416 +964,347 @@ const characters = [
  role:"Mother",
  voice:"Warm mature female English voice",
  description:
- "39-year-old adult female, kind oval face, stable facial proportions, dark brown eyes, shoulder-length dark brown hair, warm natural skin tone, average adult female proportions. Always wears a pink cardigan, white blouse, beige trousers and white sneakers. Carries a beige handbag. Kind, organized, caring mother.",
- dna:
- "C2 SARAH — 39-year-old mother, kind oval face, dark brown eyes, shoulder-length dark brown hair, warm natural skin tone, average adult female proportions, pink cardigan, white blouse, beige trousers, white sneakers, beige handbag."
+ "39-year-old adult female, kind oval face, stable facial proportions, dark brown eyes, shoulder-length dark brown hair, warm natural skin tone, average adult female proportions, pink cardigan, white blouse, beige trousers, white sneakers, beige handbag, kind organized caring personality."
 },
 
 {
  id:"C3",
  name:"Emma",
- role:"Daughter",
+ role:"Girl",
  voice:"Young cheerful English girl voice",
  description:
- "12-year-old girl, cheerful youthful face, stable facial proportions, dark brown eyes, long dark brown ponytail, natural warm skin tone, consistent 12-year-old child proportions. Always wears a yellow hoodie, blue jeans and white sneakers. Carries a pink backpack. Curious, cheerful and energetic.",
- dna:
- "C3 EMMA — 12-year-old girl, cheerful youthful face, dark brown eyes, long dark brown ponytail, natural warm skin tone, consistent child proportions, yellow hoodie, blue jeans, white sneakers, pink backpack."
+ "12-year-old girl, cheerful youthful face, stable facial proportions, dark brown eyes, long dark brown ponytail, natural warm skin tone, consistent 12-year-old child proportions, yellow hoodie, blue jeans, white sneakers, pink backpack, curious cheerful energetic personality."
 },
 
 {
  id:"C4",
  name:"Leo",
- role:"Son",
+ role:"Boy",
  voice:"Young cheerful English boy voice",
  description:
- "9-year-old boy, cheerful child face, stable facial proportions, dark brown eyes, short slightly messy black hair, natural warm skin tone, consistent 9-year-old child proportions. Always wears a green T-shirt, blue shorts and white sneakers. Carries a blue backpack. Playful, curious and energetic.",
- dna:
- "C4 LEO — 9-year-old boy, cheerful child face, dark brown eyes, short slightly messy black hair, natural warm skin tone, consistent child proportions, green T-shirt, blue shorts, white sneakers, blue backpack."
+ "9-year-old boy, cheerful child face, stable facial proportions, dark brown eyes, short slightly messy black hair, natural warm skin tone, consistent 9-year-old child proportions, green T-shirt, blue shorts, white sneakers, blue backpack, playful curious energetic personality."
 }
 
 ];
-
-/* =========================================================
-   LOCATIONS
-========================================================= */
 
 const locations = [
 
-{
- id:"L1",
- name:"Modern Family Home",
- description:"Bright modern international family home, warm morning light, clean living room, kitchen and hallway."
-},
-
-{
- id:"L2",
- name:"Family Car",
- description:"Modern clean family car interior, comfortable seats, realistic road environment, cinematic daylight."
-},
-
-{
- id:"L3",
- name:"Modern International Airport",
- description:"Large modern international airport terminal with glass architecture, bright daylight, clean premium environment."
-},
-
-{
- id:"L4",
- name:"Airport Security Area",
- description:"Modern airport security checkpoint with clean organized lanes, security trays and passengers."
-},
-
-{
- id:"L5",
- name:"Airport Gate",
- description:"Modern international airport boarding gate, large windows, airplanes visible outside, comfortable seating."
-},
-
-{
- id:"L6",
- name:"Modern City Street",
- description:"Clean international city street with shops, pedestrians, cars and cinematic daylight."
-},
-
-{
- id:"L7",
- name:"Coffee Shop",
- description:"Warm modern international coffee shop with cozy tables, large windows and natural daylight."
-},
-
-{
- id:"L8",
- name:"Office",
- description:"Modern international office with desks, laptops, glass walls and professional atmosphere."
-},
-
-{
- id:"L9",
- name:"Train Station",
- description:"Modern international train station with platforms, digital architecture without readable text."
-},
-
-{
- id:"L10",
- name:"Hotel",
- description:"Modern comfortable international hotel lobby and room environment."
-},
-
-{
- id:"L11",
- name:"Restaurant",
- description:"Modern family-friendly international restaurant with warm lighting and elegant interior."
-},
-
-{
- id:"L12",
- name:"City Park",
- description:"Beautiful clean urban park with trees, walking paths and families enjoying the day."
-}
-
+["L1","Modern Family Home"],
+["L2","Family Car"],
+["L3","Modern International Airport"],
+["L4","Airport Security Area"],
+["L5","Airport Gate"],
+["L6","Modern City Street"],
+["L7","Coffee Shop"],
+["L8","Modern Office"],
+["L9","Train Station"],
+["L10","Modern Hotel"],
+["L11","Family Restaurant"],
+["L12","City Park"],
+["L13","Shopping Mall"],
+["L14","Supermarket"],
+["L15","Beach"],
+["L16","Museum"],
+["L17","University Campus"],
+["L18","Business District"],
+["L19","Bookstore"],
+["L20","Rooftop Garden"]
 ];
 
 /* =========================================================
-   200+ STORY TOPICS
+   250+ INTERNATIONAL TOPICS
 ========================================================= */
 
-const storyTopics = [
+const baseTopics = [
 
-/* DAILY LIFE 1-30 */
-
-["daily","The Morning We Almost Missed the Bus"],
-["daily","A Strange Message on My Phone"],
-["daily","The Lost Wallet"],
-["daily","The Wrong Train"],
-["daily","A Very Busy Monday"],
-["daily","My First Day at a New Job"],
-["daily","The Coffee Shop Surprise"],
-["daily","The Package at the Door"],
-["daily","A Neighbor I Never Met"],
-["daily","The Elevator Stopped"],
-["daily","The Morning Everything Went Wrong"],
-["daily","I Forgot My House Key"],
-["daily","The New Apartment"],
-["daily","The Rainy Morning"],
-["daily","A Surprise at Breakfast"],
-["daily","The Missing Phone"],
-["daily","The Unexpected Visitor"],
-["daily","The Day I Woke Up Early"],
-["daily","A Simple Trip to the Store"],
-["daily","The Grocery Store Surprise"],
-["daily","The Broken Umbrella"],
-["daily","A Seat on the Bus"],
-["daily","The New Neighbor"],
-["daily","The Strange Sound Upstairs"],
-["daily","The Day Without Internet"],
-["daily","A Very Long Morning"],
-["daily","The Forgotten Lunch"],
-["daily","The Doorbell at Midnight"],
-["daily","The Package I Did Not Order"],
-["daily","A Perfect Sunday Morning"],
-
-/* TRAVEL 31-60 */
-
-["travel","We Almost Missed Our Flight"],
-["travel","The Airport Mystery"],
-["travel","A Weekend in New York"],
-["travel","Lost in London"],
-["travel","Our First Day in Tokyo"],
-["travel","The Hotel Room Mix-Up"],
-["travel","The Missing Passport"],
-["travel","A Train Ride We Will Never Forget"],
-["travel","The Unexpected Road Trip"],
-["travel","A Strange Place on the Map"],
-["travel","Our First Family Vacation"],
-["travel","The Wrong Airport"],
-["travel","The Last Train Home"],
-["travel","A Surprise Upgrade"],
-["travel","The Suitcase Problem"],
-["travel","The Traveler Next to Me"],
-["travel","A Rainy Day in Paris"],
-["travel","The Secret Café"],
-["travel","The Bus to the Wrong City"],
-["travel","The Lost Tourist"],
-["travel","The Hotel Key"],
-["travel","The Airport Announcement"],
-["travel","The Longest Flight"],
-["travel","The Road Trip Challenge"],
-["travel","The Train Station Surprise"],
-["travel","Our First Trip Abroad"],
-["travel","A Weekend Without a Plan"],
-["travel","The Map Was Wrong"],
-["travel","The Taxi Driver's Advice"],
-["travel","The Beach We Almost Missed"],
-
-/* FAMILY 61-90 */
-
-["family","Dad Has a Secret"],
-["family","Mom's Birthday Surprise"],
-["family","The Letter from Grandma"],
-["family","The Family Photo"],
-["family","My Sister's Big Dream"],
-["family","The Day Dad Came Home Early"],
-["family","A Gift Nobody Expected"],
-["family","The Family That Moved Away"],
-["family","One Last Dinner Together"],
-["family","The Little Boy Who Wanted to Help"],
-["family","The Family Picnic"],
-["family","The Missing Family Photo"],
-["family","A Surprise Birthday Party"],
-["family","The Weekend with Grandma"],
-["family","The Family Recipe"],
-["family","Dad's Old Box"],
-["family","Mom's Childhood Story"],
-["family","The Family Tradition"],
-["family","The New Baby"],
-["family","The Day We All Got Lost"],
-["family","The Family Game Night"],
-["family","A Letter from the Past"],
-["family","The Old Family House"],
-["family","The Secret Birthday Plan"],
-["family","The Family Road Trip"],
-["family","The Day We Said Goodbye"],
-["family","A Small Family Surprise"],
-["family","The Dinner Nobody Expected"],
-["family","The Photograph in the Drawer"],
-["family","The Promise We Made"],
-
-/* FRIENDSHIP 91-115 */
-
-["friendship","My New Best Friend"],
-["friendship","The Friend I Lost"],
-["friendship","We Met by Accident"],
-["friendship","A Friend's Secret"],
-["friendship","The Birthday Nobody Remembered"],
-["friendship","The Stranger Who Helped Me"],
-["friendship","One Small Act of Kindness"],
-["friendship","My Friend Needed Help"],
-["friendship","The Day We Finally Talked"],
-["friendship","A Friendship That Started on a Bus"],
-["friendship","The Friend Who Moved Away"],
-["friendship","Our First Day Together"],
-["friendship","The Lost Backpack"],
-["friendship","A Friend's Big Surprise"],
-["friendship","The Invitation"],
-["friendship","The Day We Became Friends"],
-["friendship","A Message from an Old Friend"],
-["friendship","The Friend Who Never Gave Up"],
-["friendship","The Unexpected Phone Call"],
-["friendship","The Smallest Gift"],
-["friendship","The Friend at the Coffee Shop"],
-["friendship","The Weekend Adventure"],
-["friendship","The Secret Plan"],
-["friendship","The Apology"],
-["friendship","A Friendship Across Countries"],
-
-/* WORK 116-145 */
-
-["work","My First Day at Work"],
-["work","The Boss Asked One Question"],
-["work","The Customer Who Changed Everything"],
-["work","A Very Difficult Meeting"],
-["work","The Interview"],
-["work","I Made a Big Mistake at Work"],
-["work","The New Employee"],
-["work","The Promotion Nobody Expected"],
-["work","My First Business Trip"],
-["work","The Office Mystery"],
-["work","The Customer Was Waiting"],
-["work","The Presentation"],
-["work","The Missing Report"],
-["work","The Last Meeting of the Day"],
-["work","The New Project"],
-["work","The Difficult Customer"],
-["work","The Team Challenge"],
-["work","The Unexpected Promotion"],
-["work","My First Presentation"],
-["work","The Meeting Nobody Expected"],
-["work","The Office Birthday"],
-["work","The New Manager"],
-["work","The Email That Changed My Day"],
-["work","The Business Trip"],
-["work","The Deadline"],
-["work","The New Colleague"],
-["work","The Customer Complaint"],
-["work","The First Sale"],
-["work","The Office Surprise"],
-["work","The Day I Learned Something New"],
-
-/* MONEY BUSINESS 146-170 */
-
-["business","I Spent All My Money"],
-["business","My First $100"],
-["business","The Small Business Idea"],
-["business","The Customer Who Said No"],
-["business","I Lost My Job"],
-["business","Starting Over at 40"],
-["business","The $10 Mistake"],
-["business","The Shop That Almost Closed"],
-["business","How One Small Idea Changed Everything"],
-["business","The Day I Learned to Save Money"],
-["business","My First Customer"],
-["business","The Small Shop"],
-["business","The Unexpected Business Opportunity"],
-["business","The Product Nobody Wanted"],
-["business","The Customer Who Came Back"],
-["business","The First Big Order"],
-["business","The Business Lesson"],
-["business","The Price Was Wrong"],
-["business","The Day Sales Changed"],
-["business","The Shop Next Door"],
-["business","The Small Investment"],
-["business","The New Business Partner"],
-["business","The Customer's Simple Question"],
-["business","The Business Mistake"],
-["business","The First $1,000"],
-["business","The Idea on a Napkin"],
-
-/* MYSTERY 171-200 */
-
-["mystery","Someone Left a Note at My Door"],
-["mystery","Who Sent This Package?"],
-["mystery","The Phone That Wasn't Mine"],
-["mystery","The Room Nobody Used"],
-["mystery","A Message from Ten Years Ago"],
-["mystery","Someone Was Following Us"],
-["mystery","The Missing Key"],
-["mystery","The Door Was Already Open"],
-["mystery","The Stranger at the Café"],
-["mystery","I Found Something Under the Table"],
-["mystery","The Light in the Empty House"],
-["mystery","The Unknown Number"],
-["mystery","The Photograph with No Name"],
-["mystery","The Bag on the Train"],
-["mystery","The Note in My Pocket"],
-["mystery","The Strange Voice Message"],
-["mystery","The Locked Room"],
-["mystery","The Key Under the Flowerpot"],
-["mystery","The Empty Seat"],
-["mystery","The Person in the Window"],
-["mystery","The Old Watch"],
-["mystery","The Secret Door"],
-["mystery","The Missing Book"],
-["mystery","The Package at the Station"],
-["mystery","The Message at 3 AM"],
-["mystery","The Stranger Who Knew My Name"],
-["mystery","The House at the End of the Street"],
-["mystery","The Forgotten Photograph"],
-["mystery","The Secret in the Drawer"],
-["mystery","The Last Message"],
-
-/* FUN 201-225 */
-
-["fun","My Dog Stole My Homework"],
-["fun","The Worst Date Ever"],
-["fun","I Ordered the Wrong Food"],
-["fun","My Phone Fell Into the Water"],
-["fun","The Cat at the Airport"],
-["fun","I Got on the Wrong Bus"],
-["fun","My Neighbor's Crazy Morning"],
-["fun","The Coffee Disaster"],
-["fun","I Forgot My Own Birthday"],
-["fun","The Day Everything Went Wrong"],
-["fun","My Dog Went Shopping"],
-["fun","The Wrong Birthday Cake"],
-["fun","I Sent the Message to the Wrong Person"],
-["fun","The Restaurant Disaster"],
-["fun","My Umbrella Broke"],
-["fun","The Elevator Surprise"],
-["fun","The Taxi Ride"],
-["fun","The Missing Sandwich"],
-["fun","The Wrong Hotel Room"],
-["fun","The Day My Alarm Failed"],
-["fun","My Backpack Disappeared"],
-["fun","The Crazy Grocery Trip"],
-["fun","The Coffee Was Too Hot"],
-["fun","The Bus Driver's Joke"],
-["fun","The Funniest Family Trip"],
-
-/* LIFE LESSONS 226-250 */
-
-["life","The Day I Stopped Complaining"],
-["life","One Small Decision"],
-["life","The Lesson I Never Forgot"],
-["life","A Second Chance"],
-["life","The Day I Started Again"],
-["life","The Person Who Believed in Me"],
-["life","A Mistake That Changed My Life"],
-["life","The Power of Saying Thank You"],
-["life","The Day I Helped a Stranger"],
-["life","The Little Thing That Made Me Happy"],
-["life","The Day I Learned Patience"],
-["life","A Lesson from My Father"],
-["life","The Kindness I Remember"],
-["life","The Day I Finally Tried"],
-["life","A New Beginning"],
-["life","The Choice I Had to Make"],
-["life","The Day I Forgave Someone"],
-["life","The Value of Time"],
-["life","The Lesson from a Child"],
-["life","The Unexpected Second Chance"],
-["life","The Day I Became More Confident"],
-["life","A Small Act with a Big Meaning"],
-["life","The Day I Learned to Listen"],
-["life","The One Thing I Changed"],
-["life","The Lesson from a Stranger"]
-
+"First Day in a New City",
+"Missing the Train",
+"A Surprise Birthday",
+"Finding a Lost Wallet",
+"Ordering Coffee in English",
+"At the Airport for the First Time",
+"A Family Weekend Trip",
+"Meeting a New Neighbor",
+"A Job Interview in English",
+"Starting a New Job",
+"First Day at the Office",
+"An Unexpected Phone Call",
+"A Strange Package at the Door",
+"Helping a Tourist",
+"Getting Lost in the City",
+"A Rainy Day Adventure",
+"Planning a Family Vacation",
+"A Last-Minute Flight",
+"Making a New Friend",
+"A Dinner With New Friends",
+"Buying a New Phone",
+"Returning a Wrong Order",
+"Learning to Cook",
+"Shopping for a Gift",
+"A Busy Monday Morning",
+"A Very Important Meeting",
+"A Missed Appointment",
+"Finding the Right Bus",
+"An Unexpected Invitation",
+"Meeting Someone From Another Country",
+"Preparing for a Presentation",
+"Speaking English at Work",
+"Solving a Customer Problem",
+"A Difficult Customer",
+"A Successful Sales Meeting",
+"Opening a Small Business",
+"Making the First Sale",
+"A Big Business Idea",
+"A Teamwork Challenge",
+"Working Under Pressure",
+"An Office Surprise",
+"A New Employee's First Day",
+"Helping a Coworker",
+"A Deadline Problem",
+"A Meeting That Goes Wrong",
+"Finding a Better Solution",
+"A Customer Changes Their Mind",
+"A Product Launch",
+"A Busy Sales Day",
+"A New Business Opportunity",
+"A Friendly Competition",
+"Winning a Team Challenge",
+"Learning From a Mistake",
+"A Small Act of Kindness",
+"Helping an Elderly Neighbor",
+"Helping a Child Find Their Family",
+"Sharing Food With a Stranger",
+"Returning Something Valuable",
+"A Lost Child at the Mall",
+"An Honest Customer",
+"An Unexpected Thank You",
+"A Kind Taxi Driver",
+"Helping Someone at the Airport",
+"A Family Secret",
+"A Surprise Visitor",
+"A Mysterious Note",
+"A Locked Room",
+"A Missing Backpack",
+"A Strange Sound at Night",
+"A Mysterious Hotel Room",
+"A Secret in the Old Book",
+"A Forgotten Photograph",
+"A Message From the Past",
+"An Unexpected Discovery",
+"A Strange Key",
+"A Hidden Gift",
+"A Mystery at the Train Station",
+"A Suspicious Package",
+"A Door Nobody Uses",
+"The Missing Ticket",
+"A Secret Garden",
+"A Map With No Destination",
+"A Very Strange Elevator",
+"A Phone With No Owner",
+"A Lost Passport",
+"A Weekend in London",
+"A Weekend in New York",
+"A Weekend in Tokyo",
+"A Weekend in Singapore",
+"A Weekend in Paris",
+"A Weekend in Dubai",
+"A Weekend in Sydney",
+"A Weekend in Seoul",
+"A Weekend in Toronto",
+"A Weekend in Bangkok",
+"A First Trip Abroad",
+"Learning Airport English",
+"Checking Into a Hotel",
+"Ordering Food Abroad",
+"Taking a Taxi Abroad",
+"Buying a Train Ticket",
+"Finding a Tourist Attraction",
+"Talking to Hotel Staff",
+"Visiting a Museum",
+"Exploring a New Neighborhood",
+"A Beach Holiday",
+"A Mountain Trip",
+"A City Food Tour",
+"A Family Road Trip",
+"An International Business Trip",
+"Meeting a Client Abroad",
+"Learning From Failure",
+"Building Confidence",
+"Overcoming Fear",
+"Trying Something New",
+"Being Patient",
+"Keeping a Promise",
+"Learning to Listen",
+"Learning to Say No",
+"Taking Responsibility",
+"Helping Your Family",
+"Managing Time",
+"Building Good Habits",
+"Saving Money",
+"Making a Daily Plan",
+"Staying Positive",
+"Handling Stress",
+"Solving Problems Calmly",
+"Learning From Others",
+"Becoming More Confident",
+"Speaking Clearly",
+"Practicing English Every Day",
+"Learning Ten New Words",
+"Having Your First English Conversation",
+"Understanding a Fast Speaker",
+"Speaking English at a Restaurant",
+"Speaking English at a Hotel",
+"Speaking English at Work",
+"Speaking English on the Phone",
+"Making Small Talk",
+"Talking About Your Weekend",
+"Talking About Your Family",
+"Talking About Your Job",
+"Talking About Your Hobbies",
+"Talking About Travel",
+"Talking About Food",
+"Talking About Shopping",
+"Talking About Weather",
+"Talking About Plans",
+"Talking About Dreams",
+"Talking About Money",
+"Talking About Business",
+"Talking About Technology",
+"Talking About School",
+"Talking About Friends",
+"Talking About Goals",
+"Talking About Success",
+"Talking About Mistakes",
+"Talking About Future Plans",
+"Buying Groceries",
+"Cooking Dinner Together",
+"Cleaning the House",
+"Getting Ready for School",
+"Getting Ready for Work",
+"A Family Breakfast",
+"A Family Dinner",
+"Planning a Birthday Party",
+"Choosing a Restaurant",
+"Going to the Supermarket",
+"Going to the Park",
+"Going to the Cinema",
+"Visiting a Friend",
+"Calling Grandma",
+"Helping With Homework",
+"Preparing for a Trip",
+"Packing a Suitcase",
+"Cleaning the Car",
+"Fixing Something at Home",
+"Planting a Garden",
+"Walking the Dog",
+"Learning to Ride a Bike",
+"A New School",
+"A New Teacher",
+"A School Presentation",
+"A School Competition",
+"Making a Class Project",
+"Helping a Classmate",
+"Preparing for an Exam",
+"A Surprise School Event",
+"Making a New School Friend",
+"A School Trip",
+"First Day at University",
+"Finding a Campus Building",
+"Meeting a Professor",
+"Joining a Club",
+"A University Presentation",
+"Finding a Part-Time Job",
+"Balancing Work and Study",
+"A Campus Mystery",
+"A New Roommate",
+"Graduation Day",
+"Starting a Small Online Business",
+"Creating a Business Plan",
+"Finding Your First Customer",
+"Building a Brand",
+"Choosing a Product",
+"Setting a Sales Target",
+"Training a New Salesperson",
+"Solving a Sales Problem",
+"Understanding Customer Needs",
+"Improving Customer Service",
+"Handling a Complaint",
+"Negotiating a Deal",
+"Closing a Sale",
+"Preparing a Business Presentation",
+"Managing a Team",
+"Leading a Meeting",
+"Setting Team Goals",
+"Learning From a Competitor",
+"Launching a New Product",
+"Growing a Small Business",
+"Making a Business Mistake",
+"Recovering From a Bad Day",
+"A Big Customer Meeting",
+"An Important Business Call",
+"A Difficult Negotiation",
+"An Unexpected Business Opportunity",
+"Using AI at Work",
+"Learning a New Technology",
+"Using a New App",
+"Fixing a Phone Problem",
+"Buying a Laptop",
+"Learning Online",
+"Making a Video",
+"Starting a YouTube Channel",
+"Creating Your First Video",
+"Making a Thumbnail",
+"Learning Video Editing",
+"Using AI for Creativity",
+"Making an Online Presentation",
+"Working From Home",
+"Digital Nomad Adventure",
+"Technology Goes Wrong",
+"A Forgotten Password",
+"A Phone Battery Emergency",
+"A Broken Laptop",
+"Finding Free Wi-Fi",
+"An Online Meeting Problem",
+"Learning a New Skill",
+"Teaching Someone English",
+"Helping a Friend Practice English",
+"English at a Coffee Shop",
+"English at the Airport",
+"English at a Restaurant",
+"English at a Hotel",
+"English at a Store",
+"English at the Office",
+"English on a Business Trip",
+"English With a Tourist",
+"English With a New Friend",
+"English for Customer Service",
+"English for Sales",
+"English for Travel",
+"English for Daily Life"
 ];
 
+/* Ensure >250 */
+const storyTopics = [...new Set(baseTopics)];
+
 /* =========================================================
-   STORY DATA
+   STATE
 ========================================================= */
 
 let state = {
-  version:"4.0",
-  storyTitle:"A Family Trip to the Airport",
-  topic:"A family going to the airport",
-  category:"travel",
-  level:"A1 Beginner",
+  version:"4.1",
+  page:"dashboard",
+  topic:"",
+  title:"",
+  genre:"Daily Life",
   duration:10,
   scenesCount:10,
-  idea:"",
-  scenes:[]
+  characters:["C1","C2","C3"],
+  scenes:[],
+  generated:false,
+  createdAt:new Date().toISOString()
 };
+
+loadState();
 
 /* =========================================================
    HELPERS
@@ -1204,631 +1314,630 @@ function $(id){
   return document.getElementById(id);
 }
 
-function escapeHTML(str){
-  return String(str ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-function formatTime(seconds){
-  seconds = Number(seconds) || 0;
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
-}
-
-function srtTime(seconds){
-  seconds = Number(seconds) || 0;
-
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = Math.floor(seconds % 60);
-  const ms = Math.round((seconds % 1) * 1000);
-
-  return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")},${String(ms).padStart(3,"0")}`;
-}
-
-function randomItem(arr){
-  return arr[Math.floor(Math.random()*arr.length)];
-}
-
-function cleanSubtitle(text){
-  return String(text || "")
-    .replace(/^(Emma|David|Sarah|Leo|C1|C2|C3|C4)\s*:\s*/i,"")
-    .replace(/^(Emma|David|Sarah|Leo|C1|C2|C3|C4)\s*-\s*/i,"")
-    .trim();
-}
-
-function getChar(id){
-  return characters.find(x=>x.id===id) || characters[0];
-}
-
-function getLocation(id){
-  return locations.find(x=>x.id===id) || locations[0];
+function esc(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
 function saveState(){
   localStorage.setItem(APP_KEY,JSON.stringify(state));
-  updateStatus();
 }
 
 function loadState(){
 
   try{
 
-    const raw = localStorage.getItem(APP_KEY);
+    const raw=localStorage.getItem(APP_KEY);
 
-    if(!raw){
-      saveState();
-      return;
+    if(raw){
+      const saved=JSON.parse(raw);
+      state={...state,...saved};
     }
 
-    const saved = JSON.parse(raw);
+  }catch(e){
+    console.warn("State load error",e);
+  }
 
-    state = {
-      ...state,
-      ...saved
-    };
+  if(!state.topic){
+    state.topic="First Day in a New City";
+  }
 
-    /*
-      VERSION MIGRATION:
-      Old V3 projects used 8 seconds as the default.
-      Upgrade old default projects to 10 seconds.
-      New user-selected values are preserved.
-    */
+  if(!state.duration){
+    state.duration=10;
+  }
 
-    if(saved.version !== "4.0"){
-      if(Number(saved.duration) === 8 || !saved.duration){
-        state.duration = 10;
-      }
-
-      state.version = "4.0";
-      saveState();
-    }
-
-    if(!Array.isArray(state.scenes)){
-      state.scenes = [];
-    }
-
-  }catch(err){
-
-    console.warn("State load error",err);
-
-    state = {
-      version:"4.0",
-      storyTitle:"A Family Trip to the Airport",
-      topic:"A family going to the airport",
-      category:"travel",
-      level:"A1 Beginner",
-      duration:10,
-      scenesCount:10,
-      idea:"",
-      scenes:[]
-    };
+  if(!state.scenesCount){
+    state.scenesCount=10;
   }
 }
 
-function updateStatus(){
+function toast(message){
 
-  const count = state.scenes.length;
+  const el=$("toast");
 
-  if($("sideSceneCount")){
-    $("sideSceneCount").textContent = `${count} Scenes`;
-  }
+  el.textContent=message;
+  el.classList.add("show");
 
-  if($("sideDuration")){
-    $("sideDuration").textContent =
-      `${count ? count * Number(state.duration || 10) : 100} sec target`;
-  }
+  clearTimeout(window.__toast);
+
+  window.__toast=setTimeout(()=>{
+    el.classList.remove("show");
+  },2200);
 }
 
-/* =========================================================
-   MASTER CHARACTER BIBLE
-========================================================= */
+function copyText(text){
 
-function characterBible(){
+  navigator.clipboard.writeText(text)
+    .then(()=>toast("Copied to clipboard"))
+    .catch(()=>{
+      const ta=document.createElement("textarea");
+      ta.value=text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      toast("Copied");
+    });
+}
 
-  return `
-MASTER CHARACTER BIBLE — PERMANENT IDENTITY LOCK
+function getCharacter(id){
+  return characters.find(x=>x.id===id) || characters[0];
+}
 
-GLOBAL VISUAL STYLE:
-${STYLE_LOCK}
+function getLocation(id){
+  return locations.find(x=>x[0]===id)?.[1] || "Modern City";
+}
 
-${CHARACTER_RULE}
-
-CHARACTER C1:
-${characters[0].dna}
-
-CHARACTER C2:
-${characters[1].dna}
-
-CHARACTER C3:
-${characters[2].dna}
-
-CHARACTER C4:
-${characters[3].dna}
-
-GLOBAL AGE LOCK:
-David remains 42.
-Sarah remains 39.
-Emma remains 12.
-Leo remains 9.
-
-GLOBAL CLOTHING LOCK:
-David = light blue shirt + navy trousers + white sneakers + silver watch + black travel bag.
-Sarah = pink cardigan + white blouse + beige trousers + white sneakers + beige handbag.
-Emma = yellow hoodie + blue jeans + white sneakers + pink backpack.
-Leo = green T-shirt + blue shorts + white sneakers + blue backpack.
-
-GLOBAL STYLE LOCK:
-Never change from premium 3D rendered animated illustration.
-Never switch to live-action.
-Never switch to photorealistic humans.
-Never switch to anime.
-Never switch to 2D cartoon.
-Never switch to low-poly.
-
-ACCOUNT SWITCH LOCK:
-This entire CHARACTER DNA specification must be copied into every scene prompt.
-Do not depend on a Google Flow account's memory to identify the characters.
-When changing accounts, use the exact same MASTER CHARACTER BIBLE and,
-when possible, the same reference image for each character.
-`;
+function toggleSidebar(){
+  $("sidebar").classList.toggle("open");
 }
 
 /* =========================================================
-   STORY GENERATOR
-========================================================= */
-
-function createDialogue(topic, index, chars){
-
-  const dialogueSets = {
-
-    1:[
-      "Are we ready to leave?",
-      "I think we are almost ready.",
-      "Where is my bag?",
-      "Let's go before we are late."
-    ],
-
-    2:[
-      "Wait, I can't find my phone.",
-      "Check the table again.",
-      "I think I left it here.",
-      "Oh, I found it!"
-    ],
-
-    3:[
-      "Do we have everything?",
-      "I have the tickets.",
-      "I have my backpack.",
-      "Great. Let's go."
-    ],
-
-    4:[
-      "The traffic is very busy today.",
-      "We still have enough time.",
-      "I hope so.",
-      "Look, the airport is over there."
-    ],
-
-    5:[
-      "We made it to the airport.",
-      "Now we need to find our gate.",
-      "This place is huge.",
-      "Let's stay together."
-    ],
-
-    6:[
-      "Where can we check in?",
-      "The counter is over there.",
-      "I have our passports.",
-      "Perfect. Let's go."
-    ],
-
-    7:[
-      "Do we need to take everything out?",
-      "Yes, put your bag in the tray.",
-      "Okay.",
-      "That was easy."
-    ],
-
-    8:[
-      "What time does our flight leave?",
-      "We still have some time.",
-      "Can we get something to eat?",
-      "Sure."
-    ],
-
-    9:[
-      "Is that our airplane?",
-      "Yes, I think it is.",
-      "Wow, it is so big!",
-      "I can't wait to go."
-    ],
-
-    10:[
-      "We are finally ready.",
-      "This is going to be a great trip.",
-      "I am so excited!",
-      "Let's go!"
-    ]
-
-  };
-
-  const set = dialogueSets[index+1] || dialogueSets[10];
-
-  let selected;
-
-  if(chars.includes("C3")){
-    selected = set[2];
-  }else if(chars.includes("C1")){
-    selected = set[0];
-  }else if(chars.includes("C2")){
-    selected = set[1];
-  }else{
-    selected = set[3];
-  }
-
-  return cleanSubtitle(selected);
-}
-
-function scenePlanForTopic(topic){
-
-  const lower = topic.toLowerCase();
-
-  let type = "general";
-
-  if(lower.includes("airport") || lower.includes("flight") || lower.includes("train") || lower.includes("trip") || lower.includes("travel") || lower.includes("hotel")){
-    type = "travel";
-  }
-
-  if(lower.includes("work") || lower.includes("office") || lower.includes("job") || lower.includes("customer") || lower.includes("business") || lower.includes("meeting")){
-    type = "work";
-  }
-
-  if(lower.includes("family") || lower.includes("dad") || lower.includes("mom") || lower.includes("sister") || lower.includes("brother") || lower.includes("grandma")){
-    type = "family";
-  }
-
-  if(lower.includes("friend")){
-    type = "friendship";
-  }
-
-  if(lower.includes("mystery") || lower.includes("secret") || lower.includes("missing") || lower.includes("stranger") || lower.includes("message")){
-    type = "mystery";
-  }
-
-  if(lower.includes("money") || lower.includes("$") || lower.includes("business") || lower.includes("customer") || lower.includes("shop")){
-    type = "business";
-  }
-
-  const plans = {
-
-    travel:[
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family prepares to leave home for their trip.",emotion:"excited",camera:"cinematic wide shot"},
-      {chars:["C1","C3"],loc:"L1",action:"David and Emma quickly check the bags and tickets.",emotion:"slightly worried",camera:"medium shot"},
-      {chars:["C2","C4"],loc:"L1",action:"Sarah helps Leo prepare his backpack.",emotion:"warm and cheerful",camera:"close medium shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L2",action:"The family travels together while talking about the trip.",emotion:"happy",camera:"car interior cinematic shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L3",action:"The family arrives at the modern international airport.",emotion:"excited",camera:"wide establishing shot"},
-      {chars:["C1","C2"],loc:"L3",action:"David and Sarah organize the travel documents.",emotion:"focused",camera:"medium shot"},
-      {chars:["C3","C4"],loc:"L4",action:"Emma and Leo carefully follow the security instructions.",emotion:"curious",camera:"dynamic medium shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L5",action:"The family reaches the boarding gate and relaxes.",emotion:"relieved",camera:"wide cinematic shot"},
-      {chars:["C1","C3","C4"],loc:"L5",action:"Emma and Leo look through the airport windows at the airplane.",emotion:"amazed",camera:"over-the-shoulder shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L5",action:"The family smiles together and prepares for the next part of their journey.",emotion:"happy and excited",camera:"hero family shot"}
-    ],
-
-    work:[
-      {chars:["C1"],loc:"L1",action:"David prepares for an important workday.",emotion:"focused",camera:"medium shot"},
-      {chars:["C1","C2"],loc:"L8",action:"David discusses the day's challenge with Sarah.",emotion:"thoughtful",camera:"two-shot"},
-      {chars:["C1","C3"],loc:"L8",action:"David prepares notes before an important meeting.",emotion:"slightly nervous",camera:"close medium shot"},
-      {chars:["C1","C2"],loc:"L8",action:"They enter a professional meeting room.",emotion:"focused",camera:"wide shot"},
-      {chars:["C1","C2","C3"],loc:"L8",action:"The team discusses a difficult customer situation.",emotion:"serious but calm",camera:"group shot"},
-      {chars:["C1"],loc:"L8",action:"David explains his solution clearly.",emotion:"confident",camera:"medium close-up"},
-      {chars:["C1","C2"],loc:"L8",action:"The customer problem begins to improve.",emotion:"relieved",camera:"two-shot"},
-      {chars:["C1","C2","C3"],loc:"L8",action:"The team celebrates a small success.",emotion:"happy",camera:"wide shot"},
-      {chars:["C1"],loc:"L6",action:"David leaves the office after a long day.",emotion:"relieved",camera:"tracking shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family talks about the lesson David learned at work.",emotion:"warm",camera:"family wide shot"}
-    ],
-
-    family:[
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family begins an ordinary day together.",emotion:"happy",camera:"wide family shot"},
-      {chars:["C1","C3"],loc:"L1",action:"David notices that Emma seems worried.",emotion:"concerned",camera:"medium shot"},
-      {chars:["C2","C4"],loc:"L1",action:"Sarah and Leo prepare a small surprise.",emotion:"secretive and cheerful",camera:"close medium shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family gathers together for the surprise.",emotion:"excited",camera:"wide shot"},
-      {chars:["C3","C4"],loc:"L12",action:"The children run through the park together.",emotion:"joyful",camera:"dynamic tracking shot"},
-      {chars:["C1","C2"],loc:"L12",action:"The parents watch the children and smile.",emotion:"warm",camera:"medium shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L11",action:"The family shares a meal and talks about the day.",emotion:"warm and happy",camera:"restaurant wide shot"},
-      {chars:["C3"],loc:"L1",action:"Emma shares what the family moment means to her.",emotion:"grateful",camera:"gentle close-up"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family looks at an old photograph together.",emotion:"nostalgic",camera:"over-the-shoulder shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family smiles and stays together at the end of the day.",emotion:"loving",camera:"cinematic family portrait"}
-    ],
-
-    friendship:[
-      {chars:["C3"],loc:"L6",action:"Emma walks alone through a busy city street.",emotion:"curious",camera:"tracking shot"},
-      {chars:["C3","C4"],loc:"L7",action:"Emma meets Leo unexpectedly at a coffee shop.",emotion:"surprised",camera:"two-shot"},
-      {chars:["C3","C4"],loc:"L7",action:"They begin talking and discover something interesting.",emotion:"curious",camera:"medium two-shot"},
-      {chars:["C3","C4"],loc:"L6",action:"They walk through the city together.",emotion:"happy",camera:"tracking shot"},
-      {chars:["C3","C4"],loc:"L12",action:"They sit in a park and share their problem.",emotion:"thoughtful",camera:"wide shot"},
-      {chars:["C3","C4"],loc:"L12",action:"One friend offers an unexpected idea.",emotion:"hopeful",camera:"medium shot"},
-      {chars:["C3","C4"],loc:"L12",action:"They work together to solve the problem.",emotion:"determined",camera:"dynamic shot"},
-      {chars:["C3","C4"],loc:"L7",action:"They celebrate their small success.",emotion:"joyful",camera:"medium shot"},
-      {chars:["C3","C4"],loc:"L6",action:"They say goodbye but promise to meet again.",emotion:"warm",camera:"cinematic two-shot"},
-      {chars:["C3","C4"],loc:"L6",action:"They walk away smiling as their new friendship begins.",emotion:"happy",camera:"wide ending shot"}
-    ],
-
-    mystery:[
-      {chars:["C1"],loc:"L1",action:"David notices a mysterious object near the front door.",emotion:"curious",camera:"close-up then medium shot"},
-      {chars:["C1","C2"],loc:"L1",action:"David shows the object to Sarah.",emotion:"confused",camera:"two-shot"},
-      {chars:["C3"],loc:"L1",action:"Emma notices a small clue that the adults missed.",emotion:"curious",camera:"close-up"},
-      {chars:["C1","C2","C3"],loc:"L6",action:"The family follows the clue through the neighborhood.",emotion:"intrigued",camera:"tracking shot"},
-      {chars:["C3","C4"],loc:"L7",action:"The children discover another unexpected clue.",emotion:"surprised",camera:"medium shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L6",action:"The family compares the clues together.",emotion:"focused",camera:"group shot"},
-      {chars:["C1"],loc:"L1",action:"David realizes what the clues mean.",emotion:"surprised",camera:"close-up"},
-      {chars:["C2","C3"],loc:"L1",action:"Sarah and Emma discover the final answer.",emotion:"excited",camera:"two-shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family laughs after discovering the truth.",emotion:"relieved and happy",camera:"wide family shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The mysterious story ends with a warm family moment.",emotion:"happy",camera:"cinematic ending shot"}
-    ],
-
-    business:[
-      {chars:["C1"],loc:"L8",action:"David starts with a simple business idea.",emotion:"thoughtful",camera:"medium shot"},
-      {chars:["C1","C2"],loc:"L8",action:"David explains the idea to Sarah.",emotion:"hopeful",camera:"two-shot"},
-      {chars:["C1","C3"],loc:"L8",action:"David studies what customers really need.",emotion:"focused",camera:"over-the-shoulder shot"},
-      {chars:["C1","C2"],loc:"L11",action:"They discuss pricing and customer value.",emotion:"serious",camera:"two-shot"},
-      {chars:["C1","C2","C3"],loc:"L8",action:"The first customer arrives.",emotion:"excited",camera:"wide shot"},
-      {chars:["C1"],loc:"L8",action:"David makes a small mistake.",emotion:"worried",camera:"close-up"},
-      {chars:["C1","C2"],loc:"L8",action:"They correct the problem and improve the service.",emotion:"determined",camera:"medium shot"},
-      {chars:["C1","C2","C3"],loc:"L11",action:"The customer returns with positive feedback.",emotion:"happy",camera:"group shot"},
-      {chars:["C1"],loc:"L8",action:"David reflects on the lesson.",emotion:"thoughtful",camera:"close-up"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"David shares the lesson with his family.",emotion:"warm",camera:"family ending shot"}
-    ],
-
-    general:[
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family starts an ordinary day.",emotion:"happy",camera:"wide shot"},
-      {chars:["C1","C3"],loc:"L6",action:"David and Emma notice something unexpected.",emotion:"curious",camera:"medium shot"},
-      {chars:["C2","C4"],loc:"L7",action:"Sarah and Leo discuss what happened.",emotion:"curious",camera:"two-shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L6",action:"The family decides to investigate.",emotion:"excited",camera:"wide shot"},
-      {chars:["C3","C4"],loc:"L12",action:"Emma and Leo discover a clue.",emotion:"surprised",camera:"dynamic shot"},
-      {chars:["C1","C2"],loc:"L12",action:"David and Sarah discuss a solution.",emotion:"thoughtful",camera:"two-shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L11",action:"The family comes together to solve the problem.",emotion:"determined",camera:"group shot"},
-      {chars:["C3","C4"],loc:"L6",action:"The children discover the answer.",emotion:"excited",camera:"close medium shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"Everyone returns home with a new understanding.",emotion:"relieved",camera:"wide shot"},
-      {chars:["C1","C2","C3","C4"],loc:"L1",action:"The family ends the day with a meaningful happy moment.",emotion:"warm and happy",camera:"cinematic ending shot"}
-    ]
-
-  };
-
-  return plans[type] || plans.general;
-}
-
-/* =========================================================
-   CREATE SCENES
-========================================================= */
-
-function createDefaultScenes(){
-
-  const d = Number(state.duration) || 10;
-  const topic = state.topic || "A Family Trip";
-
-  const plan = scenePlanForTopic(topic);
-
-  state.scenes = plan.slice(0,10).map((p,index)=>{
-
-    const start = index * d;
-    const end = start + d;
-
-    return {
-      id:index+1,
-      start,
-      end,
-      duration:d,
-      chars:p.chars,
-      location:p.loc,
-      action:p.action,
-      emotion:p.emotion,
-      camera:p.camera,
-      dialogue:createDialogue(topic,index,p.chars)
-    };
-
-  });
-
-  saveState();
-}
-
-/* =========================================================
-   PROMPTS
-========================================================= */
-
-function getCharacterPrompt(scene){
-
-  return scene.chars.map(id=>{
-    const c = getChar(id);
-    return `• ${c.dna}`;
-  }).join("\n");
-}
-
-function buildImagePrompt(scene){
-
-  const loc = getLocation(scene.location);
-
-  return `
-AUNG AI STORY VIDEO PRO — IMAGE PROMPT
-
-SCENE ${scene.id}
-TIME: ${formatTime(scene.start)} - ${formatTime(scene.end)}
-
-MASTER VISUAL STYLE:
-${STYLE_LOCK}
-
-${CHARACTER_RULE}
-
-CHARACTERS IN THIS SCENE:
-${getCharacterPrompt(scene)}
-
-LOCATION:
-${loc.name}
-
-LOCATION DESCRIPTION:
-${loc.description}
-
-ACTION:
-${scene.action}
-
-EMOTION:
-${scene.emotion}
-
-CAMERA:
-${scene.camera}
-
-COMPOSITION:
-Create a polished cinematic 16:9 frame suitable for an international English
-learning animated YouTube video. Use natural staging, clear body language,
-strong facial expressions, readable visual storytelling and attractive
-cinematic composition.
-
-CHARACTER LOCK:
-The characters must remain exactly the same people described in the MASTER
-CHARACTER DNA. Do not change their faces, ages, hairstyles, clothing,
-skin tones, body proportions or accessories.
-
-STYLE LOCK:
-Premium 3D rendered animated illustration.
-Pixar-inspired family-film quality.
-NOT photorealistic.
-NOT live action.
-NOT anime.
-NOT 2D.
-NOT low-poly.
-
-${TEXT_RULE}
-
-REFERENCE CONSISTENCY:
-Treat the MASTER CHARACTER DNA as identity-level instructions.
-If reference images are available in the generation system, use the same
-character reference images every time.
-
-OUTPUT:
-16:9 landscape composition, cinematic quality, clean high-detail render.
-`;
-}
-
-function buildVideoPrompt(scene){
-
-  const loc = getLocation(scene.location);
-
-  return `
-AUNG AI STORY VIDEO PRO — GOOGLE FLOW / VEO VIDEO PROMPT
-
-SCENE ${scene.id}
-DURATION: EXACTLY ${scene.duration} SECONDS
-TIMECODE: ${formatTime(scene.start)} - ${formatTime(scene.end)}
-
-GLOBAL STYLE:
-${STYLE_LOCK}
-
-${CHARACTER_RULE}
-
-CHARACTER DNA:
-${getCharacterPrompt(scene)}
-
-LOCATION:
-${loc.name}
-
-LOCATION DESCRIPTION:
-${loc.description}
-
-SCENE ACTION:
-${scene.action}
-
-EMOTION:
-${scene.emotion}
-
-CAMERA:
-${scene.camera}
-
-ANIMATION:
-Natural cinematic family-animation movement.
-Smooth body movement.
-Natural walking and hand gestures.
-Subtle facial expressions.
-Natural eye direction.
-Realistic animated physics.
-No exaggerated cartoon movement.
-No random character redesign.
-
-VOICE:
-Use natural clear international English pronunciation.
-A1-level vocabulary and short understandable sentences.
-
-SPOKEN DIALOGUE:
-"${cleanSubtitle(scene.dialogue)}"
-
-${SUBTITLE_RULE}
-
-SUBTITLE TIMING:
-Display the subtitle naturally during the spoken dialogue.
-Keep it at the bottom center.
-Use clean white English subtitle text with subtle shadow.
-Never show speaker names.
-
-${TEXT_RULE}
-
-IDENTITY:
-The exact same characters must remain visually consistent throughout
-the entire project.
-
-ACCOUNT INDEPENDENCE:
-Do not rely on account memory.
-The MASTER CHARACTER DNA above is the permanent identity specification.
-
-ENDING:
-End naturally and smoothly without introducing a new character,
-new clothing, new face, or new visual style.
-
-OUTPUT:
-16:9 cinematic animated video.
-EXACTLY ${scene.duration} SECONDS.
-`;
-}
-
-/* =========================================================
-   RANDOM STORY
+   TOPIC
 ========================================================= */
 
 function randomStory(){
 
-  const item = randomItem(storyTopics);
-
-  state.category = item[0];
-  state.topic = item[1];
-
-  state.storyTitle = item[1];
-
-  const ideas = [
-    "A simple everyday situation becomes an unexpected story.",
-    "The characters face a small problem and solve it together.",
-    "A surprising moment creates curiosity and a meaningful ending.",
-    "The story begins normally but something unexpected changes the day.",
-    "A small mistake becomes an important life lesson.",
-    "A simple journey turns into a memorable experience.",
-    "The characters discover something they did not expect.",
-    "A small act creates a bigger emotional moment."
+  const topic=storyTopics[
+    Math.floor(Math.random()*storyTopics.length)
   ];
 
-  state.idea = randomItem(ideas);
+  state.topic=topic;
+  state.generated=false;
 
-  createDefaultScenes();
+  saveState();
 
   showPage("story");
 
-  setTimeout(()=>{
-    renderCurrentPage();
-  },20);
+  toast("Random international story selected");
 
-  saveState();
+}
+
+function makeTitle(topic){
+
+  const templates=[
+    topic,
+    "A Day to Remember: "+topic,
+    "The Unexpected Story of "+topic,
+    "What Happened When "+topic,
+    topic+" | English Story",
+    "A New Adventure: "+topic
+  ];
+
+  return templates[Math.floor(Math.random()*templates.length)];
+}
+
+/* =========================================================
+   STORY PLAN
+========================================================= */
+
+function planForTopic(topic){
+
+  const t=topic.toLowerCase();
+
+  if(
+    t.includes("airport") ||
+    t.includes("flight") ||
+    t.includes("hotel") ||
+    t.includes("trip") ||
+    t.includes("travel") ||
+    t.includes("london") ||
+    t.includes("tokyo") ||
+    t.includes("paris") ||
+    t.includes("dubai") ||
+    t.includes("sydney") ||
+    t.includes("seoul") ||
+    t.includes("singapore") ||
+    t.includes("bangkok") ||
+    t.includes("toronto") ||
+    t.includes("new york")
+  ){
+    return [
+
+      ["Morning Preparation",
+       "The family prepares for an exciting journey.",
+       "L1"],
+
+      ["Leaving Home",
+       "Everyone checks their bags and leaves home.",
+       "L2"],
+
+      ["Arrival",
+       "They arrive at a modern international destination.",
+       "L3"],
+
+      ["A Small Problem",
+       "Something unexpected creates a small challenge.",
+       "L4"],
+
+      ["Finding a Solution",
+       "The family calmly discusses what to do next.",
+       "L5"],
+
+      ["Exploring",
+       "They discover something interesting in the new city.",
+       "L6"],
+
+      ["A Friendly Conversation",
+       "They practice natural English with someone new.",
+       "L7"],
+
+      ["Unexpected Opportunity",
+       "A surprising opportunity changes their plan.",
+       "L8"],
+
+      ["The Important Moment",
+       "Everyone works together and solves the problem.",
+       "L9"],
+
+      ["Happy Ending",
+       "The family reflects on what they learned.",
+       "L12"]
+
+    ];
+  }
+
+  if(
+    t.includes("business") ||
+    t.includes("sales") ||
+    t.includes("customer") ||
+    t.includes("office") ||
+    t.includes("job") ||
+    t.includes("work") ||
+    t.includes("meeting") ||
+    t.includes("product") ||
+    t.includes("team")
+  ){
+    return [
+
+      ["Morning Preparation",
+       "The main character prepares for an important working day.",
+       "L1"],
+
+      ["Going to Work",
+       "The journey to work begins with a clear goal.",
+       "L2"],
+
+      ["The Challenge",
+       "An unexpected problem appears at work.",
+       "L8"],
+
+      ["Understanding the Problem",
+       "The team discusses the situation carefully.",
+       "L8"],
+
+      ["A Difficult Conversation",
+       "They communicate clearly and listen to each other.",
+       "L7"],
+
+      ["Finding an Idea",
+       "A simple idea creates a possible solution.",
+       "L18"],
+
+      ["Taking Action",
+       "The team puts the new idea into practice.",
+       "L8"],
+
+      ["Unexpected Result",
+       "Something surprising happens.",
+       "L6"],
+
+      ["Final Decision",
+       "The team makes an important decision together.",
+       "L8"],
+
+      ["Lesson Learned",
+       "Everyone learns a valuable lesson from the experience.",
+       "L12"]
+
+    ];
+  }
+
+  if(
+    t.includes("mystery") ||
+    t.includes("secret") ||
+    t.includes("missing") ||
+    t.includes("strange") ||
+    t.includes("mysterious") ||
+    t.includes("locked") ||
+    t.includes("note") ||
+    t.includes("key")
+  ){
+    return [
+
+      ["A Normal Morning",
+       "Everything seems completely normal at first.",
+       "L1"],
+
+      ["Something Strange",
+       "The characters notice something unusual.",
+       "L6"],
+
+      ["The First Clue",
+       "A small clue appears in an unexpected place.",
+       "L7"],
+
+      ["Searching",
+       "They begin looking for an explanation.",
+       "L19"],
+
+      ["Another Clue",
+       "A second clue makes the mystery even more interesting.",
+       "L9"],
+
+      ["A Wrong Idea",
+       "They make a guess that turns out to be wrong.",
+       "L16"],
+
+      ["The Important Discovery",
+       "A new discovery changes everything.",
+       "L20"],
+
+      ["The Truth",
+       "The characters finally understand what happened.",
+       "L6"],
+
+      ["A Surprise",
+       "The real reason is completely unexpected.",
+       "L7"],
+
+      ["Happy Ending",
+       "The mystery ends with a positive lesson.",
+       "L12"]
+
+    ];
+  }
+
+  return [
+
+    ["Morning",
+     "The characters begin an ordinary day.",
+     "L1"],
+
+    ["A New Plan",
+     "An interesting plan changes the normal routine.",
+     "L6"],
+
+    ["The First Challenge",
+     "A small unexpected problem appears.",
+     "L7"],
+
+    ["Trying to Solve It",
+     "The characters discuss the problem together.",
+     "L6"],
+
+    ["A New Idea",
+     "Someone suggests a simple but creative solution.",
+     "L19"],
+
+    ["Taking Action",
+     "They decide to try the new idea.",
+     "L13"],
+
+    ["Unexpected Result",
+     "Something unexpected happens.",
+     "L14"],
+
+    ["Working Together",
+     "The characters cooperate and help each other.",
+     "L12"],
+
+    ["The Important Moment",
+     "They discover the most important lesson of the day.",
+     "L20"],
+
+    ["Happy Ending",
+     "The day ends with a meaningful and positive moment.",
+     "L12"]
+
+  ];
+}
+
+/* =========================================================
+   CHARACTER SELECTION
+========================================================= */
+
+function selectedCharacterDNA(){
+
+  return state.characters
+    .map(id=>{
+
+      const c=getCharacter(id);
+
+      return `
+CHARACTER ID: ${c.id}
+NAME: ${c.name}
+ROLE: ${c.role}
+VOICE: ${c.voice}
+MASTER DNA:
+${c.description}
+`;
+
+    })
+    .join("\n");
+}
+
+/* =========================================================
+   DIALOGUE
+========================================================= */
+
+function dialogueFor(index,topic){
+
+  const lines=[
+
+    [
+      ["David","Today is going to be an interesting day."],
+      ["Emma","I have a feeling something special will happen."]
+    ],
+
+    [
+      ["Sarah","Let's stay calm and follow our plan."],
+      ["Leo","I am ready! What should we do first?"]
+    ],
+
+    [
+      ["Emma","Something unexpected just happened."],
+      ["David","Don't worry. We can solve it together."]
+    ],
+
+    [
+      ["Sarah","Let's look at the situation carefully."],
+      ["David","Good idea. We should understand the problem first."]
+    ],
+
+    [
+      ["Leo","I think I have an idea."],
+      ["Emma","Tell us. Maybe it can help."]
+    ],
+
+    [
+      ["David","Let's try it and see what happens."],
+      ["Sarah","Everyone can help in a different way."]
+    ],
+
+    [
+      ["Leo","Wow! I didn't expect that."],
+      ["Emma","This is getting more interesting."]
+    ],
+
+    [
+      ["Sarah","Working together really makes a difference."],
+      ["David","Exactly. Communication is important."]
+    ],
+
+    [
+      ["Emma","Now I understand what we needed to learn."],
+      ["Leo","And I learned something new too."]
+    ],
+
+    [
+      ["David","Every experience can teach us something."],
+      ["Sarah","And tomorrow is another opportunity to learn."]
+    ]
+
+  ];
+
+  return lines[index % lines.length];
+}
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+function createScenes(){
+
+  const topic=state.topic || "First Day in a New City";
+
+  const plan=planForTopic(topic);
+
+  const count=Math.max(
+    1,
+    Math.min(20,Number(state.scenesCount)||10)
+  );
+
+  const result=[];
+
+  for(let i=0;i<count;i++){
+
+    const base=plan[i % plan.length];
+
+    const dialogue=dialogueFor(i,topic);
+
+    const locationId=base[2];
+
+    const charactersForScene =
+      state.characters.length
+      ? state.characters
+      : ["C1","C2","C3"];
+
+    result.push({
+
+      id:i+1,
+
+      title:base[0],
+
+      narration:base[1],
+
+      locationId,
+
+      location:getLocation(locationId),
+
+      duration:Number(state.duration)||10,
+
+      characterIds:charactersForScene,
+
+      dialogue,
+
+      imagePrompt:"",
+
+      videoPrompt:"",
+
+      subtitle:dialogue.map(x=>x[1]).join(" "),
+
+      generated:false
+
+    });
+
+  }
+
+  return result;
+}
+
+/* =========================================================
+   IMAGE PROMPT
+========================================================= */
+
+function buildImagePrompt(scene){
+
+  const dna=selectedCharacterDNA();
+
+  const names=scene.characterIds
+    .map(id=>getCharacter(id).name)
+    .join(", ");
+
+  return `
+MASTER VISUAL IDENTITY LOCK
+PROJECT: AUNG AI STORY VIDEO PRO
+SCENE ${scene.id}
+
+TOPIC:
+${state.topic}
+
+SCENE:
+${scene.title}
+
+LOCATION:
+${scene.location}
+
+CHARACTERS PRESENT:
+${names}
+
+${CHARACTER_RULE}
+
+${dna}
+
+VISUAL STYLE:
+${STYLE_LOCK}
+
+ACTION:
+${scene.narration}
+
+CAMERA:
+cinematic medium-wide establishing shot,
+natural character interaction,
+clear facial expressions,
+professional animated feature composition,
+balanced foreground and background,
+soft cinematic lighting.
+
+${TEXT_RULE}
+
+ABSOLUTE CONSISTENCY:
+The characters must match their MASTER CHARACTER DNA exactly.
+Do not introduce new clothing.
+Do not change faces.
+Do not change ages.
+Do not change hairstyles.
+Do not change body proportions.
+Do not switch visual styles.
+`;
+
+}
+
+/* =========================================================
+   VIDEO PROMPT
+========================================================= */
+
+function buildVideoPrompt(scene){
+
+  const dna=selectedCharacterDNA();
+
+  const dialogue=scene.dialogue
+    .map(x=>`${x[0]} says: "${x[1]}"`)
+    .join("\n");
+
+  return `
+GOOGLE FLOW / VEO VIDEO PROMPT
+
+PROJECT:
+AUNG AI STORY VIDEO PRO
+
+SCENE:
+${scene.id}
+
+DURATION:
+EXACTLY ${scene.duration} SECONDS
+
+STORY:
+${state.topic}
+
+LOCATION:
+${scene.location}
+
+${CHARACTER_RULE}
+
+MASTER CHARACTER DNA:
+${dna}
+
+STYLE LOCK:
+${STYLE_LOCK}
+
+ACTION:
+${scene.narration}
+
+DIALOGUE:
+${dialogue}
+
+ANIMATION:
+Natural cinematic body movement.
+Natural eye contact.
+Natural hand gestures.
+Subtle facial expressions.
+Smooth camera movement.
+No exaggerated motion.
+No character redesign.
+
+VOICE:
+Use natural English dialogue.
+Keep voices consistent with character identities.
+
+${SUBTITLE_RULE}
+
+${TEXT_RULE}
+
+FINAL REQUIREMENT:
+The characters must remain visually identical to the MASTER CHARACTER DNA.
+Do not change character identity between scenes.
+Do not generate photorealistic humans.
+Do not generate 2D animation.
+Do not generate anime.
+Keep the exact 3D rendered animated illustration style.
+`;
+
 }
 
 /* =========================================================
@@ -1837,153 +1946,124 @@ function randomStory(){
 
 function generateStory(){
 
-  const title = $("storyTitleInput")?.value?.trim();
-  const topic = $("topicInput")?.value?.trim();
-  const category = $("categoryInput")?.value || "daily";
-  const level = $("levelInput")?.value || "A1 Beginner";
-  const duration = Number($("sceneDuration")?.value || 10);
-  const count = Number($("sceneCount")?.value || 10);
+  if(!state.topic){
+    randomStory();
+    return;
+  }
 
-  if(title) state.storyTitle = title;
-  if(topic) state.topic = topic;
+  state.title=makeTitle(state.topic);
 
-  state.category = category;
-  state.level = level;
-  state.duration = duration;
-  state.scenesCount = count;
+  state.scenes=createScenes();
 
-  state.idea =
-    $("storyIdeaInput")?.value?.trim() ||
-    "A simple situation becomes an interesting international English story with a clear beginning, middle and ending.";
+  state.scenes.forEach(scene=>{
 
-  createDefaultScenes();
+    scene.imagePrompt=buildImagePrompt(scene);
+    scene.videoPrompt=buildVideoPrompt(scene);
+    scene.generated=true;
+
+  });
+
+  state.generated=true;
+  state.createdAt=new Date().toISOString();
+
+  saveState();
 
   showPage("scenes");
-}
 
-/* =========================================================
-   RANDOM TOPIC FROM FORM
-========================================================= */
-
-function randomTopicFromForm(){
-
-  const item = randomItem(storyTopics);
-
-  if($("storyTitleInput")){
-    $("storyTitleInput").value = item[1];
-  }
-
-  if($("topicInput")){
-    $("topicInput").value = item[1];
-  }
-
-  if($("categoryInput")){
-    $("categoryInput").value = item[0];
-  }
-
-  if($("storyIdeaInput")){
-    $("storyIdeaInput").value =
-      "A " + item[0] +
-      " story designed for international English learners with curiosity,
-      simple dialogue and a satisfying ending.";
-  }
+  toast("Story generated successfully");
 
 }
 
 /* =========================================================
-   PAGES
+   SRT
 ========================================================= */
 
-let currentPage = "dashboard";
+function formatTime(seconds){
 
-const pageTitles = {
-  dashboard:"AUNG AI STORY VIDEO PRO",
-  story:"International Story Generator",
-  characters:"Master Character Bible",
-  locations:"Location Library",
-  scenes:"Scene Planner",
-  images:"Image Prompts",
-  videos:"Google Flow / Veo Video Prompts",
-  subtitles:"English Subtitles / SRT",
-  youtube:"YouTube Publishing Pack",
-  backup:"Project Backup"
-};
+  const h=Math.floor(seconds/3600);
+
+  const m=Math.floor((seconds%3600)/60);
+
+  const s=Math.floor(seconds%60);
+
+  const ms=Math.floor((seconds%1)*1000);
+
+  return [
+    String(h).padStart(2,"0"),
+    String(m).padStart(2,"0"),
+    String(s).padStart(2,"0")
+  ].join(":")+"."+String(ms).padStart(3,"0");
+}
+
+function buildSRT(){
+
+  let output="";
+  let time=0;
+
+  state.scenes.forEach((scene,i)=>{
+
+    const start=time;
+    const end=time+scene.duration;
+
+    output+=`${i+1}\n`;
+    output+=`${formatTime(start)} --> ${formatTime(end)}\n`;
+    output+=`${scene.subtitle}\n\n`;
+
+    time=end;
+
+  });
+
+  return output;
+}
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
 
 function showPage(page){
 
-  currentPage = page;
+  state.page=page;
+  saveState();
 
-  document.querySelectorAll(".nav button").forEach(btn=>{
-    btn.classList.toggle("active",btn.dataset.page===page);
+  document.querySelectorAll(".nav button")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        btn.dataset.page===page
+      );
+    });
+
+  const names={
+    dashboard:"Dashboard",
+    story:"Story Generator",
+    characters:"Characters",
+    locations:"Locations",
+    scenes:"Scenes",
+    images:"Image Prompts",
+    videos:"Google Flow / Veo",
+    subtitles:"Subtitles / SRT",
+    youtube:"YouTube Pack",
+    backup:"Backup"
+  };
+
+  $("pageName").textContent=names[page] || "Dashboard";
+
+  renderPage();
+
+  if(window.innerWidth<=900){
+    $("sidebar").classList.remove("open");
+  }
+
+}
+
+document.querySelectorAll(".nav button")
+  .forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+      showPage(btn.dataset.page);
+    });
+
   });
-
-  if($("topTitle")){
-    $("topTitle").textContent = pageTitles[page] || "AUNG AI STORY VIDEO PRO";
-  }
-
-  renderCurrentPage();
-
-  const side = $("sidebar");
-
-  if(side){
-    side.classList.remove("open");
-  }
-}
-
-function renderCurrentPage(){
-
-  const el = $("appContent");
-
-  if(!el) return;
-
-  switch(currentPage){
-
-    case "dashboard":
-      el.innerHTML = renderDashboard();
-      break;
-
-    case "story":
-      el.innerHTML = renderStory();
-      break;
-
-    case "characters":
-      el.innerHTML = renderCharacters();
-      break;
-
-    case "locations":
-      el.innerHTML = renderLocations();
-      break;
-
-    case "scenes":
-      el.innerHTML = renderScenes();
-      break;
-
-    case "images":
-      el.innerHTML = renderImages();
-      break;
-
-    case "videos":
-      el.innerHTML = renderVideos();
-      break;
-
-    case "subtitles":
-      el.innerHTML = renderSubtitles();
-      break;
-
-    case "youtube":
-      el.innerHTML = renderYouTube();
-      break;
-
-    case "backup":
-      el.innerHTML = renderBackup();
-      break;
-
-    default:
-      el.innerHTML = renderDashboard();
-  }
-
-  updateStatus();
-}
 
 /* =========================================================
    DASHBOARD
@@ -1991,166 +2071,133 @@ function renderCurrentPage(){
 
 function renderDashboard(){
 
-  const total = state.scenes.length;
-  const seconds = total * Number(state.duration || 10);
+  const totalTopics=storyTopics.length;
 
-  return `
+  $("appContent").innerHTML=`
 
-  <div class="hero">
-
-    <div class="badges">
-      <span class="badge accent">AUNG AI STORY VIDEO PRO</span>
-      <span class="badge green">INTERNATIONAL AUDIENCE</span>
-      <span class="badge">200+ RANDOM TOPICS</span>
-      <span class="badge">10 SEC / SCENE</span>
+    <div class="page-head">
+      <h1>AI Story Video Studio</h1>
+      <p>Create international English-learning animated stories for YouTube</p>
     </div>
 
-    <h1 style="margin-top:14px">
-      Create Story-Driven English Learning Videos
-    </h1>
+    <div class="hero">
 
-    <p>
-      Generate original animated English-learning stories designed around
-      curiosity, everyday situations, travel, family, friendship, work,
-      mystery, business and life lessons.
-    </p>
-
-    <div class="form-actions">
-      <button class="btn primary" onclick="randomStory()">
-        🎲 Generate Random Story
-      </button>
-
-      <button class="btn cyan" onclick="showPage('story')">
-        ✨ Story Generator
-      </button>
-
-      <button class="btn" onclick="showPage('youtube')">
-        ▶ YouTube Pack
-      </button>
-    </div>
-
-  </div>
-
-  <div class="grid grid4">
-
-    <div class="card">
-      <div class="kpi-label">Story Topics</div>
-      <div class="kpi">${storyTopics.length}+</div>
-      <div style="color:#8192aa;font-size:11px;margin-top:5px">
-        Random international topics
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="kpi-label">Scene Duration</div>
-      <div class="kpi">${state.duration}s</div>
-      <div style="color:#8192aa;font-size:11px;margin-top:5px">
-        Exact duration per scene
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="kpi-label">Current Scenes</div>
-      <div class="kpi">${total}</div>
-      <div style="color:#8192aa;font-size:11px;margin-top:5px">
-        ${seconds} seconds total
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="kpi-label">Characters</div>
-      <div class="kpi">4</div>
-      <div style="color:#8192aa;font-size:11px;margin-top:5px">
-        Permanent DNA Lock
-      </div>
-    </div>
-
-  </div>
-
-  <div class="grid grid2" style="margin-top:16px">
-
-    <div class="card">
-
-      <div class="card-title">🎬 Production Workflow</div>
-
-      <div class="table-wrap">
-
-        <table>
-          <tr>
-            <th>Step</th>
-            <th>Output</th>
-          </tr>
-
-          <tr>
-            <td>01</td>
-            <td>Random International Story</td>
-          </tr>
-
-          <tr>
-            <td>02</td>
-            <td>10 Scene Story Structure</td>
-          </tr>
-
-          <tr>
-            <td>03</td>
-            <td>Character DNA Lock</td>
-          </tr>
-
-          <tr>
-            <td>04</td>
-            <td>Image Generation Prompts</td>
-          </tr>
-
-          <tr>
-            <td>05</td>
-            <td>Google Flow / Veo Prompts</td>
-          </tr>
-
-          <tr>
-            <td>06</td>
-            <td>English Subtitle + SRT</td>
-          </tr>
-
-          <tr>
-            <td>07</td>
-            <td>YouTube Publishing Pack</td>
-          </tr>
-
-        </table>
-
+      <div class="row">
+        <span class="badge purple">V4.1</span>
+        <span class="badge green">CHARACTER LOCK</span>
+        <span class="badge blue">3D ANIMATED</span>
       </div>
 
-    </div>
+      <h1 style="margin-top:13px">
+        Create Your Next Story
+      </h1>
 
-    <div class="card">
-
-      <div class="card-title">🔒 Consistency System</div>
-
-      <div class="badges">
-        <span class="badge accent">3D Rendered</span>
-        <span class="badge accent">Pixar-Inspired</span>
-        <span class="badge accent">Character DNA</span>
-        <span class="badge accent">Clothing Lock</span>
-        <span class="badge accent">Age Lock</span>
-        <span class="badge accent">Face Lock</span>
-        <span class="badge accent">Subtitle Lock</span>
-      </div>
-
-      <p style="color:#9eacc0;font-size:12px;line-height:1.7">
-        Every image and video prompt contains the same permanent character
-        specification. This makes the prompt itself account-independent.
-        For strongest identity consistency in Google Flow, use the same
-        reference image for the same character whenever the platform allows it.
+      <p>
+        Generate an original English-learning story with consistent
+        characters, cinematic scenes, image prompts, Google Flow/Veo
+        prompts, subtitles and YouTube metadata.
       </p>
 
-      <button class="btn" onclick="showPage('characters')">
-        View Character Bible
-      </button>
+      <div class="topic-box">
+
+        <div class="stat-label">
+          CURRENT STORY
+        </div>
+
+        <div class="topic-text">
+          ${esc(state.topic)}
+        </div>
+
+        <div class="row" style="margin-top:13px">
+
+          <button
+            class="btn"
+            onclick="randomStory()"
+          >
+            🎲 Random Story
+          </button>
+
+          <button
+            class="btn primary"
+            onclick="generateStory()"
+          >
+            ⚡ Generate
+          </button>
+
+          <button
+            class="btn"
+            onclick="showPage('story')"
+          >
+            ✍️ Edit Story
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
 
-  </div>
+    <div class="grid" style="margin-top:15px">
 
+      <div class="card stat">
+        <div class="stat-label">Story Topics</div>
+        <div class="stat-value">${totalTopics}+</div>
+        <div class="stat-sub">International audience ideas</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">Default Duration</div>
+        <div class="stat-value">${state.duration}s</div>
+        <div class="stat-sub">Per scene</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">Scenes</div>
+        <div class="stat-value">${state.scenesCount}</div>
+        <div class="stat-sub">Default production structure</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">Total Runtime</div>
+        <div class="stat-value">${state.duration*state.scenesCount}s</div>
+        <div class="stat-sub">
+          ${Math.floor(state.duration*state.scenesCount/60)}:${String((state.duration*state.scenesCount)%60).padStart(2,"0")}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="grid2" style="margin-top:15px">
+
+      <div class="card">
+
+        <h2>Production Pipeline</h2>
+
+        <div class="row">
+          <span class="badge">01 Story</span>
+          <span class="badge">02 Characters</span>
+          <span class="badge">03 Scenes</span>
+          <span class="badge">04 Images</span>
+          <span class="badge">05 Video</span>
+          <span class="badge">06 SRT</span>
+          <span class="badge">07 YouTube</span>
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <h2>Visual Lock</h2>
+
+        <div class="muted" style="font-size:12px;line-height:1.7">
+          Every scene automatically receives the same
+          MASTER CHARACTER DNA and visual style specification.
+          This makes prompts portable between Google Flow accounts.
+        </div>
+
+      </div>
+
+    </div>
   `;
 }
 
@@ -2160,147 +2207,120 @@ function renderDashboard(){
 
 function renderStory(){
 
-  const options = storyTopics.map(x=>
-    `<option value="${escapeHTML(x[1])}">${escapeHTML(x[1])}</option>`
-  ).join("");
+  $("appContent").innerHTML=`
 
-  return `
-
-  <div class="hero">
-
-    <div class="badges">
-      <span class="badge accent">RANDOM STORY ENGINE</span>
-      <span class="badge green">INTERNATIONAL ENGLISH</span>
-      <span class="badge">10 × 10 SEC</span>
+    <div class="page-head">
+      <h1>Story Generator</h1>
+      <p>Create a story designed for international English-learning viewers</p>
     </div>
 
-    <h1 style="margin-top:12px">
-      International Story Generator
-    </h1>
+    <div class="grid2">
 
-    <p>
-      Choose a topic or let the system randomly create one.
-      The story is designed to have a strong opening, simple English dialogue,
-      visual action and a satisfying ending.
-    </p>
+      <div class="card">
 
-  </div>
+        <h2>Story Setup</h2>
 
-  <div class="grid grid2">
+        <div class="field">
+          <label class="label">Story Topic</label>
 
-    <div class="card">
+          <textarea
+            id="topicInput"
+            style="min-height:90px"
+          >${esc(state.topic)}</textarea>
+        </div>
 
-      <div class="card-title">Story Settings</div>
+        <div class="field">
 
-      <div class="field">
-        <label>Story Title</label>
-        <input
-          id="storyTitleInput"
-          value="${escapeHTML(state.storyTitle)}"
-          placeholder="Enter story title">
-      </div>
+          <label class="label">Video Style</label>
 
-      <div class="field">
-        <label>Topic</label>
-        <input
-          id="topicInput"
-          value="${escapeHTML(state.topic)}"
-          placeholder="Enter story topic">
-      </div>
+          <select id="styleInput">
+            <option>3D Rendered Animated Illustration</option>
+            <option>Pixar-inspired Family Animation</option>
+          </select>
 
-      <div class="field">
-        <label>Category</label>
-        <select id="categoryInput">
-          ${["daily","travel","family","friendship","work","business","mystery","fun","life"]
-            .map(x=>`<option value="${x}" ${state.category===x?"selected":""}>${x.toUpperCase()}</option>`).join("")}
-        </select>
-      </div>
+        </div>
 
-      <div class="field">
-        <label>English Level</label>
-        <select id="levelInput">
-          <option value="A1 Beginner" ${state.level==="A1 Beginner"?"selected":""}>A1 Beginner</option>
-          <option value="A2 Elementary" ${state.level==="A2 Elementary"?"selected":""}>A2 Elementary</option>
-          <option value="B1 Intermediate" ${state.level==="B1 Intermediate"?"selected":""}>B1 Intermediate</option>
-        </select>
-      </div>
+        <div class="grid2">
 
-      <div class="field">
-        <label>Scene Duration</label>
-        <select id="sceneDuration">
-          <option value="10" ${Number(state.duration)===10?"selected":""}>10 seconds</option>
-          <option value="8" ${Number(state.duration)===8?"selected":""}>8 seconds</option>
-          <option value="12" ${Number(state.duration)===12?"selected":""}>12 seconds</option>
-          <option value="15" ${Number(state.duration)===15?"selected":""}>15 seconds</option>
-        </select>
-      </div>
+          <div class="field">
+            <label class="label">Seconds / Scene</label>
 
-      <div class="field">
-        <label>Number of Scenes</label>
-        <select id="sceneCount">
-          <option value="10" ${Number(state.scenesCount)===10?"selected":""}>10 Scenes</option>
-          <option value="8" ${Number(state.scenesCount)===8?"selected":""}>8 Scenes</option>
-          <option value="12" ${Number(state.scenesCount)===12?"selected":""}>12 Scenes</option>
-        </select>
-      </div>
+            <select id="durationInput">
+              <option value="6">6 seconds</option>
+              <option value="8">8 seconds</option>
+              <option value="10">10 seconds</option>
+              <option value="12">12 seconds</option>
+              <option value="15">15 seconds</option>
+            </select>
+          </div>
 
-      <div class="field">
-        <label>Story Idea</label>
-        <textarea id="storyIdeaInput">${escapeHTML(state.idea)}</textarea>
-      </div>
+          <div class="field">
+            <label class="label">Scene Count</label>
 
-      <div class="form-actions">
+            <select id="sceneCountInput">
+              <option value="6">6 Scenes</option>
+              <option value="8">8 Scenes</option>
+              <option value="10">10 Scenes</option>
+              <option value="12">12 Scenes</option>
+              <option value="15">15 Scenes</option>
+              <option value="20">20 Scenes</option>
+            </select>
+          </div>
 
-        <button class="btn" onclick="randomTopicFromForm()">
-          🎲 Random Topic
-        </button>
+        </div>
 
-        <button class="btn primary" onclick="generateStory()">
-          ⚡ Generate Story
-        </button>
+        <div class="row">
+
+          <button
+            class="btn"
+            onclick="randomStory()"
+          >
+            🎲 Random Story
+          </button>
+
+          <button
+            class="btn primary"
+            onclick="saveStorySettings()"
+          >
+            💾 Save Story
+          </button>
+
+          <button
+            class="btn green"
+            onclick="generateStory()"
+          >
+            ⚡ Generate
+          </button>
+
+        </div>
 
       </div>
 
-    </div>
+      <div class="card">
 
-    <div class="card">
+        <h2>International Story Formula</h2>
 
-      <div class="card-title">🔥 Topic Library — ${storyTopics.length}+ Topics</div>
+        <div class="row" style="margin-bottom:13px">
+          <span class="badge purple">HOOK</span>
+          <span class="badge">PROBLEM</span>
+          <span class="badge">DISCOVERY</span>
+          <span class="badge">SOLUTION</span>
+          <span class="badge green">ENDING</span>
+        </div>
 
-      <div class="field">
-        <label>Quick Select</label>
-        <select onchange="
-          if(this.value){
-            $('topicInput').value=this.value;
-            $('storyTitleInput').value=this.value;
-          }
-        ">
-          <option value="">Select a topic...</option>
-          ${options}
-        </select>
-      </div>
+        <div class="muted" style="font-size:13px;line-height:1.8">
 
-      <div class="badges">
-        ${["DAILY","TRAVEL","FAMILY","FRIENDSHIP","WORK","BUSINESS","MYSTERY","FUN","LIFE"]
-          .map(x=>`<span class="badge">${x}</span>`).join("")}
-      </div>
+          Each story is structured around a simple situation
+          that international viewers can understand quickly.
 
-      <div style="margin-top:20px">
+          <br><br>
 
-        <div class="card-title">Story Formula</div>
+          Dialogue is short and natural so the video can also
+          function as an English-learning story.
 
-        <div style="color:#aab7c9;font-size:12px;line-height:1.8">
+          <br><br>
 
-          <div>01 — Strong visual hook</div>
-          <div>02 — Simple everyday problem</div>
-          <div>03 — Character reaction</div>
-          <div>04 — Curiosity increases</div>
-          <div>05 — Problem develops</div>
-          <div>06 — Characters act</div>
-          <div>07 — Discovery / turning point</div>
-          <div>08 — Problem gets solved</div>
-          <div>09 — Emotional or funny payoff</div>
-          <div>10 — Memorable ending</div>
+          Characters remain locked using their MASTER CHARACTER DNA.
 
         </div>
 
@@ -2308,9 +2328,57 @@ function renderStory(){
 
     </div>
 
-  </div>
+    <div class="card" style="margin-top:15px">
 
+      <h2>Random Topic Library</h2>
+
+      <div class="row">
+
+        ${storyTopics.slice(0,60).map(t=>`
+
+          <button
+            class="btn small"
+            onclick="selectTopic(${JSON.stringify(t)})"
+          >
+            ${esc(t)}
+          </button>
+
+        `).join("")}
+
+      </div>
+
+    </div>
   `;
+
+  $("durationInput").value=String(state.duration);
+  $("sceneCountInput").value=String(state.scenesCount);
+}
+
+function selectTopic(topic){
+
+  state.topic=topic;
+
+  saveState();
+
+  renderStory();
+
+  toast("Topic selected");
+}
+
+function saveStorySettings(){
+
+  state.topic=$("topicInput").value.trim() ||
+    "First Day in a New City";
+
+  state.duration=Number($("durationInput").value)||10;
+
+  state.scenesCount=Number($("sceneCountInput").value)||10;
+
+  state.generated=false;
+
+  saveState();
+
+  toast("Story settings saved");
 }
 
 /* =========================================================
@@ -2319,72 +2387,62 @@ function renderStory(){
 
 function renderCharacters(){
 
-  return `
+  $("appContent").innerHTML=`
 
-  <div class="hero">
-
-    <div class="badges">
-      <span class="badge accent">MASTER CHARACTER BIBLE</span>
-      <span class="badge green">PERMANENT DNA LOCK</span>
+    <div class="page-head">
+      <h1>Master Character Bible</h1>
+      <p>These identity specifications are embedded into every scene</p>
     </div>
 
-    <h1 style="margin-top:12px">
-      Character Consistency System
-    </h1>
+    <div class="grid2">
 
-    <p>
-      These character specifications are automatically inserted into every
-      image and video prompt.
-    </p>
+      ${characters.map(c=>`
 
-  </div>
+        <div class="card">
 
-  <div class="grid grid2">
+          <div class="character-card">
 
-    ${characters.map(c=>`
+            <div class="avatar">
+              ${esc(c.name.charAt(0))}
+            </div>
 
-      <div class="character">
+            <div>
 
-        <div class="character-id">${c.id} • ${c.role}</div>
+              <div class="character-name">
+                ${esc(c.name)}
+              </div>
 
-        <div class="character-name">${c.name}</div>
+              <div class="character-role">
+                ${esc(c.role)} · ${esc(c.id)}
+              </div>
 
-        <div class="character-desc">
-          ${escapeHTML(c.description)}
-        </div>
+              <div class="character-desc">
+                ${esc(c.description)}
+              </div>
 
-        <div style="margin-top:14px">
+              <div class="badge purple" style="margin-top:10px">
+                ${esc(c.voice)}
+              </div>
 
-          <div class="field">
-            <label>Permanent DNA</label>
-            <textarea readonly>${escapeHTML(c.dna)}</textarea>
+            </div>
+
           </div>
 
         </div>
 
-      </div>
-
-    `).join("")}
-
-  </div>
-
-  <div class="card" style="margin-top:16px">
-
-    <div class="card-title">MASTER CHARACTER BIBLE</div>
-
-    <div class="prompt-box">
-
-      <textarea id="characterBibleText" readonly>${escapeHTML(characterBible())}</textarea>
-
-      <button class="btn small copy-btn"
-        onclick="copyText('characterBibleText')">
-        Copy
-      </button>
+      `).join("")}
 
     </div>
 
-  </div>
+    <div class="card" style="margin-top:15px">
 
+      <h2>Character Consistency Lock</h2>
+
+      <div class="prompt">
+${esc(CHARACTER_RULE)}
+      </div>
+
+    </div>
   `;
 }
 
@@ -2394,48 +2452,36 @@ function renderCharacters(){
 
 function renderLocations(){
 
-  return `
+  $("appContent").innerHTML=`
 
-  <div class="hero">
-
-    <div class="badges">
-      <span class="badge accent">LOCATION LIBRARY</span>
-      <span class="badge">INTERNATIONAL SETTINGS</span>
+    <div class="page-head">
+      <h1>Locations</h1>
+      <p>Reusable international locations for consistent scene design</p>
     </div>
 
-    <h1 style="margin-top:12px">
-      Location Library
-    </h1>
+    <div class="grid">
 
-    <p>
-      Clean international locations designed for animated English-learning
-      storytelling.
-    </p>
+      ${locations.map(l=>`
 
-  </div>
+        <div class="card">
 
-  <div class="grid grid3">
+          <div class="badge blue">
+            ${esc(l[0])}
+          </div>
 
-    ${locations.map(l=>`
+          <h3 style="margin-top:12px">
+            ${esc(l[1])}
+          </h3>
 
-      <div class="card">
+          <div class="muted" style="font-size:11px">
+            Modern cinematic environment
+          </div>
 
-        <div class="character-id">${l.id}</div>
-
-        <div class="character-name" style="font-size:17px">
-          ${escapeHTML(l.name)}
         </div>
 
-        <div class="character-desc">
-          ${escapeHTML(l.description)}
-        </div>
+      `).join("")}
 
-      </div>
-
-    `).join("")}
-
-  </div>
-
+    </div>
   `;
 }
 
@@ -2447,134 +2493,132 @@ function renderScenes(){
 
   if(!state.scenes.length){
 
-    return `
+    $("appContent").innerHTML=`
 
-      <div class="card empty">
+      <div class="empty">
 
         <h2>No scenes generated yet</h2>
 
         <p>
-          Create a random story or generate a story from the Story Generator.
+          Choose a topic and press Generate.
         </p>
 
-        <button class="btn primary" onclick="showPage('story')">
-          Open Story Generator
+        <button
+          class="btn primary"
+          onclick="generateStory()"
+        >
+          ⚡ Generate Story
         </button>
 
       </div>
-
     `;
+
+    return;
   }
 
-  return `
+  $("appContent").innerHTML=`
 
-  <div class="hero">
+    <div class="page-head">
 
-    <div class="badges">
-      <span class="badge accent">${state.scenes.length} SCENES</span>
-      <span class="badge green">EXACT ${state.duration} SEC / SCENE</span>
-      <span class="badge">${state.scenes.length * state.duration} SEC TOTAL</span>
-      <span class="badge">${formatTime(state.scenes.length * state.duration)}</span>
-    </div>
+      <h1>Scene Breakdown</h1>
 
-    <h1 style="margin-top:12px">
-      ${escapeHTML(state.storyTitle)}
-    </h1>
+      <p>
+        ${esc(state.title)}
+      </p>
 
-    <p>
-      ${escapeHTML(state.topic)}
-    </p>
+      <div class="row" style="margin-top:10px">
 
-    <div class="form-actions">
-      <button class="btn" onclick="showPage('images')">
-        🖼 Image Prompts
-      </button>
+        <span class="badge purple">
+          ${state.scenes.length} SCENES
+        </span>
 
-      <button class="btn cyan" onclick="showPage('videos')">
-        🎥 Video Prompts
-      </button>
+        <span class="badge green">
+          ${state.duration} SEC / SCENE
+        </span>
 
-      <button class="btn" onclick="showPage('subtitles')">
-        💬 SRT
-      </button>
-
-    </div>
-
-  </div>
-
-  ${state.scenes.map(scene=>`
-
-    <div class="scene">
-
-      <div class="scene-head">
-
-        <div>
-          <span class="scene-number">
-            SCENE ${scene.id}
-          </span>
-
-          <span class="badge accent" style="margin-left:7px">
-            ${scene.duration} SEC
-          </span>
-        </div>
-
-        <div class="scene-time">
-          ${formatTime(scene.start)} → ${formatTime(scene.end)}
-        </div>
+        <span class="badge blue">
+          CHARACTER LOCK
+        </span>
 
       </div>
 
-      <div class="scene-body">
+    </div>
 
-        <div class="scene-meta">
+    ${state.scenes.map(scene=>`
 
-          ${scene.chars.map(id=>{
-            const c=getChar(id);
-            return `<span class="badge">${c.name}</span>`;
-          }).join("")}
+      <div class="scene">
 
-          <span class="badge">
-            ${escapeHTML(getLocation(scene.location).name)}
-          </span>
+        <div class="scene-head">
 
-          <span class="badge">
-            ${escapeHTML(scene.emotion)}
-          </span>
-
-        </div>
-
-        <div class="scene-cols">
-
-          <div class="meta-box">
-            <strong>Action</strong>
-            <span>${escapeHTML(scene.action)}</span>
+          <div class="scene-number">
+            Scene ${scene.id} — ${esc(scene.title)}
           </div>
 
-          <div class="meta-box">
-            <strong>Camera</strong>
-            <span>${escapeHTML(scene.camera)}</span>
+          <div class="row">
+
+            <span class="badge">
+              ${scene.duration}s
+            </span>
+
+            <span class="badge blue">
+              ${esc(scene.location)}
+            </span>
+
           </div>
 
         </div>
 
-        <div class="dialogue">
+        <div class="scene-body">
 
-          <div class="dialogue-title">
-            Spoken English Subtitle
+          <div style="font-size:13px;line-height:1.65;margin-bottom:12px">
+            ${esc(scene.narration)}
           </div>
 
-          <div class="dialogue-text">
-            “${escapeHTML(cleanSubtitle(scene.dialogue))}”
+          <div class="row">
+
+            ${scene.characterIds.map(id=>`
+
+              <span class="badge purple">
+                ${esc(getCharacter(id).name)}
+              </span>
+
+            `).join("")}
+
+          </div>
+
+          <div class="scene-grid" style="margin-top:13px">
+
+            <div>
+
+              <div class="prompt-title">
+                Dialogue
+              </div>
+
+              <div class="prompt">
+${esc(scene.dialogue.map(x=>x[0]+" says: \""+x[1]+"\"").join("\n"))}
+              </div>
+
+            </div>
+
+            <div>
+
+              <div class="prompt-title">
+                Subtitle
+              </div>
+
+              <div class="prompt">
+${esc(scene.subtitle)}
+              </div>
+
+            </div>
+
           </div>
 
         </div>
 
       </div>
 
-    </div>
-
-  `).join("")}
-
+    `).join("")}
   `;
 }
 
@@ -2585,54 +2629,48 @@ function renderScenes(){
 function renderImages(){
 
   if(!state.scenes.length){
-    return emptyPage("Generate a story first");
+    renderScenes();
+    return;
   }
 
-  return `
+  $("appContent").innerHTML=`
 
-  <div class="hero">
+    <div class="page-head">
 
-    <div class="badges">
-      <span class="badge accent">IMAGE PROMPTS</span>
-      <span class="badge green">CHARACTER LOCKED</span>
-      <span class="badge">16:9</span>
-    </div>
+      <h1>Image Generation Prompts</h1>
 
-    <h1 style="margin-top:12px">
-      ${escapeHTML(state.storyTitle)}
-    </h1>
-
-    <p>
-      Every scene contains the same visual style and character DNA.
-    </p>
-
-  </div>
-
-  ${state.scenes.map(scene=>`
-
-    <div class="card">
-
-      <div class="card-title">
-        Scene ${scene.id} • ${scene.duration} sec
-      </div>
-
-      <div class="prompt-box">
-
-        <textarea
-          id="imgPrompt${scene.id}"
-          readonly>${escapeHTML(buildImagePrompt(scene))}</textarea>
-
-        <button class="btn small copy-btn"
-          onclick="copyText('imgPrompt${scene.id}')">
-          Copy
-        </button>
-
-      </div>
+      <p>
+        Copy each prompt into your image generation workflow
+      </p>
 
     </div>
 
-  `).join("")}
+    ${state.scenes.map(scene=>`
 
+      <div class="card" style="margin-bottom:13px">
+
+        <div class="row" style="justify-content:space-between">
+
+          <h3>
+            Scene ${scene.id} — ${esc(scene.title)}
+          </h3>
+
+          <button
+            class="btn small"
+            onclick="copyText(${JSON.stringify(scene.imagePrompt)})"
+          >
+            📋 Copy
+          </button>
+
+        </div>
+
+        <div class="prompt">
+${esc(scene.imagePrompt)}
+        </div>
+
+      </div>
+
+    `).join("")}
   `;
 }
 
@@ -2643,56 +2681,58 @@ function renderImages(){
 function renderVideos(){
 
   if(!state.scenes.length){
-    return emptyPage("Generate a story first");
+    renderScenes();
+    return;
   }
 
-  return `
+  $("appContent").innerHTML=`
 
-  <div class="hero">
+    <div class="page-head">
 
-    <div class="badges">
-      <span class="badge accent">GOOGLE FLOW / VEO</span>
-      <span class="badge green">EXACT ${state.duration} SEC</span>
-      <span class="badge">NO SPEAKER NAMES</span>
-      <span class="badge">ENGLISH SUBTITLE</span>
+      <h1>Google Flow / Veo Prompts</h1>
+
+      <p>
+        Each prompt contains the same Character DNA and Style Lock
+      </p>
+
     </div>
 
-    <h1 style="margin-top:12px">
-      Video Generation Prompts
-    </h1>
+    <div class="card" style="margin-bottom:15px">
 
-    <p>
-      Copy each scene prompt into Google Flow / Veo.
-      The prompt contains the permanent character identity specification.
-    </p>
+      <h3>Global Production Lock</h3>
 
-  </div>
-
-  ${state.scenes.map(scene=>`
-
-    <div class="card">
-
-      <div class="card-title">
-        Scene ${scene.id} • EXACT ${scene.duration} SECONDS
-      </div>
-
-      <div class="prompt-box">
-
-        <textarea
-          id="vidPrompt${scene.id}"
-          readonly>${escapeHTML(buildVideoPrompt(scene))}</textarea>
-
-        <button class="btn small copy-btn"
-          onclick="copyText('vidPrompt${scene.id}')">
-          Copy
-        </button>
-
+      <div class="prompt">
+${esc(STYLE_LOCK)}
       </div>
 
     </div>
 
-  `).join("")}
+    ${state.scenes.map(scene=>`
 
+      <div class="card" style="margin-bottom:13px">
+
+        <div class="row" style="justify-content:space-between">
+
+          <h3>
+            Scene ${scene.id}
+          </h3>
+
+          <button
+            class="btn small primary"
+            onclick="copyText(${JSON.stringify(scene.videoPrompt)})"
+          >
+            📋 Copy Prompt
+          </button>
+
+        </div>
+
+        <div class="prompt">
+${esc(scene.videoPrompt)}
+        </div>
+
+      </div>
+
+    `).join("")}
   `;
 }
 
@@ -2700,282 +2740,234 @@ function renderVideos(){
    SUBTITLES
 ========================================================= */
 
-function buildSRT(){
-
-  return state.scenes.map((scene,index)=>{
-
-    return `${index+1}
-${srtTime(scene.start)} --> ${srtTime(scene.end)}
-${cleanSubtitle(scene.dialogue)}
-`;
-
-  }).join("\n");
-}
-
 function renderSubtitles(){
 
-  if(!state.scenes.length){
-    return emptyPage("Generate a story first");
-  }
+  const srt=buildSRT();
 
-  const srt = buildSRT();
+  $("appContent").innerHTML=`
 
-  return `
+    <div class="page-head">
 
-  <div class="hero">
+      <h1>English Subtitles</h1>
 
-    <div class="badges">
-      <span class="badge accent">ENGLISH SUBTITLES</span>
-      <span class="badge green">NO SPEAKER NAMES</span>
-      <span class="badge">SRT READY</span>
+      <p>
+        Speaker names are intentionally excluded from on-screen subtitles
+      </p>
+
     </div>
 
-    <h1 style="margin-top:12px">
-      Subtitle System
-    </h1>
+    <div class="card">
 
-    <p>
-      The subtitle output contains only spoken English.
-      Names such as Emma:, David:, Sarah: and Leo: are automatically removed.
-    </p>
+      <div class="row" style="margin-bottom:13px">
 
-  </div>
+        <button
+          class="btn primary"
+          onclick="copyText(${JSON.stringify(srt)})"
+        >
+          📋 Copy SRT
+        </button>
 
-  <div class="card">
+        <button
+          class="btn green"
+          onclick="downloadSRT()"
+        >
+          ⬇️ Download .SRT
+        </button>
 
-    <div class="card-title">
-      SRT — ${escapeHTML(state.storyTitle)}
-    </div>
-
-    <div class="prompt-box">
+      </div>
 
       <textarea
-        id="srtText"
+        style="min-height:450px"
         readonly
-        style="min-height:500px">${escapeHTML(srt)}</textarea>
-
-      <button class="btn small copy-btn"
-        onclick="copyText('srtText')">
-        Copy SRT
-      </button>
+      >${esc(srt)}</textarea>
 
     </div>
-
-    <div class="form-actions">
-
-      <button class="btn primary" onclick="downloadSRT()">
-        ⬇ Download .SRT
-      </button>
-
-      <button class="btn" onclick="copyText('srtText')">
-        📋 Copy
-      </button>
-
-    </div>
-
-  </div>
-
   `;
 }
 
+function downloadSRT(){
+
+  const blob=new Blob(
+    [buildSRT()],
+    {type:"text/plain;charset=utf-8"}
+  );
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+  a.download="aung-ai-story-video.srt";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  toast("SRT downloaded");
+}
+
 /* =========================================================
-   YOUTUBE PACK
+   YOUTUBE
 ========================================================= */
 
 function renderYouTube(){
 
-  const title = youtubeTitle();
-  const description = youtubeDescription();
-  const tags = youtubeTags();
+  const title=
+    state.title ||
+    makeTitle(state.topic);
 
-  return `
+  const description=`
+Learn English naturally through an original animated story.
 
-  <div class="hero">
+Story:
+${state.topic}
 
-    <div class="badges">
-      <span class="badge accent">YOUTUBE PACK</span>
-      <span class="badge green">INTERNATIONAL AUDIENCE</span>
-    </div>
+This video uses simple English dialogue,
+everyday vocabulary and practical situations.
 
-    <h1 style="margin-top:12px">
-      Publishing Package
-    </h1>
+Watch, listen, repeat and practice.
 
-    <p>
-      Ready-to-copy title, description, hashtags, keywords and thumbnail
-      prompt for the generated story.
-    </p>
+#EnglishLearning
+#LearnEnglish
+#EnglishStory
+#EnglishConversation
+#EnglishForBeginners
+#A1English
+#EnglishSpeaking
+`;
 
-  </div>
-
-  <div class="grid grid2">
-
-    <div class="card">
-
-      <div class="card-title">YouTube Title</div>
-
-      <div class="prompt-box">
-
-        <textarea id="ytTitle" readonly>${escapeHTML(title)}</textarea>
-
-        <button class="btn small copy-btn"
-          onclick="copyText('ytTitle')">
-          Copy
-        </button>
-
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">Thumbnail Prompt</div>
-
-      <div class="prompt-box">
-
-        <textarea id="thumbPrompt" readonly>${escapeHTML(thumbnailPrompt())}</textarea>
-
-        <button class="btn small copy-btn"
-          onclick="copyText('thumbPrompt')">
-          Copy
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="card" style="margin-top:16px">
-
-    <div class="card-title">Description</div>
-
-    <div class="prompt-box">
-
-      <textarea id="ytDescription" readonly>${escapeHTML(description)}</textarea>
-
-      <button class="btn small copy-btn"
-        onclick="copyText('ytDescription')">
-        Copy
-      </button>
-
-    </div>
-
-  </div>
-
-  <div class="card" style="margin-top:16px">
-
-    <div class="card-title">Keywords / Tags</div>
-
-    <div class="prompt-box">
-
-      <textarea id="ytTags" readonly>${escapeHTML(tags)}</textarea>
-
-      <button class="btn small copy-btn"
-        onclick="copyText('ytTags')">
-        Copy
-      </button>
-
-    </div>
-
-  </div>
-
-  `;
-}
-
-function youtubeTitle(){
-
-  const endings = [
-    " | Easy English Story",
-    " | English Listening Practice",
-    " | Learn English Through Story",
-    " | A1 English Story",
-    " | Simple English Conversation"
-  ];
-
-  return `${state.storyTitle}${randomItem(endings)}`;
-}
-
-function youtubeDescription(){
-
-  return `
-Learn English naturally through a short animated story.
-
-🎬 Story:
-${state.storyTitle}
-
-📚 Level:
-${state.level}
-
-⏱️ Duration:
-${state.scenes.length * state.duration} seconds
-
-This video uses simple English dialogue, visual storytelling and clear
-English subtitles to help learners practice listening and everyday vocabulary.
-
-You can pause, repeat the dialogue and speak along with the characters.
-
-This is an original animated English-learning story created for educational
-and entertainment purposes.
-
-#LearnEnglish #EnglishStory #EnglishListening #EnglishPractice
-#A1English #EnglishConversation #EasyEnglish #EnglishForBeginners
-`.trim();
-}
-
-function youtubeTags(){
-
-  return [
+  const tags=[
     "learn English",
     "English learning",
     "English story",
-    "English listening practice",
-    "A1 English",
-    "English for beginners",
-    "easy English",
     "English conversation",
-    "English speaking practice",
-    "English subtitles",
-    "learn English through story",
-    "animated English story",
-    "English animation",
+    "English speaking",
+    "A1 English",
+    "beginner English",
     "daily English",
-    "spoken English",
+    "English listening",
     "English vocabulary",
-    "ESL",
-    "ESL listening",
     "English practice",
-    "short English story"
+    "animated English story",
+    "English for beginners"
   ].join(", ");
-}
 
-function thumbnailPrompt(){
-
-  return `
-Create a high-quality 16:9 YouTube thumbnail for:
-
-"${state.storyTitle}"
-
-Visual style:
-Premium 3D rendered animated illustration,
-Pixar-inspired family-animation quality,
-cinematic lighting, expressive faces, polished international animation.
-
-Show the main characters in an emotionally interesting moment related to the story.
-
-Strong facial expressions.
-Clear visual storytelling.
-Bright cinematic composition.
-Professional YouTube thumbnail framing.
-
-IMPORTANT:
-Do not copy any existing creator's exact artwork.
-Use original character composition.
-
-Do not put speaker names in the image.
-Do not use random text.
-Leave clean negative space for optional thumbnail title text.
+  const thumbnail=`
+YouTube thumbnail, 16:9,
+high-end 3D rendered animated illustration,
+Pixar-inspired family-film quality,
+three friendly consistent characters,
+cinematic lighting,
+bright international city environment,
+strong emotional expression,
+professional YouTube composition,
+large empty visual area for title,
+NO text,
+NO logos,
+NO watermark,
+NO photorealistic humans.
 `;
+
+  $("appContent").innerHTML=`
+
+    <div class="page-head">
+
+      <h1>YouTube Publishing Pack</h1>
+
+      <p>
+        Ready-to-use metadata for an international English-learning channel
+      </p>
+
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+
+      <div class="row" style="justify-content:space-between">
+
+        <h3>Title</h3>
+
+        <button
+          class="btn small"
+          onclick="copyText(${JSON.stringify(title)})"
+        >
+          📋 Copy
+        </button>
+
+      </div>
+
+      <div class="prompt">
+${esc(title)}
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+
+      <div class="row" style="justify-content:space-between">
+
+        <h3>Description</h3>
+
+        <button
+          class="btn small"
+          onclick="copyText(${JSON.stringify(description)})"
+        >
+          📋 Copy
+        </button>
+
+      </div>
+
+      <div class="prompt">
+${esc(description)}
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+
+      <div class="row" style="justify-content:space-between">
+
+        <h3>Tags</h3>
+
+        <button
+          class="btn small"
+          onclick="copyText(${JSON.stringify(tags)})"
+        >
+          📋 Copy
+        </button>
+
+      </div>
+
+      <div class="prompt">
+${esc(tags)}
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="row" style="justify-content:space-between">
+
+        <h3>Thumbnail Prompt</h3>
+
+        <button
+          class="btn small primary"
+          onclick="copyText(${JSON.stringify(thumbnail)})"
+        >
+          📋 Copy
+        </button>
+
+      </div>
+
+      <div class="prompt">
+${esc(thumbnail)}
+      </div>
+
+    </div>
+  `;
 }
 
 /* =========================================================
@@ -2984,332 +2976,245 @@ Leave clean negative space for optional thumbnail title text.
 
 function renderBackup(){
 
-  return `
+  $("appContent").innerHTML=`
 
-  <div class="hero">
+    <div class="page-head">
 
-    <div class="badges">
-      <span class="badge accent">PROJECT BACKUP</span>
-      <span class="badge green">LOCAL STORAGE</span>
-    </div>
+      <h1>Backup & Project</h1>
 
-    <h1 style="margin-top:12px">
-      Backup & Restore
-    </h1>
-
-    <p>
-      Export the complete project to JSON and restore it later.
-    </p>
-
-  </div>
-
-  <div class="grid grid2">
-
-    <div class="card">
-
-      <div class="card-title">Export</div>
-
-      <p style="color:#9aa9be;font-size:12px;line-height:1.6">
-        Download your story, scenes, settings and project data.
+      <p>
+        Save your current project and restore it later
       </p>
 
-      <button class="btn primary" onclick="exportProject()">
-        ⬇ Export Project
+    </div>
+
+    <div class="grid2">
+
+      <div class="card">
+
+        <h2>Export Project</h2>
+
+        <p class="muted">
+          Download all story settings, scenes and prompts as JSON.
+        </p>
+
+        <button
+          class="btn primary"
+          onclick="exportProject()"
+        >
+          💾 Export JSON
+        </button>
+
+      </div>
+
+      <div class="card">
+
+        <h2>Import Project</h2>
+
+        <p class="muted">
+          Restore a previously exported JSON project.
+        </p>
+
+        <input
+          id="importFile"
+          type="file"
+          accept=".json"
+          class="input"
+        >
+
+        <button
+          class="btn green"
+          style="margin-top:9px"
+          onclick="importProject()"
+        >
+          📥 Import JSON
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:15px">
+
+      <h2>Reset</h2>
+
+      <p class="muted">
+        Remove the current project and start again.
+      </p>
+
+      <button
+        class="btn danger"
+        onclick="resetProject()"
+      >
+        🗑 Reset Project
       </button>
 
     </div>
-
-    <div class="card">
-
-      <div class="card-title">Import</div>
-
-      <p style="color:#9aa9be;font-size:12px;line-height:1.6">
-        Restore a previously exported project JSON file.
-      </p>
-
-      <input
-        type="file"
-        id="importFile"
-        accept=".json,application/json"
-        onchange="importProject(event)">
-
-    </div>
-
-  </div>
-
-  <div class="card" style="margin-top:16px">
-
-    <div class="card-title">Reset Project</div>
-
-    <p style="color:#9aa9be;font-size:12px">
-      This removes the current project from local storage.
-    </p>
-
-    <button class="btn danger" onclick="resetProject()">
-      Reset Project
-    </button>
-
-  </div>
-
   `;
 }
-
-/* =========================================================
-   EMPTY PAGE
-========================================================= */
-
-function emptyPage(message){
-
-  return `
-
-  <div class="card empty">
-
-    <h2>${escapeHTML(message)}</h2>
-
-    <p>
-      Use the Story Generator to create your first story.
-    </p>
-
-    <button class="btn primary" onclick="showPage('story')">
-      ✨ Story Generator
-    </button>
-
-  </div>
-
-  `;
-}
-
-/* =========================================================
-   COPY
-========================================================= */
-
-async function copyText(id){
-
-  const el = $(id);
-
-  if(!el) return;
-
-  const text = el.value ?? el.textContent ?? "";
-
-  try{
-
-    await navigator.clipboard.writeText(text);
-
-    const btn = document.querySelector(`[onclick="copyText('${id}')"]`);
-
-    if(btn){
-
-      const old = btn.textContent;
-
-      btn.textContent = "Copied ✓";
-
-      setTimeout(()=>{
-        btn.textContent = old;
-      },1200);
-
-    }
-
-  }catch(err){
-
-    el.select();
-    document.execCommand("copy");
-
-  }
-}
-
-/* =========================================================
-   DOWNLOAD SRT
-========================================================= */
-
-function downloadSRT(){
-
-  const blob = new Blob(
-    [buildSRT()],
-    {type:"text/plain;charset=utf-8"}
-  );
-
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-
-  a.href = url;
-  a.download =
-    `${state.storyTitle.replace(/[^a-z0-9]+/gi,"_")}.srt`;
-
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-
-  URL.revokeObjectURL(url);
-}
-
-/* =========================================================
-   EXPORT
-========================================================= */
 
 function exportProject(){
 
-  const data = {
-    app:"AUNG AI STORY VIDEO PRO",
-    version:state.version,
-    exportedAt:new Date().toISOString(),
-    state
-  };
+  const data=JSON.stringify(state,null,2);
 
-  const blob = new Blob(
-    [JSON.stringify(data,null,2)],
+  const blob=new Blob(
+    [data],
     {type:"application/json"}
   );
 
-  const url = URL.createObjectURL(blob);
+  const url=URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
+  const a=document.createElement("a");
 
-  a.href = url;
+  a.href=url;
 
-  a.download =
-    `${state.storyTitle.replace(/[^a-z0-9]+/gi,"_")}_project.json`;
+  a.download="aung-ai-story-video-project.json";
 
   document.body.appendChild(a);
+
   a.click();
+
   a.remove();
 
   URL.revokeObjectURL(url);
+
+  toast("Project exported");
 }
 
-/* =========================================================
-   IMPORT
-========================================================= */
+function importProject(){
 
-function importProject(event){
+  const input=$("importFile");
 
-  const file = event.target.files?.[0];
+  if(!input || !input.files.length){
+    toast("Choose a JSON file first");
+    return;
+  }
 
-  if(!file) return;
+  const reader=new FileReader();
 
-  const reader = new FileReader();
-
-  reader.onload = ()=>{
+  reader.onload=()=>{
 
     try{
 
-      const data = JSON.parse(reader.result);
+      const data=JSON.parse(reader.result);
 
-      if(data.state){
-
-        state = {
-          ...state,
-          ...data.state
-        };
-
-      }else{
-
-        state = {
-          ...state,
-          ...data
-        };
-
-      }
-
-      state.version = "4.0";
-
-      if(!state.duration){
-        state.duration = 10;
-      }
-
-      if(!Array.isArray(state.scenes)){
-        state.scenes = [];
-      }
+      state={
+        ...state,
+        ...data,
+        version:"4.1"
+      };
 
       saveState();
-      renderCurrentPage();
 
-      alert("Project imported successfully");
+      renderPage();
 
-    }catch(err){
+      toast("Project imported");
 
-      alert("Invalid project JSON file");
+    }catch(e){
+
+      toast("Invalid project file");
 
     }
 
   };
 
-  reader.readAsText(file);
+  reader.readAsText(input.files[0]);
 }
-
-/* =========================================================
-   RESET
-========================================================= */
 
 function resetProject(){
 
-  const ok = confirm(
-    "Reset this project? This cannot be undone."
-  );
-
-  if(!ok) return;
+  if(!confirm("Reset the current project?")) return;
 
   localStorage.removeItem(APP_KEY);
 
-  state = {
-    version:"4.0",
-    storyTitle:"A Family Trip to the Airport",
-    topic:"A family going to the airport",
-    category:"travel",
-    level:"A1 Beginner",
+  state={
+    version:"4.1",
+    page:"dashboard",
+    topic:"First Day in a New City",
+    title:"",
+    genre:"Daily Life",
     duration:10,
     scenesCount:10,
-    idea:"",
-    scenes:[]
+    characters:["C1","C2","C3"],
+    scenes:[],
+    generated:false,
+    createdAt:new Date().toISOString()
   };
 
   saveState();
+
   showPage("dashboard");
+
+  toast("Project reset");
 }
 
 /* =========================================================
-   SIDEBAR
+   PAGE RENDERER
 ========================================================= */
 
-function toggleSidebar(){
+function renderPage(){
 
-  const side = $("sidebar");
+  /*
+    IMPORTANT:
+    Only #appContent is replaced.
+    The TOPBAR is never overwritten.
+    Therefore:
+    AUNG AI STORY VIDEO PRO
+    🎲 Random Story
+    ⚡ Generate
+    always remain in the DOM.
+  */
 
-  if(side){
-    side.classList.toggle("open");
+  switch(state.page){
+
+    case "story":
+      renderStory();
+      break;
+
+    case "characters":
+      renderCharacters();
+      break;
+
+    case "locations":
+      renderLocations();
+      break;
+
+    case "scenes":
+      renderScenes();
+      break;
+
+    case "images":
+      renderImages();
+      break;
+
+    case "videos":
+      renderVideos();
+      break;
+
+    case "subtitles":
+      renderSubtitles();
+      break;
+
+    case "youtube":
+      renderYouTube();
+      break;
+
+    case "backup":
+      renderBackup();
+      break;
+
+    default:
+      renderDashboard();
+
   }
 
 }
 
 /* =========================================================
-   NAV EVENTS
+   INIT
 ========================================================= */
 
-document.addEventListener("click",event=>{
-
-  const btn = event.target.closest("[data-page]");
-
-  if(!btn) return;
-
-  showPage(btn.dataset.page);
-
-});
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-loadState();
-
-if(!state.scenes.length){
-  /*
-    Keep dashboard clean on first launch.
-    Story is generated only when user presses Generate.
-  */
-}
-
-renderCurrentPage();
-updateStatus();
+renderPage();
 
 </script>
 
