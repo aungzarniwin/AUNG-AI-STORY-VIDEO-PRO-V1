@@ -1,0 +1,13 @@
+{
+  "name": "aung-ai-story-video-pro-v9",
+  "version": "9.0.0",
+  "description": "YouTube reference to original English learning AI story video production app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "multer": "^2.0.2"
+  }
+}
